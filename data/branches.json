@@ -1,0 +1,71 @@
+{
+  "$comment": "Branches listed on https://chajoybd.odoo.com/our-franchises (retrieved 2026-10-19). Addresses are transcribed from the branch photos on that page where the photo shows one. No branch published coordinates, phone numbers, opening hours, delivery zones or fees; those stay empty until CHAJOY confirms them. Pins are approximate area locations geocoded from OpenStreetMap (© OpenStreetMap contributors, ODbL) and are labelled as approximate everywhere they are shown.",
+  "headOffice": {
+    "label": "CHAJOY head office",
+    "latitude": 23.812325,
+    "longitude": 90.410592,
+    "source": "Google Maps link 'Head Office' in the footer of chajoybd.odoo.com (https://maps.app.goo.gl/KCmUEE4FjutAgCwS8)"
+  },
+  "branches": [
+    {
+      "slug": "mohammadpur",
+      "name": "CHAJOY Mohammadpur",
+      "area": "Mohammadpur",
+      "addressLine": "Pervin Plaza, Tajmahal Road, Krishi Market, Mohammadpur",
+      "addressSource": "Branch photo on /our-franchises: \"Muhammadpur, krishi Market, Tajmahal road, Pervin plaza\"",
+      "addressVerified": true,
+      "approxPin": { "latitude": 23.7645911, "longitude": 90.3618506, "basis": "Tajmahal Road, Mohammadpur (OpenStreetMap)" },
+      "photo": "/images/stores/mohammadpur.webp"
+    },
+    {
+      "slug": "rampura",
+      "name": "CHAJOY Rampura",
+      "area": "Rampura",
+      "addressLine": "Bayyinah Ideal School, DIT Road, Rampura",
+      "addressSource": "Branch photo on /our-franchises: \"Bayyinah Ideal school, DIT road, Rampura\"",
+      "addressVerified": true,
+      "approxPin": { "latitude": 23.7626126, "longitude": 90.4205675, "basis": "Rampura area centre (OpenStreetMap)" },
+      "photo": "/images/stores/rampura.webp"
+    },
+    {
+      "slug": "badda",
+      "name": "CHAJOY Badda",
+      "area": "Badda",
+      "addressLine": null,
+      "addressSource": "Listed as \"Badda\" on /our-franchises; no street address published.",
+      "addressVerified": false,
+      "approxPin": { "latitude": 23.7765425, "longitude": 90.4463012, "basis": "Badda area centre (OpenStreetMap)" },
+      "photo": "/images/stores/badda.webp"
+    },
+    {
+      "slug": "bonasree",
+      "name": "CHAJOY Bonasree",
+      "area": "Banasree",
+      "addressLine": "House 1, Block F, Road 4, Banasree",
+      "addressSource": "Branch photo on /our-franchises: \"Bonasree Road no:4, block F, house No.1\"",
+      "addressVerified": true,
+      "approxPin": { "latitude": 23.7617123, "longitude": 90.4312774, "basis": "Banasree area centre (OpenStreetMap)" },
+      "photo": "/images/stores/bonasree.webp"
+    },
+    {
+      "slug": "kochukhet",
+      "name": "CHAJOY Kochukhet",
+      "area": "Kochukhet",
+      "addressLine": null,
+      "addressSource": "Listed as \"Kochukhet\" on /our-franchises; no street address published.",
+      "addressVerified": false,
+      "approxPin": { "latitude": 23.7936946, "longitude": 90.3888993, "basis": "Kachukhet market area (OpenStreetMap)" },
+      "photo": "/images/stores/kochukhet.webp"
+    },
+    {
+      "slug": "mirpur-10",
+      "name": "CHAJOY Mirpur 10",
+      "area": "Mirpur 10",
+      "addressLine": null,
+      "addressSource": "Listed as \"Mirpur 10\" on /our-franchises; no street address published.",
+      "addressVerified": false,
+      "approxPin": { "latitude": 23.8070887, "longitude": 90.368613, "basis": "Mirpur 10 roundabout (OpenStreetMap)" },
+      "photo": "/images/stores/mirpur-10.webp"
+    }
+  ]
+}

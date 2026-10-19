@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+@theme {
+  /* CHAJOY matcha green, sampled from the logo and menu board */
+  --color-matcha-50: #f5f9ea;
+  --color-matcha-100: #e9f2cf;
+  --color-matcha-200: #d4e6a3;
+  --color-matcha-300: #bfd876;
+  --color-matcha-400: #a6c64e;
+  --color-matcha-500: #8db33a;
+  --color-matcha-600: #6f9126;
+  --color-matcha-700: #55701f;
+
+  --color-forest-950: #0b1e12;
+  --color-forest-900: #10291a;
+  --color-forest-800: #173a24;
+  --color-forest-700: #1f4a2e;
+  --color-forest-600: #2c5f3c;
+
+  --color-cream-50: #fffdf6;
+  --color-cream-100: #fbf7ea;
+  --color-cream-200: #f4edd8;
+  --color-cream-300: #e9dfc2;
+
+  --color-lemon-300: #fbe57e;
+  --color-lemon-400: #f6d33c; /* penguin badge yellow */
+  --color-berry-400: #ec6a7f;
+  --color-berry-500: #e2455f;
+  --color-berry-600: #c8304b;
+  --color-peach-300: #f9c3a5;
+  --color-boba-600: #7a4b2a;
+  --color-boba-800: #3d2414;
+  --color-ink: #13201a;
+
+  --font-display: var(--font-fraunces), var(--font-bengali), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-dm-sans), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.75rem;
+
+  --shadow-soft: 0 1px 2px rgb(16 41 26 / 0.04), 0 8px 24px -8px rgb(16 41 26 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 41 26 / 0.05), 0 24px 48px -16px rgb(16 41 26 / 0.22);
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-spin-slow: spin 22s linear infinite;
+  --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes shimmer {
+    0% {
+      background-position: -400px 0;
+    }
+    100% {
+      background-position: 400px 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream-100 text-ink font-sans antialiased;
+    font-feature-settings: "ss01";
+  }
+  ::selection {
+    background: var(--color-matcha-300);
+    color: var(--color-forest-900);
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-matcha-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  .font-display {
+    font-variation-settings: "SOFT" 100, "WONK" 0;
+  }
+  .font-display em,
+  .font-display i {
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition
+    disabled:cursor-not-allowed disabled:opacity-50 active:scale-[0.98];
+}
+@utility btn-primary {
+  @apply btn bg-forest-800 text-cream-50 hover:bg-forest-700 shadow-soft;
+}
+@utility btn-matcha {
+  @apply btn bg-matcha-400 text-forest-900 hover:bg-matcha-300 shadow-soft;
+}
+@utility btn-ghost {
+  @apply btn border border-forest-800/15 bg-white/60 text-forest-900 hover:bg-white;
+}
+@utility btn-outline-light {
+  @apply btn border border-cream-50/40 text-cream-50 hover:bg-cream-50/10;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1.5 rounded-full border border-forest-800/10 bg-white/70 px-3 py-1.5 text-xs font-semibold text-forest-800;
+}
+@utility card {
+  @apply rounded-4xl bg-white shadow-soft ring-1 ring-forest-900/5;
+}
+@utility input {
+  @apply w-full rounded-2xl border border-forest-900/15 bg-white px-4 py-3 text-[15px] text-ink placeholder:text-forest-900/40
+    focus:border-matcha-500 focus:outline-none focus:ring-4 focus:ring-matcha-200/60;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-semibold text-forest-900;
+}
+@utility eyebrow {
+  @apply text-xs font-bold uppercase tracking-[0.18em] text-matcha-700;
+}
+@utility skeleton {
+  background: linear-gradient(90deg, #efe8d4 0px, #f8f3e4 160px, #efe8d4 320px);
+  background-size: 800px 100%;
+  @apply animate-shimmer rounded-2xl;
+}
+/* Official menu photos have white backgrounds; multiply lets the card tint show through. */
+@utility menu-photo {
+  mix-blend-mode: multiply;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.leaflet-container {
+  font: inherit;
+  background: #e9eedc;
+}

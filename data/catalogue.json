@@ -1,0 +1,266 @@
+{
+  "$comment": "Verified CHAJOY catalogue. Every name, size and price is transcribed from the official menu board linked from https://chajoybd.odoo.com/ (see data/source/menu-crops.json). Fields under 'needsVerification' were NOT on any official source and must be confirmed by CHAJOY before being shown as fact.",
+  "verifiedFrom": [
+    {
+      "id": "menu-2026",
+      "label": "Official CHAJOY menu board (2026)",
+      "url": "https://drive.google.com/file/d/1FAgV_3NyDgFCKpUxPo9F25BUy_ZSAxX7/view",
+      "linkedFrom": "https://chajoybd.odoo.com/ (footer link 'Menu')",
+      "retrieved": "2026-10-19"
+    },
+    {
+      "id": "matcha-poster-2026",
+      "label": "CHAJOY 'Matcha new product' poster on the homepage of chajoybd.odoo.com",
+      "url": "https://chajoybd.odoo.com/web/image/389-f2556c4a/",
+      "retrieved": "2026-10-19",
+      "confirms": "Matcha ice cream ৳80, matcha strawberry sundae ৳200, matcha brown sugar boba sundae ৳250"
+    }
+  ],
+  "cupSizes": {
+    "$comment": "From the 'CUP Type 杯子尺寸' panel on the menu board.",
+    "S": { "label": "Small", "volumeMl": 370 },
+    "M": { "label": "Medium", "volumeMl": 500 },
+    "L": { "label": "Large", "volumeMl": 700 }
+  },
+  "customisation": {
+    "$comment": "From the 'Sugar Level 糖量' and 'Ice Level 冰量' panels on the menu board. Which drinks each applies to is not printed; see needsVerification.",
+    "sugarLevels": [50, 75, 100],
+    "iceLevels": ["less", "normal"]
+  },
+  "needsVerification": [
+    "Which drinks accept sugar-level and ice-level choices (seeded: milk tea and fruit tea series).",
+    "Which drinks accept toppings (seeded: milk tea and fruit tea series).",
+    "Ingredients and allergen information for every product (none published).",
+    "Whether prices differ by branch (seeded: menu price at every branch).",
+    "Per-branch product availability (seeded: full menu at every branch, as the same menu standee appears in branch photos).",
+    "Whether menu prices include VAT (seeded: menu price is the final price, no tax line)."
+  ],
+  "categories": [
+    { "slug": "milk-tea", "name": "Milk Tea & Boba", "menuName": "Milk tea series 奶茶系「列」", "sortOrder": 1, "accent": "#C89A6B", "description": "Milk teas from the CHAJOY milk tea series, served cold or hot." },
+    { "slug": "fruit-tea", "name": "Fruit Tea", "menuName": "Fruit Tea Series 果茶系「列」", "sortOrder": 2, "accent": "#F2A33A", "description": "Iced fruit teas and lemon water in the large 700 ml cup." },
+    { "slug": "milkshakes", "name": "Milkshakes", "menuName": "Milkshake Series 奶昔系「列」", "sortOrder": 3, "accent": "#F07F8E", "description": "Shaken milkshakes in small and medium cups." },
+    { "slug": "ice-cream", "name": "Ice Cream", "menuName": "冰激凌 Ice cream", "sortOrder": 4, "accent": "#8DB33A", "description": "CHAJOY ice cream cones in original or matcha flavour." },
+    { "slug": "sundaes", "name": "Sundaes", "menuName": "Sundae series 圣代系「列」", "sortOrder": 5, "accent": "#E2455F", "description": "Sundaes in original or matcha flavour." },
+    { "slug": "toppings", "name": "Toppings", "menuName": "Toppings", "sortOrder": 6, "accent": "#5A3A22", "description": "Add-ons for your drink.", "isAddonCategory": true }
+  ],
+  "products": [
+    {
+      "slug": "boba-milk-tea", "name": "Boba Milk Tea", "nameZh": "黑糖珍珠奶茶", "category": "milk-tea", "featured": true,
+      "description": "CHAJOY's brown sugar pearl milk tea (黑糖珍珠奶茶 on the menu board). Order it cold or hot.",
+      "variants": [{ "size": "S", "price": 120 }, { "size": "M", "price": 180 }],
+      "options": { "temperatures": ["cold", "hot"], "sugar": true, "ice": true, "toppings": true },
+      "images": ["boba-milk-tea"],
+      "visual": { "vessel": "cup", "liquid": "#CFA77C", "stripes": "#6B3A1A", "pearls": true, "ice": true }
+    },
+    {
+      "slug": "classic-milk-tea", "name": "Classic Milk Tea", "nameZh": "原味奶茶", "category": "milk-tea",
+      "description": "The original CHAJOY milk tea. Order it cold or hot.",
+      "variants": [{ "size": "S", "price": 110 }, { "size": "M", "price": 150 }],
+      "options": { "temperatures": ["cold", "hot"], "sugar": true, "ice": true, "toppings": true },
+      "images": ["classic-milk-tea"],
+      "visual": { "vessel": "cup", "liquid": "#E6D2BF", "ice": true }
+    },
+    {
+      "slug": "coconut-jelly-milk-tea", "name": "Coconut Jelly Milk Tea", "nameZh": "椰果奶茶", "category": "milk-tea",
+      "description": "Milk tea with coconut jelly. Order it cold or hot.",
+      "variants": [{ "size": "S", "price": 110 }, { "size": "M", "price": 160 }],
+      "options": { "temperatures": ["cold", "hot"], "sugar": true, "ice": true, "toppings": true },
+      "images": ["coconut-jelly-milk-tea"],
+      "visual": { "vessel": "cup", "liquid": "#EADBCB", "jelly": true, "ice": true, "fruit": "coconut" }
+    },
+    {
+      "slug": "strawberry-bobo-milk-tea", "name": "Strawberry Bobo Milk Tea", "nameZh": "草莓波波奶茶", "category": "milk-tea",
+      "description": "Strawberry milk tea with bobo pearls. Order it cold or hot.",
+      "variants": [{ "size": "S", "price": 130 }, { "size": "M", "price": 180 }],
+      "options": { "temperatures": ["cold", "hot"], "sugar": true, "ice": true, "toppings": true },
+      "images": ["strawberry-bobo-milk-tea"],
+      "visual": { "vessel": "cup", "liquid": "#F1C6C8", "pearls": true, "fruit": "strawberry", "topping": "fruit" }
+    },
+
+    {
+      "slug": "lemon-green-tea", "name": "Lemon Green Tea", "nameZh": "柠檬绿茶", "category": "fruit-tea", "featured": true,
+      "description": "Green tea with lemon, served iced in the large cup.",
+      "variants": [{ "size": "L", "price": 100 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["lemon-green-tea"],
+      "visual": { "vessel": "cup", "liquid": "#E8C94C", "ice": true, "fruit": "lime" }
+    },
+    {
+      "slug": "fresh-iced-lemon-water", "name": "Fresh Iced Lemon Water", "nameZh": "冰鲜柠檬水", "category": "fruit-tea",
+      "description": "Iced lemon water in the large cup.",
+      "variants": [{ "size": "L", "price": 80 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["fresh-iced-lemon-water"],
+      "visual": { "vessel": "cup", "liquid": "#EEF3E2", "clear": true, "ice": true, "fruit": "lime" }
+    },
+    {
+      "slug": "jasmine-green-tea", "name": "Jasmine Green Tea", "nameZh": "茉莉蜜茶", "category": "fruit-tea",
+      "description": "Iced jasmine green tea in the large cup.",
+      "variants": [{ "size": "L", "price": 100 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["jasmine-green-tea"],
+      "visual": { "vessel": "cup", "liquid": "#E9A43C", "clear": true, "ice": true }
+    },
+    {
+      "slug": "lemon-black-tea", "name": "Lemon Black Tea", "nameZh": "柠檬红茶", "category": "fruit-tea",
+      "description": "Iced black tea with lemon in the large cup.",
+      "variants": [{ "size": "L", "price": 100 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["lemon-black-tea"],
+      "visual": { "vessel": "cup", "liquid": "#93401F", "clear": true, "ice": true, "fruit": "lemon" }
+    },
+    {
+      "slug": "guava-iced-lemon-green-tea", "name": "Guava Iced Lemon Green Tea", "nameZh": "芭乐冰柠茶", "category": "fruit-tea",
+      "description": "Iced lemon green tea with guava in the large cup.",
+      "variants": [{ "size": "L", "price": 210 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["guava-iced-lemon-green-tea"],
+      "visual": { "vessel": "cup", "liquid": "#E8663F", "clear": true, "ice": true, "fruit": "guava" }
+    },
+    {
+      "slug": "shaken-peach-black-tea", "name": "Shaken Peach Black Tea", "nameZh": "冰摇桃桃红茶", "category": "fruit-tea",
+      "description": "Shaken iced black tea with peach in the large cup.",
+      "variants": [{ "size": "L", "price": 240 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["shaken-peach-black-tea"],
+      "visual": { "vessel": "cup", "liquid": "#D4542C", "clear": true, "ice": true, "fruit": "peach" }
+    },
+    {
+      "slug": "blueberry-fruit-granule-green-tea", "name": "Blueberry Fruit Granule Green Tea", "nameZh": "蓝莓果粒茶", "category": "fruit-tea",
+      "description": "Green tea with blueberry fruit granules in the large cup.",
+      "variants": [{ "size": "L", "price": 220 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["blueberry-fruit-granule-green-tea"],
+      "visual": { "vessel": "cup", "liquid": "#4B2556", "ice": true, "fruit": "blueberry" }
+    },
+    {
+      "slug": "strawberry-and-lemon-tea", "name": "Strawberry and Lemon Tea", "nameZh": "草莓柠檬茶", "category": "fruit-tea",
+      "description": "Iced tea with strawberry and lemon in the large cup.",
+      "variants": [{ "size": "L", "price": 230 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["strawberry-and-lemon-tea"],
+      "visual": { "vessel": "cup", "liquid": "#DE3A30", "clear": true, "ice": true, "fruit": "lime" }
+    },
+    {
+      "slug": "jasmine-peach-green-tea", "name": "Jasmine Peach Green Tea", "nameZh": "茉莉桃桃茶", "category": "fruit-tea",
+      "description": "Iced jasmine green tea with peach in the large cup.",
+      "variants": [{ "size": "L", "price": 240 }],
+      "options": { "sugar": true, "ice": true, "toppings": true },
+      "images": ["jasmine-peach-green-tea"],
+      "visual": { "vessel": "cup", "liquid": "#F2A23C", "clear": true, "ice": true, "fruit": "peach" }
+    },
+
+    {
+      "slug": "strawberry-shake-milkshake", "name": "Strawberry Shake Milkshake", "nameZh": "草莓摇摇奶昔", "category": "milkshakes", "featured": true,
+      "description": "Strawberry milkshake. (Printed as \"Stawberry\" on the menu board.)",
+      "variants": [{ "size": "S", "price": 100 }, { "size": "M", "price": 150 }],
+      "options": {},
+      "images": ["strawberry-shake-milkshake"],
+      "visual": { "vessel": "cup", "liquid": "#EF7E8C", "liquid2": "#F6EFEA", "topping": "fruit", "fruit": "strawberry" }
+    },
+    {
+      "slug": "matcha-oreo-shake-milkshake", "name": "Matcha Oreo Shake Milkshake", "nameZh": "抹茶奥利奥摇摇奶昔", "category": "milkshakes", "featured": true,
+      "description": "Matcha milkshake with Oreo.",
+      "variants": [{ "size": "M", "price": 180 }],
+      "options": {},
+      "images": ["matcha-oreo-shake-milkshake"],
+      "visual": { "vessel": "cup", "liquid": "#8DB33A", "topping": "crumbs", "fruit": "oreo" }
+    },
+    {
+      "slug": "chocolate-oreo-shaking-milkshake", "name": "Chocolate Oreo Shaking Milkshake", "nameZh": "巧克力摇摇奶昔", "category": "milkshakes",
+      "description": "Chocolate milkshake with Oreo.",
+      "variants": [{ "size": "S", "price": 120 }, { "size": "M", "price": 180 }],
+      "options": {},
+      "images": ["chocolate-oreo-shaking-milkshake"],
+      "visual": { "vessel": "cup", "liquid": "#4A2416", "liquid2": "#EFE8E2", "topping": "crumbs", "fruit": "oreo" }
+    },
+    {
+      "slug": "peach-shake-milkshake", "name": "Peach Shake Milkshake", "nameZh": "水蜜桃摇摇奶昔", "category": "milkshakes",
+      "description": "Peach milkshake.",
+      "variants": [{ "size": "S", "price": 100 }, { "size": "M", "price": 150 }],
+      "options": {},
+      "images": ["peach-shake-milkshake"],
+      "visual": { "vessel": "cup", "liquid": "#F5BFAE", "liquid2": "#F7F0EA", "topping": "fruit", "fruit": "peach" }
+    },
+    {
+      "slug": "blueberry-shake-milkshake", "name": "Blueberry Shake Milkshake", "nameZh": "蓝莓摇摇奶昔", "category": "milkshakes",
+      "description": "Blueberry milkshake.",
+      "variants": [{ "size": "S", "price": 100 }, { "size": "M", "price": 150 }],
+      "options": {},
+      "images": ["blueberry-shake-milkshake"],
+      "visual": { "vessel": "cup", "liquid": "#6B3A74", "liquid2": "#F3ECEF", "topping": "fruit", "fruit": "blueberry" }
+    },
+    {
+      "slug": "guava-shake-milkshake", "name": "Guava Shake Milkshake", "nameZh": "芭乐摇摇奶昔", "category": "milkshakes",
+      "description": "Guava milkshake.",
+      "variants": [{ "size": "S", "price": 100 }, { "size": "M", "price": 150 }],
+      "options": {},
+      "images": ["guava-shake-milkshake"],
+      "visual": { "vessel": "cup", "liquid": "#F3A196", "liquid2": "#F7F0EA", "topping": "fruit", "fruit": "guava" }
+    },
+
+    {
+      "slug": "ice-cream", "name": "Ice Cream", "nameZh": "冰激凌（原味/抹茶）", "category": "ice-cream", "featured": true,
+      "description": "CHAJOY ice cream cone in original or matcha flavour.",
+      "variants": [{ "size": "ONE", "label": "Cone", "price": 80 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["ice-cream"],
+      "visual": { "vessel": "cone", "serve": "twist" }
+    },
+
+    {
+      "slug": "strawberry-sundae", "name": "Strawberry Sundae", "nameZh": "草莓圣代", "category": "sundaes",
+      "description": "Strawberry sundae in original or matcha flavour.",
+      "variants": [{ "size": "S", "price": 200 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["strawberry-sundae", "strawberry-sundae--original", "strawberry-sundae--matcha"],
+      "visual": { "vessel": "sundae", "sauce": "#D7263D", "fruit": "strawberry" }
+    },
+    {
+      "slug": "blueberry-sundae", "name": "Blueberry Sundae", "nameZh": "蓝莓圣代", "category": "sundaes",
+      "description": "Blueberry sundae in original or matcha flavour.",
+      "variants": [{ "size": "S", "price": 200 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["blueberry-sundae", "blueberry-sundae--original", "blueberry-sundae--matcha"],
+      "visual": { "vessel": "sundae", "sauce": "#3B1E4F", "fruit": "blueberry" }
+    },
+    {
+      "slug": "peach-sundae", "name": "Peach Sundae", "nameZh": "水蜜桃圣代", "category": "sundaes",
+      "description": "Peach sundae in original or matcha flavour.",
+      "variants": [{ "size": "S", "price": 200 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["peach-sundae", "peach-sundae--original", "peach-sundae--matcha"],
+      "visual": { "vessel": "sundae", "sauce": "#EE8A6B", "fruit": "peach" }
+    },
+    {
+      "slug": "brown-sugar-boba-sundae", "name": "Brown Sugar Boba Sundae", "nameZh": "黑糖珍珠圣代", "category": "sundaes",
+      "description": "Brown sugar boba sundae in original or matcha flavour.",
+      "variants": [{ "size": "S", "price": 250 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["brown-sugar-boba-sundae", "brown-sugar-boba-sundae--original", "brown-sugar-boba-sundae--matcha"],
+      "visual": { "vessel": "sundae", "sauce": "#5A2E12", "pearls": true }
+    },
+    {
+      "slug": "chocolate-oreo-crumb-sundae", "name": "Chocolate Oreo Crumb Sundae", "nameZh": "巧克力奥利奥圣代", "category": "sundaes",
+      "description": "Chocolate Oreo crumb sundae in original or matcha flavour.",
+      "variants": [{ "size": "S", "price": 250 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["chocolate-oreo-crumb-sundae", "chocolate-oreo-crumb-sundae--original", "chocolate-oreo-crumb-sundae--matcha"],
+      "visual": { "vessel": "sundae", "sauce": "#3A1E12", "fruit": "oreo" }
+    },
+    {
+      "slug": "guava-crispy-cone-crumb-sundae", "name": "Guava Crispy Cone Crumb Sundae", "nameZh": "芭乐脆筒碎圣代", "category": "sundaes",
+      "description": "Guava sundae with crispy cone crumb, in original or matcha flavour. (Printed as \"Cone Cruma\" on the menu board.)",
+      "variants": [{ "size": "S", "price": 250 }],
+      "options": { "flavours": ["original", "matcha"] },
+      "images": ["guava-crispy-cone-crumb-sundae", "guava-crispy-cone-crumb-sundae--original", "guava-crispy-cone-crumb-sundae--matcha"],
+      "visual": { "vessel": "sundae", "sauce": "#E8524A", "fruit": "guava" }
+    },
+
+    { "slug": "topping-brown-pearl", "name": "Brown Pearl", "nameZh": "珍珠", "category": "toppings", "addon": true, "description": "Brown pearl topping.", "variants": [{ "size": "ONE", "label": "Topping", "price": 30 }], "options": {}, "images": ["topping-brown-pearl"] },
+    { "slug": "topping-pudding", "name": "Pudding", "nameZh": "布丁", "category": "toppings", "addon": true, "description": "Pudding topping.", "variants": [{ "size": "ONE", "label": "Topping", "price": 30 }], "options": {}, "images": ["topping-pudding"] },
+    { "slug": "topping-coconut-jelly", "name": "Coconut Jelly", "nameZh": "椰果", "category": "toppings", "addon": true, "description": "Coconut jelly topping.", "variants": [{ "size": "ONE", "label": "Topping", "price": 30 }], "options": {}, "images": ["topping-coconut-jelly"] },
+    { "slug": "topping-crystal-ball", "name": "Crystal Ball", "nameZh": "晶球", "category": "toppings", "addon": true, "description": "Crystal ball topping.", "variants": [{ "size": "ONE", "label": "Topping", "price": 30 }], "options": {}, "images": ["topping-crystal-ball"] },
+    { "slug": "topping-crispy-crushed-cone", "name": "Crispy Crushed Cone", "nameZh": "脆筒碎", "category": "toppings", "addon": true, "description": "Crispy crushed cone topping.", "variants": [{ "size": "ONE", "label": "Topping", "price": 30 }], "options": {}, "images": ["topping-crispy-crushed-cone"] }
+  ]
+}

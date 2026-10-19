@@ -1,0 +1,425 @@
+{
+  "source": {
+    "description": "Official CHAJOY menu board, linked as \"Menu\" in the footer of https://chajoybd.odoo.com/",
+    "url": "https://drive.google.com/file/d/1FAgV_3NyDgFCKpUxPo9F25BUy_ZSAxX7/view",
+    "originalFilename": "729785200_122130311565186246_1940307490607745730_n (1).jpg",
+    "dimensions": "2048x1118",
+    "retrieved": "2026-10-19",
+    "localCopy": "data/source/official-menu-2026.jpg"
+  },
+  "images": [
+    {
+      "file": "/images/products/ice-cream.webp",
+      "sourceBox": [
+        886,
+        106,
+        160,
+        196
+      ],
+      "sourcePixels": "160x196",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/boba-milk-tea.webp",
+      "sourceBox": [
+        1104,
+        110,
+        119,
+        204
+      ],
+      "sourcePixels": "119x204",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/lemon-green-tea.webp",
+      "sourceBox": [
+        1328,
+        98,
+        113,
+        214
+      ],
+      "sourcePixels": "113x214",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/strawberry-shake-milkshake.webp",
+      "sourceBox": [
+        1551,
+        138,
+        111,
+        176
+      ],
+      "sourcePixels": "111x176",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/matcha-oreo-shake-milkshake.webp",
+      "sourceBox": [
+        1779,
+        134,
+        128,
+        180
+      ],
+      "sourcePixels": "128x180",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/fresh-iced-lemon-water.webp",
+      "sourceBox": [
+        894,
+        420,
+        62,
+        132
+      ],
+      "sourcePixels": "62x132",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/jasmine-green-tea.webp",
+      "sourceBox": [
+        1109,
+        424,
+        72,
+        128
+      ],
+      "sourcePixels": "72x128",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/lemon-black-tea.webp",
+      "sourceBox": [
+        1349,
+        421,
+        62,
+        131
+      ],
+      "sourcePixels": "62x131",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/guava-iced-lemon-green-tea.webp",
+      "sourceBox": [
+        1579,
+        419,
+        62,
+        133
+      ],
+      "sourcePixels": "62x133",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/shaken-peach-black-tea.webp",
+      "sourceBox": [
+        892,
+        579,
+        58,
+        134
+      ],
+      "sourcePixels": "58x134",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/blueberry-fruit-granule-green-tea.webp",
+      "sourceBox": [
+        1119,
+        586,
+        60,
+        127
+      ],
+      "sourcePixels": "60x127",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/strawberry-and-lemon-tea.webp",
+      "sourceBox": [
+        1351,
+        584,
+        59,
+        129
+      ],
+      "sourcePixels": "59x129",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/jasmine-peach-green-tea.webp",
+      "sourceBox": [
+        1579,
+        577,
+        62,
+        136
+      ],
+      "sourcePixels": "62x136",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/strawberry-sundae.webp",
+      "sourceBox": [
+        616,
+        199,
+        140,
+        105
+      ],
+      "sourcePixels": "140x105",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/strawberry-sundae--original.webp",
+      "sourceBox": null,
+      "sourcePixels": "68x105",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/strawberry-sundae--matcha.webp",
+      "sourceBox": null,
+      "sourcePixels": "72x105",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/blueberry-sundae.webp",
+      "sourceBox": [
+        616,
+        344,
+        140,
+        104
+      ],
+      "sourcePixels": "140x104",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/blueberry-sundae--original.webp",
+      "sourceBox": null,
+      "sourcePixels": "68x104",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/blueberry-sundae--matcha.webp",
+      "sourceBox": null,
+      "sourcePixels": "72x104",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/peach-sundae.webp",
+      "sourceBox": [
+        616,
+        492,
+        140,
+        101
+      ],
+      "sourcePixels": "140x101",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/peach-sundae--original.webp",
+      "sourceBox": null,
+      "sourcePixels": "68x101",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/peach-sundae--matcha.webp",
+      "sourceBox": null,
+      "sourcePixels": "72x101",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/brown-sugar-boba-sundae.webp",
+      "sourceBox": [
+        616,
+        640,
+        127,
+        97
+      ],
+      "sourcePixels": "127x97",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/brown-sugar-boba-sundae--original.webp",
+      "sourceBox": null,
+      "sourcePixels": "68x97",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/brown-sugar-boba-sundae--matcha.webp",
+      "sourceBox": null,
+      "sourcePixels": "59x97",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/chocolate-oreo-crumb-sundae.webp",
+      "sourceBox": [
+        616,
+        786,
+        128,
+        97
+      ],
+      "sourcePixels": "128x97",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/chocolate-oreo-crumb-sundae--original.webp",
+      "sourceBox": null,
+      "sourcePixels": "68x97",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/chocolate-oreo-crumb-sundae--matcha.webp",
+      "sourceBox": null,
+      "sourcePixels": "60x97",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/guava-crispy-cone-crumb-sundae.webp",
+      "sourceBox": [
+        616,
+        924,
+        134,
+        105
+      ],
+      "sourcePixels": "134x105",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/guava-crispy-cone-crumb-sundae--original.webp",
+      "sourceBox": null,
+      "sourcePixels": "68x105",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/guava-crispy-cone-crumb-sundae--matcha.webp",
+      "sourceBox": null,
+      "sourcePixels": "66x105",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/chocolate-oreo-shaking-milkshake.webp",
+      "sourceBox": [
+        989,
+        838,
+        48,
+        91
+      ],
+      "sourcePixels": "48x91",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/peach-shake-milkshake.webp",
+      "sourceBox": [
+        1157,
+        840,
+        46,
+        89
+      ],
+      "sourcePixels": "46x89",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/blueberry-shake-milkshake.webp",
+      "sourceBox": [
+        989,
+        967,
+        48,
+        90
+      ],
+      "sourcePixels": "48x90",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/guava-shake-milkshake.webp",
+      "sourceBox": [
+        1154,
+        964,
+        49,
+        93
+      ],
+      "sourcePixels": "49x93",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/classic-milk-tea.webp",
+      "sourceBox": [
+        1413,
+        836,
+        62,
+        103
+      ],
+      "sourcePixels": "62x103",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/coconut-jelly-milk-tea.webp",
+      "sourceBox": [
+        1582,
+        838,
+        61,
+        98
+      ],
+      "sourcePixels": "61x98",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/strawberry-bobo-milk-tea.webp",
+      "sourceBox": [
+        1413,
+        963,
+        58,
+        110
+      ],
+      "sourcePixels": "58x110",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/topping-brown-pearl.webp",
+      "sourceBox": [
+        1273,
+        779,
+        44,
+        44
+      ],
+      "sourcePixels": "44x44",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/topping-pudding.webp",
+      "sourceBox": [
+        1269,
+        835,
+        48,
+        42
+      ],
+      "sourcePixels": "48x42",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/topping-coconut-jelly.webp",
+      "sourceBox": [
+        1269,
+        896,
+        48,
+        37
+      ],
+      "sourcePixels": "48x37",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/topping-crystal-ball.webp",
+      "sourceBox": [
+        1269,
+        951,
+        48,
+        40
+      ],
+      "sourcePixels": "48x40",
+      "lowResolution": true
+    },
+    {
+      "file": "/images/products/topping-crispy-crushed-cone.webp",
+      "sourceBox": [
+        1267,
+        1017,
+        52,
+        40
+      ],
+      "sourcePixels": "52x40",
+      "lowResolution": true
+    }
+  ]
+}

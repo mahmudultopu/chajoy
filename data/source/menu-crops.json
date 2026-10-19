@@ -1,0 +1,151 @@
+{
+  "source": {
+    "description": "Official CHAJOY menu board, linked as \"Menu\" in the footer of https://chajoybd.odoo.com/",
+    "url": "https://drive.google.com/file/d/1FAgV_3NyDgFCKpUxPo9F25BUy_ZSAxX7/view",
+    "originalFilename": "729785200_122130311565186246_1940307490607745730_n (1).jpg",
+    "dimensions": "2048x1118",
+    "retrieved": "2026-10-19",
+    "localCopy": "data/source/official-menu-2026.jpg"
+  },
+  "notes": "Boxes are [x, y, width, height] in source pixels. 'erase' boxes are printed price text that touches the product photo; they are inpainted. Output is upscaled, so these are low-resolution until CHAJOY supplies original photography.",
+  "crops": [
+    {
+      "out": "ice-cream",
+      "box": [886, 106, 160, 196],
+      "erase": [[1008, 266, 40, 40]]
+    },
+    {
+      "out": "boba-milk-tea",
+      "box": [1104, 110, 119, 204]
+    },
+    {
+      "out": "lemon-green-tea",
+      "box": [1328, 98, 113, 214]
+    },
+    {
+      "out": "strawberry-shake-milkshake",
+      "box": [1551, 138, 111, 176]
+    },
+    {
+      "out": "matcha-oreo-shake-milkshake",
+      "box": [1779, 134, 128, 180],
+      "erase": [[1877, 266, 32, 50]]
+    },
+    {
+      "out": "fresh-iced-lemon-water",
+      "box": [894, 420, 62, 132]
+    },
+    {
+      "out": "jasmine-green-tea",
+      "box": [1109, 424, 72, 128]
+    },
+    {
+      "out": "lemon-black-tea",
+      "box": [1349, 421, 62, 131]
+    },
+    {
+      "out": "guava-iced-lemon-green-tea",
+      "box": [1579, 419, 62, 133]
+    },
+    {
+      "out": "shaken-peach-black-tea",
+      "box": [892, 579, 58, 134],
+      "erase": [[935, 586, 18, 20]]
+    },
+    {
+      "out": "blueberry-fruit-granule-green-tea",
+      "box": [1119, 586, 60, 127],
+      "erase": [[1159, 600, 22, 20]]
+    },
+    {
+      "out": "strawberry-and-lemon-tea",
+      "box": [1351, 584, 59, 129]
+    },
+    {
+      "out": "jasmine-peach-green-tea",
+      "box": [1579, 577, 62, 136]
+    },
+    {
+      "out": "strawberry-sundae",
+      "box": [616, 199, 140, 105],
+      "flavourSplitX": 684
+    },
+    {
+      "out": "blueberry-sundae",
+      "box": [616, 344, 140, 104],
+      "flavourSplitX": 684
+    },
+    {
+      "out": "peach-sundae",
+      "box": [616, 492, 140, 101],
+      "flavourSplitX": 684
+    },
+    {
+      "out": "brown-sugar-boba-sundae",
+      "box": [616, 640, 127, 97],
+      "flavourSplitX": 684
+    },
+    {
+      "out": "chocolate-oreo-crumb-sundae",
+      "box": [616, 786, 128, 97],
+      "flavourSplitX": 684,
+      "erase": [[716, 780, 30, 22]]
+    },
+    {
+      "out": "guava-crispy-cone-crumb-sundae",
+      "box": [616, 924, 134, 105],
+      "flavourSplitX": 684,
+      "erase": [[737, 976, 18, 20]]
+    },
+    {
+      "out": "chocolate-oreo-shaking-milkshake",
+      "box": [989, 838, 48, 91],
+      "erase": [[986, 832, 40, 11], [986, 840, 17, 24]]
+    },
+    {
+      "out": "peach-shake-milkshake",
+      "box": [1157, 840, 46, 89]
+    },
+    {
+      "out": "blueberry-shake-milkshake",
+      "box": [989, 967, 48, 90]
+    },
+    {
+      "out": "guava-shake-milkshake",
+      "box": [1154, 964, 49, 93]
+    },
+    {
+      "out": "classic-milk-tea",
+      "box": [1413, 836, 62, 103]
+    },
+    {
+      "out": "coconut-jelly-milk-tea",
+      "box": [1582, 838, 61, 98]
+    },
+    {
+      "out": "strawberry-bobo-milk-tea",
+      "box": [1413, 963, 58, 110],
+      "erase": [[1455, 962, 22, 24], [1452, 995, 20, 18]]
+    },
+    {
+      "out": "topping-brown-pearl",
+      "box": [1273, 779, 44, 44]
+    },
+    {
+      "out": "topping-pudding",
+      "box": [1269, 835, 48, 42]
+    },
+    {
+      "out": "topping-coconut-jelly",
+      "box": [1269, 896, 48, 37]
+    },
+    {
+      "out": "topping-crystal-ball",
+      "box": [1269, 951, 48, 40]
+    },
+    {
+      "out": "topping-crispy-crushed-cone",
+      "box": [1267, 1017, 52, 40]
+    }
+  ]
+}
