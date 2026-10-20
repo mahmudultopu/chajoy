@@ -7,8 +7,9 @@ import { randomCode } from "@/lib/tokens";
 // Image uploads from the admin. Every image is re-encoded with sharp (which
 // also strips metadata such as GPS) and stored as WebP.
 //
-// STORAGE_DRIVER=local    -> files in UPLOAD_DIR (default .data/uploads), served at /media/...
-// STORAGE_DRIVER=supabase -> Supabase Storage bucket (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_STORAGE_BUCKET)
+// STORAGE_DRIVER=local       -> files in UPLOAD_DIR (default .data/uploads), served at /media/...
+// STORAGE_DRIVER=vercel-blob -> Vercel Blob (BLOB_READ_WRITE_TOKEN); chosen automatically when that token is set
+// STORAGE_DRIVER=supabase    -> Supabase Storage bucket (SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, SUPABASE_STORAGE_BUCKET)
 //
 // Use "supabase" (or another object store) on serverless hosts, where the
 // local disk is not persistent.
@@ -39,7 +40,14 @@ export async function saveImage(file: File, folder: "products" | "branches" | "p
   }
   const name = `${folder}/${Date.now().toString(36)}-${randomCode(8).toLowerCase()}.webp`;
 
-  if ((process.env.STORAGE_DRIVER ?? "local") === "supabase") {
+  const driver = process.env.STORAGE_DRIVER ?? (process.env.BLOB_READ_WRITE_TOKEN ? "vercel-blob" : "local");
+  if (driver === "vercel-blob") {
+    const { put } = await import("@vercel/blob");
+    const blob = await put(`chajoy/${name}`, out, { access: "public", contentType: "image/webp", addRandomSuffix: false });
+    return { url: blob.url, width: meta.width, height: meta.height };
+  }
+
+  if (driver === "supabase") {
     const base = process.env.SUPABASE_URL;
     const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
     const bucket = process.env.SUPABASE_STORAGE_BUCKET ?? "media";

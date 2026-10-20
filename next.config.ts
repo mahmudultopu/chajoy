@@ -7,9 +7,11 @@ const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
     localPatterns: [{ pathname: "/images/**" }, { pathname: "/media/**" }],
-    remotePatterns: process.env.NEXT_PUBLIC_MEDIA_HOST
-      ? [{ protocol: "https", hostname: process.env.NEXT_PUBLIC_MEDIA_HOST }]
-      : [],
+    remotePatterns: [
+      // admin uploads stored in Vercel Blob
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+      ...(process.env.NEXT_PUBLIC_MEDIA_HOST ? [{ protocol: "https" as const, hostname: process.env.NEXT_PUBLIC_MEDIA_HOST }] : []),
+    ],
   },
   poweredByHeader: false,
   experimental: {
