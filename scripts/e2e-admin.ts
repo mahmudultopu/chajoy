@@ -142,7 +142,8 @@ async function main() {
       active = shop;
       await visit(shop, `${BASE}/products/classic-milk-tea`);
       const src = await shop.getByAltText("E2E upload test image").first().getAttribute("src");
-      assert(src && src.includes("media"), `expected uploaded image, got ${src}`);
+      // local disk serves /media/…; Vercel Blob serves *.blob.vercel-storage.com (both via next/image)
+      assert(src && /media|blob\.vercel-storage/.test(decodeURIComponent(src)), `expected uploaded image, got ${src}`);
       active = admin;
     });
 
