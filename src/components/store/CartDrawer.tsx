@@ -28,7 +28,7 @@ export function CartDrawer() {
               <span className="grid size-16 place-items-center rounded-full bg-matcha-100">
                 <ShoppingBag className="size-7 text-forest-800" />
               </span>
-              <p className="font-display text-xl font-semibold text-forest-900">Nothing here yet</p>
+              <p className="font-display text-xl text-forest-900">Nothing here yet</p>
               <p className="max-w-xs text-sm text-forest-900/65">Pick a milk tea, a fruit tea or a sundae from the menu.</p>
               <Link href="/menu" onClick={close} className="btn-primary mt-2">
                 Browse the menu

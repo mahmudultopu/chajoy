@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
     ],
   },
   poweredByHeader: false,
+  devIndicators: false,
   experimental: {
     // admin photo uploads (≤8 MB, re-encoded on the server) and CSV imports (≤2 MB)
     serverActions: { bodySizeLimit: "9mb" },

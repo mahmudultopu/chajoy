@@ -218,7 +218,7 @@ export function CheckoutClient({
   if (!q.lines.length)
     return (
       <div className="py-20 text-center">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">Nothing to check out</h1>
+        <h1 className="font-display text-4xl text-forest-900">Nothing to check out</h1>
         <Link href="/menu" className="btn-primary mt-6">
           Browse the menu
         </Link>
@@ -228,11 +228,11 @@ export function CheckoutClient({
   return (
     <form onSubmit={submit} className="grid gap-8 lg:grid-cols-[1.4fr_1fr]" noValidate>
       <div className="space-y-6">
-        <h1 className="font-display text-5xl font-semibold tracking-tight text-forest-900">Checkout</h1>
+        <h1 className="font-display text-5xl tracking-tight text-forest-900">Checkout</h1>
 
         {/* 1. branch & method */}
         <section className="card p-5 sm:p-6" aria-labelledby="s1">
-          <h2 id="s1" className="font-display text-2xl font-semibold text-forest-900">
+          <h2 id="s1" className="font-display text-2xl text-forest-900">
             1. Branch &amp; collection
           </h2>
           <div className="mt-4 flex items-start gap-3 rounded-2xl bg-cream-100 p-4">
@@ -288,7 +288,7 @@ export function CheckoutClient({
 
         {/* 2. contact */}
         <section className="card p-5 sm:p-6" aria-labelledby="s2">
-          <h2 id="s2" className="font-display text-2xl font-semibold text-forest-900">
+          <h2 id="s2" className="font-display text-2xl text-forest-900">
             2. Your details
           </h2>
           <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -320,7 +320,7 @@ export function CheckoutClient({
         {/* 3. delivery */}
         {fulfilment === "delivery" && (
           <section className="card p-5 sm:p-6" aria-labelledby="s3">
-            <h2 id="s3" className="font-display text-2xl font-semibold text-forest-900">
+            <h2 id="s3" className="font-display text-2xl text-forest-900">
               3. Delivery address
             </h2>
             {addresses.length > 0 && (
@@ -415,7 +415,7 @@ export function CheckoutClient({
 
         {/* 4. payment */}
         <section className="card p-5 sm:p-6" aria-labelledby="s4">
-          <h2 id="s4" className="font-display text-2xl font-semibold text-forest-900">
+          <h2 id="s4" className="font-display text-2xl text-forest-900">
             {fulfilment === "delivery" ? "4" : "3"}. Payment
           </h2>
           <div className="mt-4 grid gap-2" role="radiogroup" aria-label="Payment method">
@@ -455,7 +455,7 @@ export function CheckoutClient({
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <div className="card p-5 sm:p-6">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-2xl font-semibold text-forest-900">Your order</h2>
+            <h2 className="font-display text-2xl text-forest-900">Your order</h2>
             {quoting && <LoaderCircle className="size-4 animate-spin text-matcha-600" aria-label="Updating totals" />}
           </div>
           <ul className="mt-4 space-y-3">

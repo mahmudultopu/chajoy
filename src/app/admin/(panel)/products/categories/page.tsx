@@ -13,7 +13,7 @@ export default async function Categories() {
       <Link href="/admin/products" className="text-sm text-forest-900/60 hover:text-forest-900">
         ← Products
       </Link>
-      <h1 className="font-display text-4xl font-semibold text-forest-900">Categories</h1>
+      <h1 className="font-display text-4xl text-forest-900">Categories</h1>
       <div className="space-y-4">
         {cats.map((c) => (
           <CategoryForm key={c.id} c={c} />

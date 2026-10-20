@@ -17,7 +17,7 @@ export default async function AboutPage() {
     <div className="pb-10">
       <section className="container-x pt-12 sm:pt-16">
         <p className="eyebrow">Our story</p>
-        <h1 className="mt-3 max-w-4xl font-display text-5xl font-semibold leading-[0.95] tracking-tight text-forest-900 sm:text-7xl">
+        <h1 className="mt-3 max-w-4xl font-display text-5xl leading-[0.95] tracking-tight text-forest-900 sm:text-7xl">
           Share cha. <em className="font-medium text-matcha-600">Share joy.</em>
         </h1>
       </section>
@@ -53,7 +53,7 @@ export default async function AboutPage() {
             ["Follow my cone to joy", "From our menu board: scoop joy, sip cha — and make every hour your happy hour."],
           ].map(([t, d]) => (
             <div key={t} className="rounded-4xl bg-white p-7 ring-1 ring-forest-900/5">
-              <h2 className="font-display text-2xl font-semibold text-forest-900">{t}</h2>
+              <h2 className="font-display text-2xl text-forest-900">{t}</h2>
               <p className="mt-2 text-forest-900/70">{d}</p>
             </div>
           ))}

@@ -13,7 +13,7 @@ export default async function SettingsAdmin() {
   const b = branches.map((x) => ({ id: x.id, name: x.name }));
   return (
     <div className="max-w-5xl space-y-8">
-      <h1 className="font-display text-4xl font-semibold text-forest-900">Settings</h1>
+      <h1 className="font-display text-4xl text-forest-900">Settings</h1>
       {can(admin, "settings.manage") && (
         <PaymentsForm codEnabled={settings.payments.codEnabled} sslEnabled={settings.payments.sslcommerzEnabled} sslConfigured={isSslcommerzConfigured()} sandbox={process.env.SSLCOMMERZ_SANDBOX !== "false"} />
       )}

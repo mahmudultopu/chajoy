@@ -101,37 +101,46 @@ function CupPrint({ height }: { height: number }) {
 
 function Liquid({ height, fill, visual, from = 0.07 }: { height: number; fill: number; visual: ProductVisual; from?: number }) {
   const top = height * fill;
+  // clear teas leave room against the wall for the citrus wheels to sit in front
+  const inset = visual.clear && (visual.fruit === "lemon" || visual.fruit === "lime") ? 0.12 : 0.03;
   const geom = useMemo(() => {
     const pts: THREE.Vector2[] = [new THREE.Vector2(0, from)];
     for (let i = 0; i <= 10; i++) {
       const y = from + ((top - from) * i) / 10;
-      pts.push(new THREE.Vector2(radiusAt(y, height) - 0.03, y));
+      pts.push(new THREE.Vector2(radiusAt(y, height) - inset, y));
     }
     pts.push(new THREE.Vector2(0, top));
     return new THREE.LatheGeometry(pts, 64);
-  }, [height, top, from]);
+  }, [height, top, from, inset]);
   const map = useMemo(() => {
     if (visual.stripes) return tigerStripeTexture(visual.liquid ?? "#cfa77c", visual.stripes);
     if (visual.liquid2) return gradientTexture(visual.liquid ?? "#ffffff", visual.liquid2, 0.45);
     if (visual.clear) {
       const c = new THREE.Color(visual.liquid ?? "#e9a43c");
-      const light = "#" + c.clone().lerp(new THREE.Color("#fff6d8"), 0.35).getHexString();
-      return gradientTexture(light, visual.liquid ?? "#e9a43c", 0.4);
+      const light = "#" + c.clone().lerp(new THREE.Color("#fff6d8"), 0.42).getHexString();
+      const deep = "#" + c.clone().multiplyScalar(0.78).getHexString();
+      return gradientTexture(light, deep, 0.55);
     }
     return null;
   }, [visual]);
+  if (visual.clear) {
+    // backlit iced tea: light at the top, deeper towards the bottom, faint inner glow
+    return (
+      <mesh geometry={geom}>
+        <meshPhysicalMaterial map={map} roughness={0.06} clearcoat={1} clearcoatRoughness={0.04} emissive={visual.liquid ?? "#e9a43c"} emissiveIntensity={0.16} />
+      </mesh>
+    );
+  }
   return (
     <mesh geometry={geom}>
       <meshPhysicalMaterial
         color={map ? "#ffffff" : (visual.liquid ?? "#e6d2bf")}
         map={map}
-        roughness={visual.clear ? 0.12 : 0.38}
-        clearcoat={visual.clear ? 1 : 0.4}
+        roughness={0.38}
+        clearcoat={0.4}
         clearcoatRoughness={0.2}
-        sheen={visual.clear ? 0 : 0.25}
+        sheen={0.25}
         sheenColor="#f3dcc0"
-        emissive={visual.clear ? (visual.liquid ?? "#000") : "#000000"}
-        emissiveIntensity={visual.clear ? 0.12 : 0}
       />
     </mesh>
   );
@@ -208,7 +217,7 @@ export function IceCube({ size = 0.32, quality = "high" as Quality, ...props }: 
         {quality === "low" ? (
           <meshStandardMaterial color="#eef6ff" transparent opacity={0.55} roughness={0.1} />
         ) : (
-          <meshPhysicalMaterial color="#f4fbff" transmission={1} thickness={size} roughness={0.12} ior={1.31} clearcoat={1} attenuationColor="#dff2ff" attenuationDistance={1.5} />
+          <meshPhysicalMaterial color="#f2fbff" transmission={0.82} thickness={size * 0.6} roughness={0.16} ior={1.31} clearcoat={1} clearcoatRoughness={0.05} attenuationColor="#e6f5ff" attenuationDistance={0.45} specularIntensity={1} />
         )}
       </RoundedBox>
     </group>
@@ -272,7 +281,12 @@ export function Drink({
       <Liquid height={height} fill={fill} visual={visual} from={pearlsFrom} />
       {visual.ice && temperature === "cold" && !visual.topping && <IceTop height={height} fill={fill} quality={quality} />}
       {visual.topping && <Topping height={height} fill={fill} visual={visual} quality={quality} />}
-      {visual.fruit && (visual.fruit === "lemon" || visual.fruit === "lime") && <FloatingSlices height={height} kind={visual.fruit} />}
+      {visual.fruit && (visual.fruit === "lemon" || visual.fruit === "lime") && (
+        <>
+          <WallSlices height={height} kind={visual.fruit} />
+          <RimSlice height={height} kind={visual.fruit} />
+        </>
+      )}
       {straw && <Straw height={height} />}
       <CupShell height={height} quality={quality} cold={temperature === "cold"} />
       {print && <CupPrint height={height} />}
@@ -280,16 +294,53 @@ export function Drink({
   );
 }
 
-function FloatingSlices({ height, kind }: { height: number; kind: "lemon" | "lime" }) {
-  // slices pressed against the inside wall, like the menu photos
+/** A citrus wheel perched on the rim, notched over the cup wall. */
+function RimSlice({ height, kind }: { height: number; kind: "lemon" | "lime" }) {
+  const r = radiusAt(height, height);
+  return <CitrusSlice kind={kind} radius={0.36} position={[r * 0.62, height + 0.08, r * 0.62]} rotation={[0.08, Math.PI / 4, -0.12]} />;
+}
+
+/** Citrus wheels pressed flat against the inside of the front wall, as in CHAJOY's menu photos. */
+function WallSlices({ height, kind }: { height: number; kind: "lemon" | "lime" }) {
+  const taper = Math.atan2(0.22, height);
   return (
     <group>
-      {[0.35, 0.58].map((t, i) => {
+      {[
+        [0.42, -0.32],
+        [0.66, 0.3],
+        [0.24, 0.42],
+      ].map(([t, a], i) => {
         const y = height * t;
-        const r = radiusAt(y, height) - 0.06;
-        const a = Math.PI / 2 + (i ? 0.7 : -0.5);
-        return <CitrusSlice key={i} kind={kind} radius={0.3} position={[Math.cos(a) * r, y, Math.sin(a) * r]} rotation={[0, -a + Math.PI / 2, 0]} />;
+        const r = radiusAt(y, height) - 0.065;
+        return (
+          <group key={i} rotation-y={a}>
+            <CitrusSlice kind={kind} radius={0.27} position={[0, y, r]} rotation={[-taper, 0, i * 0.7]} scale={[1, 1, 0.4]} />
+          </group>
+        );
       })}
+    </group>
+  );
+}
+
+/** Ice cubes floating inside a clear drink (visible through the tea). */
+function SubmergedIce({ height, fill }: { height: number; fill: number }) {
+  const cubes = useMemo(() => {
+    const rand = seeded(17);
+    return Array.from({ length: 6 }, (_, i) => {
+      const y = height * (0.3 + (i / 6) * fill * 0.55);
+      const rr = (radiusAt(y, height) - 0.25) * (0.3 + rand() * 0.6);
+      const a = rand() * Math.PI * 2;
+      return { p: [Math.cos(a) * rr, y, Math.sin(a) * rr] as [number, number, number], rot: [rand() * 2, rand() * 3, rand() * 2] as [number, number, number], s: 0.26 + rand() * 0.08 };
+    });
+  }, [height, fill]);
+  return (
+    <group>
+      {cubes.map((c, i) => (
+        <mesh key={i} position={c.p} rotation={c.rot}>
+          <boxGeometry args={[c.s, c.s, c.s]} />
+          <meshPhysicalMaterial color="#ffffff" transparent opacity={0.35} roughness={0.08} clearcoat={1} />
+        </mesh>
+      ))}
     </group>
   );
 }
@@ -414,6 +465,22 @@ export function SoftServe({ serve = "twist", scale = 1 }: { serve?: "original" |
   );
 }
 
+/** A clear acrylic stand that holds a cone upright (for studio shots). */
+export function ConeStand(props: GroupProps) {
+  return (
+    <group {...props}>
+      <mesh position-y={0.35}>
+        <cylinderGeometry args={[0.24, 0.32, 0.7, 48, 1, true]} />
+        <meshPhysicalMaterial color="#ffffff" transmission={1} thickness={0.1} roughness={0.05} ior={1.45} side={THREE.DoubleSide} />
+      </mesh>
+      <mesh position-y={0.02}>
+        <cylinderGeometry args={[0.42, 0.44, 0.04, 48]} />
+        <meshPhysicalMaterial color="#ffffff" transmission={1} thickness={0.2} roughness={0.05} ior={1.45} />
+      </mesh>
+    </group>
+  );
+}
+
 export function Cone({ serve = "twist" as "original" | "matcha" | "twist", ...props }: { serve?: "original" | "matcha" | "twist" } & GroupProps) {
   const { map, bump } = useMemo(() => waffleTextures(), []);
   return (
@@ -484,8 +551,8 @@ export function CitrusSlice({ kind = "lemon", radius = 0.42, ...props }: { kind?
       <mesh rotation-x={Math.PI / 2}>
         <cylinderGeometry args={[radius, radius, 0.07, 48]} />
         <meshPhysicalMaterial attach="material-0" color={rind} roughness={0.45} clearcoat={0.4} />
-        <meshPhysicalMaterial attach="material-1" map={tex} roughness={0.25} clearcoat={1} clearcoatRoughness={0.1} transmission={0.15} thickness={0.1} />
-        <meshPhysicalMaterial attach="material-2" map={tex} roughness={0.25} clearcoat={1} clearcoatRoughness={0.1} transmission={0.15} thickness={0.1} />
+        <meshPhysicalMaterial attach="material-1" map={tex} roughness={0.25} clearcoat={1} clearcoatRoughness={0.1} sheen={0.3} sheenColor="#ffffff" />
+        <meshPhysicalMaterial attach="material-2" map={tex} roughness={0.25} clearcoat={1} clearcoatRoughness={0.1} sheen={0.3} sheenColor="#ffffff" />
       </mesh>
     </group>
   );

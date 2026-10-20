@@ -15,19 +15,19 @@ export function SiteFooter({
   branches: { slug: string; name: string }[];
 }) {
   return (
-    <footer className="relative mt-24 overflow-hidden bg-forest-950 text-cream-50">
-      <div aria-hidden className="pointer-events-none absolute -right-24 -top-24 size-96 rounded-full bg-matcha-500/15 blur-3xl" />
-      <div className="container-x relative grid gap-12 py-16 lg:grid-cols-[1.3fr_2fr]">
+    <footer className="relative overflow-hidden rounded-t-[28px] bg-[#2a1c13] text-cream-50">
+      
+      <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8 relative grid gap-12 py-16 lg:grid-cols-[1.3fr_2fr]">
         <div>
           <div className="flex items-center gap-3">
             <Image src="/images/brand/chajoy-logo.webp" alt="CHAJOY ice cream and tea logo" width={64} height={64} className="rounded-full" />
             <div>
-              <p className="font-display text-2xl font-bold">CHAJOY</p>
+              <p className="font-display text-2xl text-pill" style={{ fontWeight: 600 }}>chajoy.</p>
               <p className="text-sm text-cream-50/60">Ice cream &amp; tea · চা জয়</p>
             </div>
           </div>
-          <p className="mt-6 max-w-sm font-display text-3xl font-semibold leading-tight">
-            Every sip <em className="text-matcha-300">brings joy.</em>
+          <p className="mt-6 max-w-sm font-display text-3xl leading-tight">
+            Every sip <em className="text-pill">brings joy.</em>
           </p>
           <div className="mt-8 max-w-sm">
             <p className="mb-3 text-sm font-semibold">News and offers in your inbox</p>
@@ -37,7 +37,7 @@ export function SiteFooter({
 
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-matcha-300">Menu</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-pill">Menu</p>
             <ul className="space-y-2.5 text-sm text-cream-50/75">
               <li>
                 <Link href="/menu" className="hover:text-cream-50">
@@ -59,7 +59,7 @@ export function SiteFooter({
             </ul>
           </div>
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-matcha-300">Branches</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-pill">Branches</p>
             <ul className="space-y-2.5 text-sm text-cream-50/75">
               {branches.map((b) => (
                 <li key={b.slug}>
@@ -76,7 +76,7 @@ export function SiteFooter({
             </ul>
           </div>
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-matcha-300">Help</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-pill">Help</p>
             <ul className="space-y-2.5 text-sm text-cream-50/75">
               <li>
                 <Link href="/track" className="hover:text-cream-50">
@@ -106,7 +106,7 @@ export function SiteFooter({
             </ul>
           </div>
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-matcha-300">Contact</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-pill">Contact</p>
             <ul className="space-y-3 text-sm text-cream-50/75">
               <li>
                 <a href={settings.contact.phoneHref} className="flex items-start gap-2 hover:text-cream-50">
@@ -135,8 +135,13 @@ export function SiteFooter({
           </div>
         </div>
       </div>
-      <div className="border-t border-white/10">
-        <div className="container-x flex flex-col gap-3 py-6 text-xs text-cream-50/55 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mx-auto w-full max-w-[1240px] select-none px-4 sm:px-6 lg:px-8" aria-hidden>
+        <p className="pb-[4vw] font-display text-[26vw] leading-[0.95] tracking-[-0.04em] text-pill lg:pb-12 lg:text-[300px]" style={{ fontWeight: 600 }}>
+          chajoy<span className="text-matcha-400">.</span>
+        </p>
+      </div>
+      <div className="mt-6 border-t border-white/10">
+        <div className="mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8 flex flex-col gap-3 py-6 text-xs text-cream-50/55 sm:flex-row sm:items-center sm:justify-between">
           <p>© {new Date().getFullYear()} CHAJOY BD. All rights reserved.</p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             <Link href="/policies/privacy" className="hover:text-cream-50">

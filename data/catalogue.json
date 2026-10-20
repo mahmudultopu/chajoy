@@ -83,7 +83,7 @@
       "variants": [{ "size": "L", "price": 100 }],
       "options": { "sugar": true, "ice": true, "toppings": true },
       "images": ["lemon-green-tea"],
-      "visual": { "vessel": "cup", "liquid": "#E8C94C", "ice": true, "fruit": "lime" }
+      "visual": { "vessel": "cup", "liquid": "#E8C94C", "clear": true, "ice": true, "fruit": "lime" }
     },
     {
       "slug": "fresh-iced-lemon-water", "name": "Fresh Iced Lemon Water", "nameZh": "冰鲜柠檬水", "category": "fruit-tea",
@@ -91,7 +91,7 @@
       "variants": [{ "size": "L", "price": 80 }],
       "options": { "sugar": true, "ice": true, "toppings": true },
       "images": ["fresh-iced-lemon-water"],
-      "visual": { "vessel": "cup", "liquid": "#EEF3E2", "clear": true, "ice": true, "fruit": "lime" }
+      "visual": { "vessel": "cup", "liquid": "#E6EA9A", "clear": true, "ice": true, "fruit": "lime" }
     },
     {
       "slug": "jasmine-green-tea", "name": "Jasmine Green Tea", "nameZh": "茉莉蜜茶", "category": "fruit-tea",

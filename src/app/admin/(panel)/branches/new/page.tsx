@@ -11,7 +11,7 @@ export default async function NewBranch() {
       <Link href="/admin/branches" className="text-sm text-forest-900/60 hover:text-forest-900">
         ← Branches
       </Link>
-      <h1 className="font-display text-4xl font-semibold text-forest-900">New branch</h1>
+      <h1 className="font-display text-4xl text-forest-900">New branch</h1>
       <BranchForm b={null} />
     </div>
   );

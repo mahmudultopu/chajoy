@@ -15,7 +15,7 @@ export default async function BranchesAdmin() {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">Branches</h1>
+        <h1 className="font-display text-4xl text-forest-900">Branches</h1>
         {can(admin, "branches.manage") && (
           <Link href="/admin/branches/new" className="btn-primary py-2.5">
             New branch
@@ -28,7 +28,7 @@ export default async function BranchesAdmin() {
           return (
             <Link key={b.id} href={`/admin/branches/${b.id}`} className="card block p-5 transition hover:shadow-lift">
               <div className="flex items-start justify-between gap-2">
-                <p className="font-display text-xl font-semibold text-forest-900">{b.name}</p>
+                <p className="font-display text-xl text-forest-900">{b.name}</p>
                 {!b.isActive && <Badge tone="red">inactive</Badge>}
               </div>
               <p className="mt-1 text-sm text-forest-900/60">{b.addressLine ?? `${b.area} · no street address`}</p>

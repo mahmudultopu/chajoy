@@ -23,7 +23,7 @@ export default async function PolicyPage({ params }: Props) {
     <article className="container-x py-12 sm:py-16">
       <div className="mx-auto max-w-2xl">
         <p className="eyebrow">Policies</p>
-        <h1 className="mt-2 font-display text-5xl font-semibold tracking-tight text-forest-900">{p.title}</h1>
+        <h1 className="mt-2 font-display text-5xl tracking-tight text-forest-900">{p.title}</h1>
         {p.status === "draft" ? (
           <p className="mt-5 rounded-2xl bg-lemon-300/50 px-4 py-3 text-sm text-forest-900">
             <strong>Draft.</strong> This page is awaiting review by CHAJOY. Sections marked “to be confirmed” are not yet decided.

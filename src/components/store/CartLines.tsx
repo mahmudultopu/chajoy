@@ -91,7 +91,7 @@ export function CartSummary({ view }: { view: CartView }) {
       )}
       <div className="flex justify-between border-t border-dashed border-forest-900/15 pt-3 text-base">
         <dt className="font-bold text-forest-900">Total</dt>
-        <dd className="font-display text-xl font-bold tabular-nums text-forest-900">{formatBDT(q.totalPaisa)}</dd>
+        <dd className="font-display text-xl tabular-nums text-forest-900">{formatBDT(q.totalPaisa)}</dd>
       </div>
     </dl>
   );

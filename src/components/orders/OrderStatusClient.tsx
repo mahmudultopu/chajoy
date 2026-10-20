@@ -49,7 +49,7 @@ export function OrderStatusClient({ initial, token, paymentNotice, justPlaced }:
         <div className="mb-6 flex items-start gap-3 rounded-3xl bg-matcha-100 p-5">
           <CircleCheck className="mt-0.5 size-6 shrink-0 text-matcha-700" />
           <div>
-            <p className="font-display text-xl font-semibold text-forest-900">Thank you, your order is in!</p>
+            <p className="font-display text-xl text-forest-900">Thank you, your order is in!</p>
             <p className="text-sm text-forest-900/75">
               {o.branch.name} will confirm it shortly. Keep this page — bookmark it to check on your order.
             </p>
@@ -73,7 +73,7 @@ export function OrderStatusClient({ initial, token, paymentNotice, justPlaced }:
       {o.isSampleConfig && <p className="mb-6 rounded-2xl bg-lemon-300/50 px-4 py-2 text-sm font-semibold">This is a test order placed while sample settings were active.</p>}
 
       <p className="eyebrow">Order {o.orderNumber}</p>
-      <h1 className="mt-2 font-display text-5xl font-semibold leading-none tracking-tight text-forest-900">{o.statusLabel}</h1>
+      <h1 className="mt-2 font-display text-5xl leading-none tracking-tight text-forest-900">{o.statusLabel}</h1>
       <p className="mt-3 text-forest-900/65">
         Placed {fmt(o.createdAt)} · {o.fulfilmentMethod === "pickup" ? "Pickup" : "Delivery"} from {o.branch.name}
       </p>

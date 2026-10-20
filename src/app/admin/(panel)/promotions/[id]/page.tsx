@@ -35,7 +35,7 @@ export default async function PromotionPage({ params }: { params: Promise<{ id: 
       <Link href="/admin/promotions" className="text-sm text-forest-900/60 hover:text-forest-900">
         ← Promotions
       </Link>
-      <h1 className="font-display text-4xl font-semibold text-forest-900">{input ? input.title : "New promotion"}</h1>
+      <h1 className="font-display text-4xl text-forest-900">{input ? input.title : "New promotion"}</h1>
       <PromotionForm p={input} branches={branches} />
     </div>
   );

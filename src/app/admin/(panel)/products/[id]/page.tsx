@@ -24,7 +24,7 @@ export default async function EditProduct({ params, searchParams }: { params: Pr
         ← Products
       </Link>
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">{p.name}</h1>
+        <h1 className="font-display text-4xl text-forest-900">{p.name}</h1>
         <Link href={`/products/${p.slug}`} target="_blank" className="btn-ghost py-2.5">
           View on site
         </Link>

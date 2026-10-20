@@ -23,7 +23,7 @@ export default async function ProductsAdmin({ searchParams }: { searchParams: Pr
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">Products</h1>
+        <h1 className="font-display text-4xl text-forest-900">Products</h1>
         <div className="flex gap-2">
           <Link href="/admin/products/categories" className="btn-ghost py-2.5">
             Categories

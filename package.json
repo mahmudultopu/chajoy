@@ -22,7 +22,8 @@
     "db:demo-ops": "tsx scripts/demo-ops.ts",
     "db:check": "tsx scripts/db-check.ts",
     "admin:create": "tsx scripts/create-admin.ts",
-    "images:extract": "python scripts/menu-images/extract_menu_images.py"
+    "images:extract": "python scripts/menu-images/extract_menu_images.py",
+    "images:render": "tsx scripts/render-products.ts"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.10",

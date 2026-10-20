@@ -50,7 +50,7 @@ export default async function BranchPage({ params }: Props) {
 
       <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
         <div>
-          <h1 className="font-display text-5xl font-semibold leading-none tracking-tight text-forest-900 sm:text-6xl">{b.name}</h1>
+          <h1 className="font-display text-5xl leading-none tracking-tight text-forest-900 sm:text-6xl">{b.name}</h1>
           {b.isSampleConfig && (
             <p className="mt-4 rounded-2xl bg-lemon-300/50 px-4 py-2 text-sm text-forest-900">Sample operating settings are active for testing — hours, delivery and fees below are not real.</p>
           )}
@@ -144,7 +144,7 @@ export default async function BranchPage({ params }: Props) {
       </div>
 
       <section className="mt-16" aria-labelledby="branch-menu">
-        <h2 id="branch-menu" className="font-display text-3xl font-semibold text-forest-900 sm:text-4xl">
+        <h2 id="branch-menu" className="font-display text-3xl text-forest-900 sm:text-4xl">
           Menu at {b.area}
         </h2>
         <p className="mt-2 text-sm text-forest-900/60">
@@ -157,7 +157,7 @@ export default async function BranchPage({ params }: Props) {
         </div>
         {unavailable.length > 0 && (
           <>
-            <h3 className="mt-12 font-display text-xl font-semibold text-forest-900">Currently unavailable at this branch</h3>
+            <h3 className="mt-12 font-display text-xl text-forest-900">Currently unavailable at this branch</h3>
             <div className="mt-4 grid grid-cols-2 gap-3 opacity-80 sm:gap-4 md:grid-cols-3 xl:grid-cols-4">
               {unavailable.map((p) => (
                 <ProductCard key={p.id} p={toCardProduct(p)} branchName={b.name} />

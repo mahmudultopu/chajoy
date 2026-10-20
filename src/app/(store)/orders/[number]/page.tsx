@@ -14,7 +14,7 @@ export default async function OrderPage({ params, searchParams }: Props) {
   if (!order)
     return (
       <div className="container-x py-20 text-center">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">We can&apos;t show that order</h1>
+        <h1 className="font-display text-4xl text-forest-900">We can&apos;t show that order</h1>
         <p className="mx-auto mt-3 max-w-md text-forest-900/65">Open the link from your confirmation, sign in to the account you ordered with, or look it up with your order number and phone.</p>
         <Link href="/track" className="btn-primary mt-6">
           Track an order

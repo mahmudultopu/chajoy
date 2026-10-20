@@ -106,7 +106,8 @@ export async function seed({ force = false, log = console.log }: { force?: boole
     } else {
       productId = existing.id;
       if (force) await db.update(schema.products).set({ ...values, updatedAt: new Date() }).where(eq(schema.products.id, productId));
-      else if (!existing.model3d && values.model3d) await db.update(schema.products).set({ model3d: values.model3d }).where(eq(schema.products.id, productId));
+      // built-in 3D illustrations are code-owned: keep them in sync unless an admin set a .glb model
+      else if (values.model3d && existing.model3d?.kind !== "glb") await db.update(schema.products).set({ model3d: values.model3d }).where(eq(schema.products.id, productId));
     }
     productIds.push(productId);
 

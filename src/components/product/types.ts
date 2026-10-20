@@ -1,5 +1,6 @@
 import type { MenuProduct } from "@/lib/services/catalog";
 import { describeOptions } from "@/lib/options";
+import { renderBg, renderFor } from "@/lib/renders";
 
 export type CardProduct = {
   id: number;
@@ -10,8 +11,12 @@ export type CardProduct = {
   accent: string | null;
   isFeatured: boolean;
   availability: MenuProduct["availability"];
+  /** studio render (3D illustration) — preferred card image */
+  render: string | null;
+  renderAlt: string | null;
+  renderBg: string | null;
+  /** official CHAJOY photo, used when there's no render */
   image: { url: string; alt: string } | null;
-  altImage: { url: string } | null;
   variants: { id: number; sizeCode: string; label: string; pricePaisa: number; available: boolean }[];
   defaultOptionsLabel: string;
 };
@@ -28,7 +33,7 @@ export function toCardProduct(p: MenuProduct): CardProduct {
     },
     () => undefined,
   );
-  const flavourImg = p.images.find((i) => i.variantKey === "flavour:matcha");
+  const render = renderFor(p.slug);
   return {
     id: p.id,
     slug: p.slug,
@@ -38,8 +43,10 @@ export function toCardProduct(p: MenuProduct): CardProduct {
     accent: p.category.accent,
     isFeatured: p.isFeatured,
     availability: p.availability,
+    render,
+    renderAlt: p.slug.endsWith("-sundae") ? renderFor(p.slug, "matcha") : null,
+    renderBg: renderBg(p.slug),
     image: p.image ? { url: p.image.url, alt: p.image.alt } : null,
-    altImage: flavourImg ? { url: flavourImg.url } : null,
     variants: p.variants.map((v) => ({ id: v.id, sizeCode: v.sizeCode, label: v.label, pricePaisa: v.pricePaisa, available: v.available })),
     defaultOptionsLabel: defaults,
   };

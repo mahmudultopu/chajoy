@@ -49,7 +49,7 @@ export default async function OrdersPage({ searchParams }: { searchParams: Promi
 
   return (
     <div className="space-y-5">
-      <h1 className="font-display text-4xl font-semibold text-forest-900">Orders</h1>
+      <h1 className="font-display text-4xl text-forest-900">Orders</h1>
       <form className="flex flex-wrap items-end gap-2 rounded-3xl bg-white p-4 ring-1 ring-forest-900/5" method="get">
         <label className="min-w-0 flex-1 basis-56">
           <span className="label">Search</span>

@@ -16,7 +16,7 @@ export default async function ContactPage() {
   return (
     <div className="container-x py-12 sm:py-16">
       <p className="eyebrow">Customer support</p>
-      <h1 className="mt-2 font-display text-5xl font-semibold tracking-tight text-forest-900 sm:text-6xl">We&apos;re here to help</h1>
+      <h1 className="mt-2 font-display text-5xl tracking-tight text-forest-900 sm:text-6xl">We&apos;re here to help</h1>
       <p className="mt-4 max-w-xl text-forest-900/70">
         For a question about an order, have your order number ready (it starts with CJ). You can also{" "}
         <Link href="/track" className="font-semibold underline">
@@ -29,7 +29,7 @@ export default async function ContactPage() {
           <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="card block p-6 transition hover:-translate-y-0.5 hover:shadow-lift">
             <Icon className="size-6 text-matcha-600" />
             <p className="mt-4 text-sm font-semibold text-forest-900/60">{label}</p>
-            <p className="mt-1 break-words font-display text-xl font-semibold text-forest-900">{value}</p>
+            <p className="mt-1 break-words font-display text-xl text-forest-900">{value}</p>
           </a>
         ))}
       </div>

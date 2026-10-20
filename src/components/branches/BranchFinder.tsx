@@ -225,7 +225,7 @@ export function BranchFinder({
           </p>
         )}
 
-        <ul ref={listRef} className="flex flex-col gap-3" aria-label="CHAJOY branches">
+        <ul ref={listRef} className="flex flex-col gap-3 lg:max-h-[560px] lg:overflow-y-auto lg:pr-1" aria-label="CHAJOY branches">
           {data.branches.map((b) => {
             const active = branch?.id === b.id;
             return (
@@ -241,7 +241,7 @@ export function BranchFinder({
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-display text-lg font-semibold text-forest-900">{b.name}</h3>
+                      <h3 className="font-display text-lg text-forest-900">{b.name}</h3>
                       {b.id === data.recommendedId && fresh && <span className="chip border-none bg-matcha-400 text-forest-900">Recommended</span>}
                       {active && (
                         <span className="chip border-none bg-forest-800 text-cream-50">
@@ -255,7 +255,7 @@ export function BranchFinder({
                   </div>
                   {b.distanceKm !== null && (
                     <div className="shrink-0 text-right">
-                      <p className="font-display text-xl font-semibold text-forest-900">≈ {formatDistance(b.distanceKm)}</p>
+                      <p className="font-display text-xl text-forest-900">≈ {formatDistance(b.distanceKm)}</p>
                       <p className="text-[11px] leading-tight text-forest-900/55">
                         straight line
                         {b.distanceApprox ? <><br />approx. pin</> : null}

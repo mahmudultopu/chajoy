@@ -27,6 +27,8 @@ export type DetailProduct = {
   optionConfig: ProductOptionConfig;
   visual: ProductVisual | null;
   images: { url: string; alt: string; variantKey: string | null; sourceType: string; isLowRes: boolean }[];
+  /** studio renders (3D illustrations), by flavour */
+  render: { original: string | null; matcha: string | null };
   variants: { id: number; sizeCode: string; label: string; volumeMl: number | null; pricePaisa: number; available: boolean; stockNote: string | null }[];
   toppings: { id: number; name: string; pricePaisa: number; image: string | null; available: boolean }[];
 };
@@ -82,8 +84,10 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
   const photos = useMemo(() => {
     const flav = p.images.find((i) => i.variantKey === `flavour:${flavour}`);
     const rest = p.images.filter((i) => i !== flav);
-    return flav ? [flav, ...rest] : p.images;
-  }, [p.images, flavour]);
+    const official = flav ? [flav, ...rest] : p.images;
+    const r = (flavour === "matcha" && p.render.matcha) || p.render.original;
+    return r ? [{ url: r, alt: `${p.name} — 3D illustration`, variantKey: null, sourceType: "render", isLowRes: false }, ...official] : official;
+  }, [p.images, p.render, p.name, flavour]);
   const photo = photos[Math.min(imageIdx, photos.length - 1)];
 
   const add = async () => {
@@ -112,10 +116,16 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
           {view === "photo" || !p.visual ? (
             photo && (
               <>
-                <span aria-hidden className="absolute left-1/2 top-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 blur-3xl" />
-                <Image src={photo.url} alt={photo.alt} fill priority sizes="(min-width:1024px) 50vw, 100vw" className={clsx("menu-photo object-contain", photo.isLowRes ? "p-[17%]" : "p-[8%]")} />
+                {photo.sourceType === "render" ? (
+                  <Image src={photo.url} alt={photo.alt} fill priority sizes="(min-width:1024px) 50vw, 100vw" className="object-cover" />
+                ) : (
+                  <>
+                    <span aria-hidden className="absolute left-1/2 top-1/2 size-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/70 blur-3xl" />
+                    <Image src={photo.url} alt={photo.alt} fill priority sizes="(min-width:1024px) 50vw, 100vw" className={clsx("menu-photo object-contain", photo.isLowRes ? "p-[17%]" : "p-[8%]")} />
+                  </>
+                )}
                 <span className="absolute bottom-3 left-3 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold text-forest-900 ring-1 ring-forest-900/10">
-                  {photo.sourceType === "official_menu" ? "Photo: official CHAJOY menu" : photo.sourceType === "placeholder" ? "Placeholder — photo pending" : "Photo: CHAJOY"}
+                  {photo.sourceType === "render" ? "3D illustration" : photo.sourceType === "official_menu" ? "Photo: official CHAJOY menu" : photo.sourceType === "placeholder" ? "Placeholder — photo pending" : "Photo: CHAJOY"}
                 </span>
               </>
             )
@@ -144,12 +154,12 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
               <button
                 key={ph.url}
                 onClick={() => setImageIdx(i)}
-                aria-label={`Show photo ${i + 1}`}
+                aria-label={ph.sourceType === "render" ? "Show 3D illustration" : `Show photo: ${ph.alt}`}
                 aria-pressed={i === imageIdx}
                 className={clsx("relative size-20 overflow-hidden rounded-2xl ring-2", i === imageIdx ? "ring-forest-900" : "ring-transparent")}
                 style={{ background: tint(p.accent, 22) }}
               >
-                <Image src={ph.url} alt="" fill sizes="80px" className="menu-photo object-contain p-1.5" />
+                <Image src={ph.url} alt="" fill sizes="80px" className={ph.sourceType === "render" ? "object-cover" : "menu-photo object-contain p-1.5"} />
               </button>
             ))}
           </div>
@@ -159,9 +169,9 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
       {/* options */}
       <div className="pb-28 lg:pb-0">
         <p className="eyebrow">{p.category}</p>
-        <h1 className="mt-2 font-display text-5xl font-semibold leading-[0.95] tracking-tight text-forest-900 sm:text-6xl">{p.name}</h1>
+        <h1 className="mt-2 font-display text-5xl leading-[0.95] tracking-tight text-forest-900 sm:text-6xl">{p.name}</h1>
         {p.nameZh && <p className="mt-2 text-lg text-forest-900/45">{p.nameZh}</p>}
-        <p className="mt-4 font-display text-3xl font-semibold text-berry-600">
+        <p className="mt-4 font-display text-3xl text-berry-600">
           {formatBDT(unit)}
           {toppingTotal > 0 && <span className="ml-2 text-sm font-sans font-semibold text-forest-900/50">incl. toppings</span>}
         </p>
@@ -213,7 +223,7 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
                     )}
                   >
                     <span className="block text-sm font-semibold text-forest-900">{x.label}</span>
-                    <span className="mt-0.5 block font-display text-xl font-semibold text-berry-600">{formatBDT(x.pricePaisa)}</span>
+                    <span className="mt-0.5 block font-display text-xl text-berry-600">{formatBDT(x.pricePaisa)}</span>
                     {x.stockNote && <span className="text-xs text-forest-900/60">{x.stockNote}</span>}
                   </button>
                 ))}

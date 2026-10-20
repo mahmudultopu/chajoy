@@ -15,12 +15,12 @@ export default async function OffersPage() {
   return (
     <div className="container-x py-12 sm:py-16">
       <p className="eyebrow">Offers</p>
-      <h1 className="mt-2 font-display text-5xl font-semibold tracking-tight text-forest-900 sm:text-6xl">
+      <h1 className="mt-2 font-display text-5xl tracking-tight text-forest-900 sm:text-6xl">
         Little extras, <em className="font-medium text-matcha-600">on us.</em>
       </h1>
       {promos.length === 0 ? (
         <div className="mt-10 max-w-xl rounded-4xl bg-white p-8 ring-1 ring-forest-900/5">
-          <p className="font-display text-2xl font-semibold text-forest-900">No offers running right now</p>
+          <p className="font-display text-2xl text-forest-900">No offers running right now</p>
           <p className="mt-2 text-forest-900/65">When CHAJOY runs a promotion it will appear here with its terms and dates. Follow us on social media to hear first.</p>
           <Link href="/menu" className="btn-primary mt-6">
             Browse the menu
@@ -31,7 +31,7 @@ export default async function OffersPage() {
           {promos.map((p) => (
             <article key={p.id} className="rounded-4xl bg-lemon-300/60 p-7 ring-1 ring-forest-900/5">
               <Tag className="size-5" />
-              <h2 className="mt-3 font-display text-3xl font-semibold text-forest-900">{p.title}</h2>
+              <h2 className="mt-3 font-display text-3xl text-forest-900">{p.title}</h2>
               {p.description && <p className="mt-2 text-forest-900/75">{p.description}</p>}
               <ul className="mt-4 space-y-2 text-sm">
                 {p.rules.map((r) => (

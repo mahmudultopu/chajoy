@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { renderFor } from "@/lib/renders";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -92,13 +93,14 @@ export default async function ProductPage({ params }: Props) {
           optionConfig: p.optionConfig,
           visual: p.model3d?.kind === "procedural" ? p.model3d.visual : null,
           images: p.images.map((i) => ({ url: i.url, alt: i.alt, variantKey: i.variantKey, sourceType: i.sourceType, isLowRes: i.isLowRes })),
+          render: { original: renderFor(p.slug), matcha: renderFor(p.slug, "matcha") },
           variants: p.variants.map((v) => ({ id: v.id, sizeCode: v.sizeCode, label: v.label, volumeMl: v.volumeMl, pricePaisa: v.pricePaisa, available: v.available, stockNote: v.stockNote })),
           toppings,
         }}
       />
 
       <section className="mt-16" aria-labelledby="where-title">
-        <h2 id="where-title" className="font-display text-2xl font-semibold text-forest-900">
+        <h2 id="where-title" className="font-display text-2xl text-forest-900">
           Where to find it
         </h2>
         <ul className="mt-4 flex flex-wrap gap-2">
@@ -117,7 +119,7 @@ export default async function ProductPage({ params }: Props) {
 
       {related.length > 0 && (
         <section className="mt-16" aria-labelledby="rel-title">
-          <h2 id="rel-title" className="font-display text-3xl font-semibold text-forest-900">
+          <h2 id="rel-title" className="font-display text-3xl text-forest-900">
             More {p.category.name.toLowerCase()}
           </h2>
           <div className="mt-6 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">

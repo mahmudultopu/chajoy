@@ -42,7 +42,7 @@ export default async function BranchAdmin({ params, searchParams }: { params: Pr
         </Link>
       )}
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">{b.name}</h1>
+        <h1 className="font-display text-4xl text-forest-900">{b.name}</h1>
         <Link href={`/branches/${b.slug}`} target="_blank" className="btn-ghost py-2.5">
           View on site
         </Link>

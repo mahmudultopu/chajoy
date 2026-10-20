@@ -19,7 +19,7 @@ export default async function ContentAdmin() {
   const b = branches.map((x) => ({ id: x.id, name: x.name }));
   return (
     <div className="space-y-8">
-      <h1 className="font-display text-4xl font-semibold text-forest-900">Content</h1>
+      <h1 className="font-display text-4xl text-forest-900">Content</h1>
       <section className="card space-y-3 p-5">
         <h2 className="font-semibold text-forest-900">Announcement bar</h2>
         <p className="text-sm text-forest-900/60">Shown at the top of every page while active and inside its dates. Only announce real offers, launches and notices.</p>
@@ -30,7 +30,7 @@ export default async function ContentAdmin() {
       </section>
       <SiteContentForm s={settings} />
       <section className="space-y-4">
-        <h2 className="font-display text-2xl font-semibold text-forest-900">Policy pages</h2>
+        <h2 className="font-display text-2xl text-forest-900">Policy pages</h2>
         {pages.map((p) => (
           <PageForm key={p.slug} page={p} />
         ))}

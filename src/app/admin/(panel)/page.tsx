@@ -20,7 +20,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">Dashboard</p>
-          <h1 className="font-display text-4xl font-semibold text-forest-900">Hello, {admin.name.split(" ")[0]}</h1>
+          <h1 className="font-display text-4xl text-forest-900">Hello, {admin.name.split(" ")[0]}</h1>
         </div>
         <div className="flex gap-1 rounded-full bg-white p-1 ring-1 ring-forest-900/10" role="group" aria-label="Period">
           {[7, 14, 30, 90].map((d) => (

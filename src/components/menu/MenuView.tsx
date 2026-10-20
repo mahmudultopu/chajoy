@@ -73,7 +73,7 @@ export async function MenuView({ category, searchParams }: { category: string | 
       </nav>
       <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <h1 className="font-display text-5xl font-semibold leading-none tracking-tight text-forest-900 sm:text-6xl">
+          <h1 className="font-display text-5xl leading-none tracking-tight text-forest-900 sm:text-6xl">
             {cat ? cat.name : (
               <>
                 The CHAJOY <em className="font-medium text-matcha-600">menu</em>
@@ -119,7 +119,7 @@ export async function MenuView({ category, searchParams }: { category: string | 
 
       {result.items.length === 0 ? (
         <div className="mt-6 rounded-4xl bg-white p-10 text-center ring-1 ring-forest-900/5">
-          <p className="font-display text-2xl font-semibold text-forest-900">Nothing matches that yet</p>
+          <p className="font-display text-2xl text-forest-900">Nothing matches that yet</p>
           <p className="mt-2 text-forest-900/65">Try another flavour, clear a filter, or browse everything on the menu.</p>
           <Link href="/menu" className="btn-primary mt-6">
             See the full menu

@@ -42,7 +42,7 @@ export function Markdown({ source }: { source: string }) {
       {blocks.map((b, bi) => {
         const t = b.trim();
         if (!t) return null;
-        if (t.startsWith("## ")) return <h2 key={bi} className="pt-4 font-display text-2xl font-semibold text-forest-900">{inline(t.slice(3), `h${bi}`)}</h2>;
+        if (t.startsWith("## ")) return <h2 key={bi} className="pt-4 font-display text-2xl text-forest-900">{inline(t.slice(3), `h${bi}`)}</h2>;
         if (t.startsWith("### ")) return <h3 key={bi} className="pt-2 text-lg font-semibold text-forest-900">{inline(t.slice(4), `h${bi}`)}</h3>;
         const lines = t.split("\n");
         if (lines.every((l) => /^[-*] /.test(l)))

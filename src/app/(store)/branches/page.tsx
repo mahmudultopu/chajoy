@@ -13,7 +13,7 @@ export default async function BranchesPage() {
   return (
     <div className="container-x pb-10 pt-10 sm:pt-14">
       <p className="eyebrow">Find a branch</p>
-      <h1 className="mt-3 max-w-3xl font-display text-5xl font-semibold leading-[0.95] tracking-tight text-forest-900 sm:text-6xl">
+      <h1 className="mt-3 max-w-3xl font-display text-5xl leading-[0.95] tracking-tight text-forest-900 sm:text-6xl">
         Your favourite CHAJOY, <em className="font-medium text-matcha-600">closer to you.</em>
       </h1>
       <p className="mt-4 max-w-2xl text-forest-900/70">

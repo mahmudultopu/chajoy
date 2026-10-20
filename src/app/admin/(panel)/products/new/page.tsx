@@ -13,7 +13,7 @@ export default async function NewProduct() {
       <Link href="/admin/products" className="text-sm text-forest-900/60 hover:text-forest-900">
         ← Products
       </Link>
-      <h1 className="font-display text-4xl font-semibold text-forest-900">New product</h1>
+      <h1 className="font-display text-4xl text-forest-900">New product</h1>
       <p className="text-sm text-forest-900/60">New products start unavailable at every branch until you switch them on.</p>
       <ProductDetailsForm product={null} categories={categories} />
     </div>

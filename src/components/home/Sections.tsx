@@ -14,7 +14,7 @@ export function Marquee() {
     <div className="relative z-10 -mt-px overflow-hidden border-y border-forest-900/10 bg-matcha-400 py-4 text-forest-950" aria-label="CHAJOY slogans">
       <div className="flex w-max animate-marquee items-center gap-10 motion-reduce:animate-none" style={{ ["--marquee-duration" as string]: "48s" }}>
         {row.map((s, i) => (
-          <span key={i} className="flex items-center gap-10 whitespace-nowrap font-display text-3xl font-semibold italic sm:text-4xl" aria-hidden={i >= SLOGANS.length}>
+          <span key={i} className="flex items-center gap-10 whitespace-nowrap font-display text-3xl italic sm:text-4xl" aria-hidden={i >= SLOGANS.length}>
             {s}
             <svg viewBox="0 0 24 24" className="size-6 shrink-0 fill-forest-900" aria-hidden>
               <path d="M12 0l2.4 8.2L22 6l-5.6 6L22 18l-7.6-2.2L12 24l-2.4-8.2L2 18l5.6-6L2 6l7.6 2.2z" />
@@ -30,7 +30,7 @@ export function SectionHeading({ eyebrow, title, accent, children, align = "left
   return (
     <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
       {eyebrow && <p className="eyebrow mb-3">{eyebrow}</p>}
-      <h2 className="font-display text-4xl font-semibold leading-[1.02] tracking-tight text-forest-900 sm:text-5xl lg:text-6xl">
+      <h2 className="font-display text-4xl leading-[1.02] tracking-tight text-forest-900 sm:text-5xl lg:text-6xl">
         {title} {accent && <em className="font-medium text-matcha-600">{accent}</em>}
       </h2>
       {children && <div className="mt-4 text-base leading-relaxed text-forest-900/70 sm:text-lg">{children}</div>}
@@ -72,7 +72,7 @@ export function CategoryTiles({ tiles }: { tiles: CategoryTile[] }) {
             <div className="flex h-full flex-col justify-between">
               <div>
                 <p className="text-xs font-semibold text-forest-900/55">{t.menuName}</p>
-                <h3 className={`mt-1 font-display font-semibold leading-none text-forest-900 ${i === 0 ? "text-4xl sm:text-5xl" : "text-3xl"}`}>{t.name}</h3>
+                <h3 className={`mt-1 font-display leading-none text-forest-900 ${i === 0 ? "text-4xl sm:text-5xl" : "text-3xl"}`}>{t.name}</h3>
               </div>
               <div className="flex items-center gap-2">
                 <span className="rounded-full bg-white/80 px-3 py-1.5 text-xs font-bold text-forest-900">
@@ -107,7 +107,7 @@ export function StorySection({ title, paragraphs, branchCount }: { title: string
             </div>
           </div>
           <div className="absolute -bottom-5 left-6 rounded-3xl bg-forest-900 px-5 py-4 text-cream-50 shadow-lift">
-            <p className="font-display text-4xl font-semibold">{branchCount}</p>
+            <p className="font-display text-4xl">{branchCount}</p>
             <p className="text-xs text-cream-50/70">branches across Dhaka</p>
           </div>
         </div>

@@ -141,6 +141,8 @@ async function main() {
       await admin.getByText("Image uploaded.").waitFor({ timeout: 30000 });
       active = shop;
       await visit(shop, `${BASE}/products/classic-milk-tea`);
+      // the gallery leads with the 3D illustration; open the uploaded photo
+      await shop.getByRole("button", { name: "Show photo: E2E upload test image" }).click();
       const src = await shop.getByAltText("E2E upload test image").first().getAttribute("src");
       // local disk serves /media/…; Vercel Blob serves *.blob.vercel-storage.com (both via next/image)
       assert(src && /media|blob\.vercel-storage/.test(decodeURIComponent(src)), `expected uploaded image, got ${src}`);

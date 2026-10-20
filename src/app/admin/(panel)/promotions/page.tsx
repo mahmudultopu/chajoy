@@ -15,7 +15,7 @@ export default async function Promotions() {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-4xl font-semibold text-forest-900">Promotions</h1>
+        <h1 className="font-display text-4xl text-forest-900">Promotions</h1>
         <Link href="/admin/promotions/new" className="btn-primary py-2.5">
           New promotion
         </Link>

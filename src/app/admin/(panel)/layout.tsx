@@ -29,7 +29,7 @@ export default async function PanelLayout({ children }: { children: React.ReactN
         <div className="flex items-center justify-between gap-3 p-4 lg:p-5">
           <Link href="/admin" className="flex items-center gap-2.5">
             <Image src="/images/brand/chajoy-logo.webp" alt="" width={36} height={36} className="rounded-full" />
-            <span className="font-display text-lg font-semibold">CHAJOY Admin</span>
+            <span className="font-display text-lg">CHAJOY Admin</span>
           </Link>
           <Link href="/" className="text-xs text-cream-50/60 hover:text-cream-50 lg:hidden">
             View site

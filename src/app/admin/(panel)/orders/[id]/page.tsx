@@ -32,7 +32,7 @@ export default async function AdminOrder({ params }: { params: Promise<{ id: str
       </Link>
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="font-display text-4xl font-semibold text-forest-900">{o.orderNumber}</h1>
+          <h1 className="font-display text-4xl text-forest-900">{o.orderNumber}</h1>
           <p className="mt-1 text-sm text-forest-900/60">
             Placed {fmt(o.createdAt)} · {o.branch.name} · {o.fulfilmentMethod}
           </p>
@@ -42,7 +42,7 @@ export default async function AdminOrder({ params }: { params: Promise<{ id: str
             {o.isSampleConfig && <Badge tone="yellow">placed under sample settings</Badge>}
           </div>
         </div>
-        <p className="font-display text-4xl font-semibold tabular-nums text-forest-900">{formatBDT(o.totalPaisa)}</p>
+        <p className="font-display text-4xl tabular-nums text-forest-900">{formatBDT(o.totalPaisa)}</p>
       </div>
       {awaitingOnline && !["cancelled", "refunded"].includes(o.status) && (
         <p className="rounded-2xl bg-lemon-300/50 px-4 py-3 text-sm font-semibold text-forest-950">Online payment not completed — don&apos;t start preparing until it shows as paid.</p>

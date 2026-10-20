@@ -45,7 +45,7 @@ export function Showcase({ p, branchName }: { p: ShowcaseProduct; branchName: st
 
   return (
     <section className="relative overflow-hidden bg-cream-50 py-20 sm:py-28" aria-labelledby="showcase-title">
-      <p aria-hidden className="pointer-events-none absolute -top-6 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-[22vw] font-bold leading-none text-matcha-100/70">
+      <p aria-hidden className="pointer-events-none absolute -top-6 left-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-[22vw] leading-none text-matcha-100/70">
         {p.nameZh}
       </p>
       <div className="container-x relative grid items-center gap-10 lg:grid-cols-[1.15fr_1fr]">
@@ -65,7 +65,7 @@ export function Showcase({ p, branchName }: { p: ShowcaseProduct; branchName: st
 
         <div>
           <p className="eyebrow mb-3">Signature drink</p>
-          <h2 id="showcase-title" className="font-display text-5xl font-semibold leading-none tracking-tight text-forest-900 sm:text-6xl">
+          <h2 id="showcase-title" className="font-display text-5xl leading-none tracking-tight text-forest-900 sm:text-6xl">
             {p.name}
           </h2>
           <p className="mt-2 text-lg text-forest-900/50">{p.nameZh}</p>
@@ -86,7 +86,7 @@ export function Showcase({ p, branchName }: { p: ShowcaseProduct; branchName: st
                   )}
                 >
                   <span className="block text-sm font-semibold text-forest-900">{x.label}</span>
-                  <span className="mt-1 block font-display text-2xl font-semibold text-berry-600">{formatBDT(x.pricePaisa)}</span>
+                  <span className="mt-1 block font-display text-2xl text-berry-600">{formatBDT(x.pricePaisa)}</span>
                 </button>
               ))}
             </div>

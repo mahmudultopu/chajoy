@@ -15,7 +15,7 @@ export default async function AccountPage() {
     return (
       <div className="container-x py-12 sm:py-16">
         <div className="mx-auto mb-8 max-w-md text-center">
-          <h1 className="font-display text-5xl font-semibold tracking-tight text-forest-900">Your account</h1>
+          <h1 className="font-display text-5xl tracking-tight text-forest-900">Your account</h1>
           <p className="mt-3 text-forest-900/65">See your past orders, reorder favourites and save delivery addresses.</p>
         </div>
         <AuthForms />
@@ -32,13 +32,13 @@ export default async function AccountPage() {
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">Signed in as {customer.email}</p>
-          <h1 className="mt-2 font-display text-5xl font-semibold tracking-tight text-forest-900">Hi, {customer.name.split(" ")[0]}</h1>
+          <h1 className="mt-2 font-display text-5xl tracking-tight text-forest-900">Hi, {customer.name.split(" ")[0]}</h1>
         </div>
         <SignOutButton />
       </div>
       <div className="mt-10 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
         <section aria-labelledby="orders-h">
-          <h2 id="orders-h" className="font-display text-2xl font-semibold text-forest-900">
+          <h2 id="orders-h" className="font-display text-2xl text-forest-900">
             Your orders
           </h2>
           {orders.length === 0 ? (
@@ -62,7 +62,7 @@ export default async function AccountPage() {
                     <p className="text-sm font-semibold text-forest-900">{statusLabel(o.status, o.fulfilmentMethod)}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-display text-xl font-semibold">{formatBDT(o.totalPaisa)}</p>
+                    <p className="font-display text-xl">{formatBDT(o.totalPaisa)}</p>
                     <ReorderButton orderNumber={o.orderNumber} />
                   </div>
                 </li>
@@ -71,7 +71,7 @@ export default async function AccountPage() {
           )}
         </section>
         <section aria-labelledby="addr-h">
-          <h2 id="addr-h" className="font-display text-2xl font-semibold text-forest-900">
+          <h2 id="addr-h" className="font-display text-2xl text-forest-900">
             Saved addresses
           </h2>
           {addresses.length === 0 ? (

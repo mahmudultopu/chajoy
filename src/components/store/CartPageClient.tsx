@@ -25,7 +25,7 @@ export function CartPageClient({ initial }: { initial: CartView }) {
         <span className="grid size-20 place-items-center rounded-full bg-matcha-100">
           <ShoppingBag className="size-9 text-forest-800" />
         </span>
-        <h1 className="mt-6 font-display text-4xl font-semibold text-forest-900">Your cart is empty</h1>
+        <h1 className="mt-6 font-display text-4xl text-forest-900">Your cart is empty</h1>
         <p className="mt-2 text-forest-900/65">Find something cold, creamy or fruity on the menu.</p>
         <Link href="/menu" className="btn-primary mt-6">
           Browse the menu <ArrowRight className="size-4" />
@@ -36,7 +36,7 @@ export function CartPageClient({ initial }: { initial: CartView }) {
   return (
     <div className="grid gap-8 lg:grid-cols-[1.5fr_1fr]">
       <div>
-        <h1 className="font-display text-5xl font-semibold tracking-tight text-forest-900">Your cart</h1>
+        <h1 className="font-display text-5xl tracking-tight text-forest-900">Your cart</h1>
         <button onClick={() => setBranchPickerOpen(true)} className="mt-5 flex w-full items-center gap-3 rounded-3xl bg-white px-5 py-4 text-left ring-1 ring-forest-900/5 hover:ring-matcha-400">
           <MapPin className="size-5 text-matcha-600" />
           {view.branch ? (
@@ -58,7 +58,7 @@ export function CartPageClient({ initial }: { initial: CartView }) {
       </div>
       <aside className="lg:sticky lg:top-24 lg:self-start">
         <div className="card p-6">
-          <h2 className="font-display text-2xl font-semibold text-forest-900">Summary</h2>
+          <h2 className="font-display text-2xl text-forest-900">Summary</h2>
           <div className="mt-4">
             <CartSummary view={view} />
           </div>

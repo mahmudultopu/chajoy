@@ -31,6 +31,9 @@
   --color-boba-600: #7a4b2a;
   --color-boba-800: #3d2414;
   --color-ink: #13201a;
+  /* the reference's signature yellow for pills and price bars */
+  --color-pill: #ffe14d;
+  --color-pill-dark: #f7d21c;
 
   --font-display: var(--font-fraunces), var(--font-bengali), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-dm-sans), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
@@ -69,7 +72,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-cream-100 text-ink font-sans antialiased;
+    @apply bg-white text-ink font-sans antialiased;
     font-feature-settings: "ss01";
   }
   ::selection {
@@ -81,12 +84,15 @@
     outline-offset: 2px;
     border-radius: 6px;
   }
+  /* editorial serif: regular weight, crisp (no soft corners), like the reference */
   .font-display {
-    font-variation-settings: "SOFT" 100, "WONK" 0;
+    font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 144;
+    font-weight: 400;
+    letter-spacing: -0.015em;
   }
   .font-display em,
   .font-display i {
-    font-variation-settings: "SOFT" 100, "WONK" 1;
+    font-variation-settings: "SOFT" 0, "WONK" 1, "opsz" 144;
   }
 }
 
@@ -102,6 +108,9 @@
 }
 @utility btn-matcha {
   @apply btn bg-matcha-400 text-forest-900 hover:bg-matcha-300 shadow-soft;
+}
+@utility btn-pill {
+  @apply btn bg-pill text-ink hover:bg-pill-dark;
 }
 @utility btn-ghost {
   @apply btn border border-forest-800/15 bg-white/60 text-forest-900 hover:bg-white;

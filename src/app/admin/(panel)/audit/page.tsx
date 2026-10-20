@@ -18,7 +18,7 @@ export default async function Audit({ searchParams }: { searchParams: Promise<{ 
   ]);
   return (
     <div className="space-y-5">
-      <h1 className="font-display text-4xl font-semibold text-forest-900">Audit log</h1>
+      <h1 className="font-display text-4xl text-forest-900">Audit log</h1>
       <form method="get" className="flex gap-2">
         <input name="q" defaultValue={sp.q} className="input max-w-sm py-2" placeholder="Search actions, people, summaries" />
         <button className="btn-ghost py-2">Search</button>

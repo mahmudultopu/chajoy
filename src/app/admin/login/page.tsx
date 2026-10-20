@@ -14,7 +14,7 @@ export default async function AdminLogin() {
         <div className="mb-6 flex items-center gap-3 text-cream-50">
           <Image src="/images/brand/chajoy-logo.webp" alt="" width={48} height={48} className="rounded-full" />
           <div>
-            <p className="font-display text-xl font-semibold">CHAJOY Admin</p>
+            <p className="font-display text-xl">CHAJOY Admin</p>
             <p className="text-sm text-cream-50/60">Staff only</p>
           </div>
         </div>

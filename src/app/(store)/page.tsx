@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Tag } from "lucide-react";
-import { Hero } from "@/components/home/Hero";
 import { FeaturedMenu } from "@/components/home/FeaturedMenu";
-import { Showcase } from "@/components/home/Showcase";
-import { CategoryTiles, Marquee, SectionHeading, SocialSection, StorySection } from "@/components/home/Sections";
+import { HeroBanner, JustRight, MadeYourWay, MatchaBanner, SocialStrip, VisitUs, wrap } from "@/components/home/HomeSections";
 import { BranchFinder } from "@/components/branches/BranchFinder";
 import { toCardProduct } from "@/components/product/types";
 import { listCategories, loadCatalog } from "@/lib/services/catalog";
-import { listBranches, rankBranches } from "@/lib/services/branches";
+import { listBranches, rankBranches, toPublicBranch } from "@/lib/services/branches";
 import { livePromotions } from "@/lib/services/promotions";
 import { getSettings } from "@/lib/services/settings";
 import { selectedBranch } from "@/lib/request";
@@ -39,68 +37,40 @@ export default async function HomePage() {
     ...cats.map((c) => ({ id: c.slug, label: c.name, items: sellable.filter((p) => p.category.slug === c.slug).map(toCardProduct) })),
   ].filter((t) => t.items.length);
 
-  const tiles = cats.map((c) => {
-    const items = sellable.filter((p) => p.category.slug === c.slug);
-    const hero = items.find((p) => p.isFeatured) ?? items[0];
-    return {
-      slug: c.slug,
-      name: c.name,
-      menuName: c.menuName,
-      accent: c.accent,
-      image: hero?.image?.url ?? null,
-      count: items.length,
-      fromPaisa: items.length ? Math.min(...items.map((p) => p.fromPricePaisa)) : 0,
-    };
+  const matcha = sellable.filter((p) => /matcha/i.test(p.name) || p.optionConfig.flavours?.includes("matcha"));
+  const matchaFrom = matcha.length ? Math.min(...matcha.map((p) => p.fromPricePaisa)) : null;
+  const visit = branches.slice(0, 3).map((b) => {
+    const pb = toPublicBranch(b);
+    return { slug: pb.slug, name: pb.name, address: [pb.addressLine ?? pb.area, pb.city].filter(Boolean).join(", "), photo: pb.photoUrl, status: pb.openLabel };
   });
-
-  const boba = sellable.find((p) => p.slug === "boba-milk-tea");
-  const showcase =
-    boba && boba.model3d?.kind === "procedural"
-      ? {
-          id: boba.id,
-          slug: boba.slug,
-          name: boba.name,
-          nameZh: boba.nameZh,
-          description: boba.description,
-          image: boba.image?.url ?? null,
-          visual: boba.model3d.visual,
-          temperatures: boba.optionConfig.temperatures ?? [],
-          variants: boba.variants.map((v) => ({ id: v.id, sizeCode: v.sizeCode, label: v.label, volumeMl: v.volumeMl, pricePaisa: v.pricePaisa, available: v.available })),
-          availability: boba.availability,
-        }
-      : null;
 
   return (
     <>
-      <Hero
-        copy={settings.hero}
-        callout={boba ? { name: boba.name, slug: boba.slug, prices: boba.variants.map((v) => `${v.sizeCode} ${formatBDT(v.pricePaisa)}`).join("  ·  ") } : null}
-      />
-      <Marquee />
+      <HeroBanner itemCount={sellable.length} copy={settings.hero} />
       <FeaturedMenu tabs={tabs} branchName={branch?.name ?? null} />
-      <CategoryTiles tiles={tiles} />
-      {showcase && <Showcase p={showcase} branchName={branch?.name ?? null} />}
+      <MadeYourWay />
+      <JustRight />
+      {matchaFrom !== null && <MatchaBanner fromPrice={formatBDT(matchaFrom)} />}
 
-      <section id="branches" className="container-x scroll-mt-20 py-20 sm:py-28" aria-labelledby="near-title">
-        <div id="near-title" className="mb-10">
-          <SectionHeading eyebrow="Find a branch" title="Your favourite CHAJOY," accent="closer to you.">
-            Share your location or search your area to see the nearest branch, whether it&apos;s open, and what it can make for you.
-          </SectionHeading>
-        </div>
+      <section id="branches" className={`${wrap} scroll-mt-24 pb-20 sm:pb-28`} aria-labelledby="near-title">
+        <h2 id="near-title" className="mb-3 font-display text-[38px] leading-[1.05] text-ink sm:text-[48px]">
+          Find <em>your nearest</em> chajoy
+        </h2>
+        <p className="mb-8 max-w-xl text-ink/70">Share your location or search your area to see the nearest branch, whether it&apos;s open, and what it can make for you.</p>
         <BranchFinder initial={ranked} />
       </section>
 
       {promos.length > 0 && (
-        <section className="container-x pb-20" aria-labelledby="offers-title">
-          <div id="offers-title">
-            <SectionHeading eyebrow="Offers" title="Little extras," accent="on us." />
-          </div>
+        <section className={`${wrap} pb-20`} aria-labelledby="offers-title">
+          <h2 id="offers-title" className="font-display text-[38px] leading-none text-ink sm:text-[46px]">
+            Little extras, <em>on us</em>
+          </h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {promos.slice(0, 4).map((p) => (
-              <article key={p.id} className="rounded-4xl bg-lemon-300/60 p-6 ring-1 ring-forest-900/5">
-                <Tag className="size-5 text-forest-900" />
-                <h3 className="mt-3 font-display text-2xl font-semibold text-forest-900">{p.title}</h3>
-                {p.description && <p className="mt-1 text-forest-900/75">{p.description}</p>}
+              <article key={p.id} className="rounded-2xl bg-pill/70 p-6">
+                <Tag className="size-5 text-ink" />
+                <h3 className="mt-3 font-display text-2xl text-ink">{p.title}</h3>
+                {p.description && <p className="mt-1 text-ink/75">{p.description}</p>}
                 {p.rules.some((r) => r.code) && (
                   <p className="mt-3 text-sm">
                     Use code{" "}
@@ -113,20 +83,20 @@ export default async function HomePage() {
                       ))}
                   </p>
                 )}
-                <p className="mt-3 text-xs text-forest-900/60">
+                <p className="mt-3 text-xs text-ink/60">
                   Valid until {p.endsAt.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Dhaka" })}. {p.terms}
                 </p>
               </article>
             ))}
           </div>
-          <Link href="/offers" className="btn-ghost mt-6">
+          <Link href="/offers" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink underline underline-offset-4">
             All offers <ArrowRight className="size-4" />
           </Link>
         </section>
       )}
 
-      <StorySection title={settings.story.title} paragraphs={settings.story.paragraphs} branchCount={branches.length} />
-      <SocialSection instagram={settings.social.instagram} facebook={settings.social.facebook} />
+      <SocialStrip instagram={settings.social.instagram} />
+      <VisitUs branches={visit} />
     </>
   );
 }

@@ -35,7 +35,7 @@ export function Hero({ copy, callout }: { copy: HeroCopy; callout: { name: strin
           {(env) => <HeroScene env={env} triggerId="hero" layer="back" />}
         </SceneGate>
 
-        <h1 className="relative z-[5] mt-8 select-none text-center font-display font-semibold leading-[0.84] tracking-[-0.035em] sm:mt-6">
+        <h1 className="relative z-[5] mt-8 select-none text-center font-display leading-[0.84] tracking-[-0.035em] sm:mt-6">
           <span className="block text-[clamp(4.1rem,15.5vw,13.75rem)] text-cream-50">{copy.headline}</span>
           <span className="mt-[0.22em] block text-[clamp(4.1rem,15.5vw,13.75rem)] italic text-matcha-300 sm:mt-[0.3em]">{copy.headlineAccent}</span>
         </h1>
@@ -78,7 +78,7 @@ export function Hero({ copy, callout }: { copy: HeroCopy; callout: { name: strin
             {callout && (
               <Link href={`/products/${callout.slug}`} className="group rounded-3xl bg-cream-50 px-5 py-4 text-forest-900 shadow-lift transition hover:-translate-y-0.5">
                 <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-matcha-700">In the spotlight</p>
-                <p className="mt-1 font-display text-xl font-semibold">{callout.name}</p>
+                <p className="mt-1 font-display text-xl">{callout.name}</p>
                 <p className="mt-0.5 text-sm font-semibold text-berry-600">{callout.prices}</p>
                 <span className="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-forest-900/70 group-hover:text-forest-900">
                   Customize yours <ArrowRight className="size-3.5" />

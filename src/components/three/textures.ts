@@ -110,38 +110,50 @@ export function tigerStripeTexture(base: string, syrup: string, key = "") {
   if (cache.has(id)) return cache.get(id)!;
   const W = 1024;
   const H = 512;
-  const rand = seeded(base.length * 31 + syrup.length);
+  const rand = seeded(base.length * 31 + syrup.length + key.length);
   const [c, x] = canvas(W, H);
+  // creamy body that darkens into the syrup pooled at the bottom
   const g = x.createLinearGradient(0, 0, 0, H);
   g.addColorStop(0, base);
-  g.addColorStop(0.72, base);
+  g.addColorStop(0.68, base);
+  g.addColorStop(0.9, syrup);
   g.addColorStop(1, syrup);
   x.fillStyle = g;
   x.fillRect(0, 0, W, H);
-  // v=0 is the bottom of the lathe, canvas y=0 is the top of the image -> streaks flow toward canvas bottom
-  x.globalCompositeOperation = "multiply";
-  for (let i = 0; i < 34; i++) {
-    const sx = rand() * W;
-    const top = rand() * H * 0.35;
-    const width = 6 + rand() * 26;
+
+  // brown-sugar syrup smeared down the inside of the cup: soft wide washes…
+  const smear = (blur: number, count: number, wMin: number, wMax: number, alpha: [number, number]) => {
+    x.save();
+    x.filter = `blur(${blur}px)`;
+    x.globalCompositeOperation = "multiply";
     x.strokeStyle = syrup;
-    x.globalAlpha = 0.35 + rand() * 0.45;
     x.lineCap = "round";
-    x.lineWidth = width;
-    x.beginPath();
-    x.moveTo(sx, top);
-    const bend = (rand() - 0.5) * 120;
-    x.bezierCurveTo(sx + bend, top + H * 0.3, sx - bend, top + H * 0.55, sx + bend * 0.4, H);
-    x.stroke();
-    x.lineWidth = width * 0.35;
-    x.globalAlpha *= 0.6;
-    x.beginPath();
-    x.moveTo(sx + width, top + 20);
-    x.bezierCurveTo(sx + bend + width, top + H * 0.4, sx - bend, top + H * 0.6, sx + bend, H);
-    x.stroke();
-  }
-  x.globalAlpha = 1;
-  x.globalCompositeOperation = "source-over";
+    for (let i = 0; i < count; i++) {
+      const sx = rand() * W;
+      let px = sx;
+      let py = rand() * H * 0.25;
+      const w0 = wMin + rand() * (wMax - wMin);
+      const sway = (rand() - 0.5) * 2;
+      const steps = 28;
+      for (let k = 0; k < steps; k++) {
+        const t = k / steps;
+        const nx = px + Math.sin(t * 5 + sx) * 6 * sway + sway * 3;
+        const ny = py + (H - py) / (steps - k);
+        x.globalAlpha = alpha[0] + rand() * (alpha[1] - alpha[0]);
+        x.lineWidth = w0 * (0.55 + 0.45 * Math.sin(t * Math.PI * 0.9 + 0.3));
+        x.beginPath();
+        x.moveTo(px, py);
+        x.lineTo(nx, ny);
+        x.stroke();
+        px = nx;
+        py = ny;
+      }
+    }
+    x.restore();
+  };
+  smear(16, 9, 40, 80, [0.07, 0.13]);
+  // …and thinner, sharper drips on top
+  smear(2.5, 16, 5, 14, [0.18, 0.34]);
   const t = toTexture(c, { srgb: true });
   t.wrapT = THREE.ClampToEdgeWrapping;
   t.flipY = true;
