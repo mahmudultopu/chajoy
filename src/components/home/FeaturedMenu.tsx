@@ -34,7 +34,7 @@ export function FeaturedMenu({ tabs, branchName }: { tabs: { id: string; label: 
           <span>
             <em>Discover</em> our menu
           </span>
-          <span className="hidden h-px w-14 bg-ink sm:block" aria-hidden />
+          <span className="hidden h-[2px] w-6 bg-ink sm:block" aria-hidden />
         </h2>
         <div className="flex min-w-0 items-center gap-3">
           <div className="-mx-4 min-w-0 flex gap-2 overflow-x-auto px-4 pb-1 [&::-webkit-scrollbar]:hidden lg:mx-0 lg:px-0" role="tablist" aria-label="Menu categories">
@@ -46,8 +46,8 @@ export function FeaturedMenu({ tabs, branchName }: { tabs: { id: string; label: 
                 aria-controls="featured-panel"
                 onClick={() => setTab(t.id)}
                 className={clsx(
-                  "shrink-0 rounded-full px-4 py-2 text-sm font-medium transition",
-                  t.id === current?.id ? "bg-pill text-ink" : "bg-[#f4f1ea] text-ink/75 hover:text-ink",
+                  "shrink-0 rounded-full border bg-white px-4 py-2 text-[13px] font-medium text-ink transition",
+                  t.id === current?.id ? "border-ink ring-1 ring-ink" : "border-black/15 hover:border-black/40",
                 )}
               >
                 {t.label}

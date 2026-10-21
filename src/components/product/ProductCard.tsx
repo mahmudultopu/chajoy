@@ -8,7 +8,6 @@ import { ChevronDown, LoaderCircle, Plus } from "lucide-react";
 import { formatBDT } from "@/lib/money";
 import { useStore } from "@/components/store/StoreProvider";
 import type { CardProduct } from "./types";
-import { tint } from "@/lib/color";
 
 const SIZE_NAME: Record<string, string> = { S: "Small", M: "Medium", L: "Large" };
 
@@ -39,24 +38,31 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
 
   return (
     <article className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-black/[0.07] bg-white transition duration-300 hover:shadow-lift">
-      <Link href={`/products/${p.slug}`} className="relative block aspect-square overflow-hidden" style={{ background: p.renderBg ?? tint(p.accent, 22) }} aria-label={p.name}>
-        {p.render ? (
-          <>
-            <Image
-              src={p.render}
-              alt={`${p.name} — 3D illustration`}
-              fill
-              priority={priority}
-              sizes="(min-width:1280px) 290px, (min-width:768px) 30vw, 70vw"
-              className={clsx("object-cover transition duration-700 group-hover:scale-[1.05]", p.renderAlt && "group-hover:opacity-0")}
-            />
-            {p.renderAlt && (
-              <Image src={p.renderAlt} alt="" fill sizes="(min-width:1280px) 290px, 70vw" className="object-cover opacity-0 transition duration-700 group-hover:scale-[1.05] group-hover:opacity-100" />
-            )}
-          </>
-        ) : (
-          p.image && <Image src={p.image.url} alt={p.image.alt} fill sizes="290px" className="menu-photo object-contain p-[14%]" />
-        )}
+      <Link
+        href={`/products/${p.slug}`}
+        className="relative block aspect-[1/0.92] overflow-hidden"
+        style={{ background: `linear-gradient(180deg, ${p.backdrop[0]} 0%, ${p.backdrop[1]} 100%)` }}
+        aria-label={p.name}
+      >
+        <span aria-hidden className="absolute bottom-[6%] left-1/2 h-[9%] w-[58%] -translate-x-1/2 rounded-[50%] bg-black/15 blur-md" />
+        {p.image &&
+          (p.image.cut ? (
+            <>
+              <Image
+                src={p.image.url}
+                alt={p.image.alt}
+                fill
+                priority={priority}
+                sizes="(min-width:1280px) 290px, (min-width:768px) 30vw, 70vw"
+                className={clsx("object-contain px-[8%] pb-[7%] pt-[9%] drop-shadow-[0_14px_18px_rgba(0,0,0,0.18)] transition duration-700 group-hover:scale-[1.06]", p.hoverImage && "group-hover:opacity-0")}
+              />
+              {p.hoverImage && (
+                <Image src={p.hoverImage} alt="" fill sizes="(min-width:1280px) 290px, 70vw" className="object-contain px-[8%] pb-[7%] pt-[9%] opacity-0 drop-shadow-[0_14px_18px_rgba(0,0,0,0.18)] transition duration-700 group-hover:scale-[1.06] group-hover:opacity-100" />
+              )}
+            </>
+          ) : (
+            <Image src={p.image.url} alt={p.image.alt} fill sizes="290px" className="object-cover" />
+          ))}
         {p.availability === "unavailable_at_branch" && (
           <span className="absolute inset-x-3 bottom-3 rounded-xl bg-black/70 px-3 py-2 text-center text-xs font-semibold text-white backdrop-blur">
             Currently unavailable{branchName ? ` at ${branchName.replace(/^CHAJOY\s+/, "")}` : " at this branch"}
@@ -76,12 +82,12 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
       </button>
 
       <div className="flex flex-1 flex-col gap-3 px-3.5 pb-3.5 pt-3">
-        <h3 className="text-[17px] font-medium leading-snug text-ink">
+        <h3 className="text-[17px] font-semibold leading-snug text-ink">
           <Link href={`/products/${p.slug}`} className="hover:underline">
             {p.name}
           </Link>
         </h3>
-        <div className="relative mt-auto flex items-center justify-between gap-2 rounded-md bg-pill px-3 py-2 text-[13px] text-ink">
+        <div className="relative mt-auto flex items-center justify-between gap-2 rounded-[5px] bg-pill px-3 py-[7px] text-[13px] font-medium text-ink">
           {p.variants.length > 1 ? (
             <>
               <label className="sr-only" htmlFor={`size-${p.id}`}>
@@ -91,7 +97,7 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
                 id={`size-${p.id}`}
                 value={v?.id}
                 onChange={(e) => setVariantId(Number(e.target.value))}
-                className="min-w-0 flex-1 cursor-pointer appearance-none truncate bg-transparent pr-2 font-medium focus:outline-none"
+                className="min-w-0 flex-1 cursor-pointer appearance-none truncate bg-transparent pr-2 focus:outline-none"
               >
                 {p.variants.map((x) => (
                   <option key={x.id} value={x.id}>
@@ -101,9 +107,9 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
               </select>
             </>
           ) : (
-            <span className="min-w-0 flex-1 truncate font-medium">{v ? sizeText(v) : ""}</span>
+            <span className="min-w-0 flex-1 truncate">{v ? sizeText(v) : ""}</span>
           )}
-          <span className="pointer-events-none flex shrink-0 items-center gap-1 font-semibold tabular-nums">
+          <span className="pointer-events-none flex shrink-0 items-center gap-1 text-[13px] font-bold tabular-nums">
             {v ? formatBDT(v.pricePaisa) : "—"}
             {p.variants.length > 1 && <ChevronDown className="size-3.5" />}
           </span>

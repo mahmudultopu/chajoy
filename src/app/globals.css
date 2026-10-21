@@ -32,8 +32,8 @@
   --color-boba-800: #3d2414;
   --color-ink: #13201a;
   /* the reference's signature yellow for pills and price bars */
-  --color-pill: #ffe14d;
-  --color-pill-dark: #f7d21c;
+  --color-pill: #fbe84c;
+  --color-pill-dark: #f2da1f;
 
   --font-display: var(--font-fraunces), var(--font-bengali), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-dm-sans), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;

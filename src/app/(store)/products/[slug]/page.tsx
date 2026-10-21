@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { renderFor } from "@/lib/renders";
+import { backdropFor, cutoutOf } from "@/lib/cutouts";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -92,8 +92,8 @@ export default async function ProductPage({ params }: Props) {
           availability: p.availability,
           optionConfig: p.optionConfig,
           visual: p.model3d?.kind === "procedural" ? p.model3d.visual : null,
-          images: p.images.map((i) => ({ url: i.url, alt: i.alt, variantKey: i.variantKey, sourceType: i.sourceType, isLowRes: i.isLowRes })),
-          render: { original: renderFor(p.slug), matcha: renderFor(p.slug, "matcha") },
+          images: p.images.map((i) => ({ url: cutoutOf(i.url) ?? i.url, cut: !!cutoutOf(i.url), alt: i.alt, variantKey: i.variantKey, sourceType: i.sourceType, isLowRes: i.isLowRes })),
+          backdrop: backdropFor(p.slug),
           variants: p.variants.map((v) => ({ id: v.id, sizeCode: v.sizeCode, label: v.label, volumeMl: v.volumeMl, pricePaisa: v.pricePaisa, available: v.available, stockNote: v.stockNote })),
           toppings,
         }}

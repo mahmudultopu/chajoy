@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Tag } from "lucide-react";
 import { FeaturedMenu } from "@/components/home/FeaturedMenu";
-import { HeroBanner, JustRight, MadeYourWay, MatchaBanner, SocialStrip, VisitUs, wrap } from "@/components/home/HomeSections";
+import { HeroBanner, JustRight, MatchaBanner, ToppingsWave, SocialStrip, VisitUs, wrap } from "@/components/home/HomeSections";
 import { BranchFinder } from "@/components/branches/BranchFinder";
 import { toCardProduct } from "@/components/product/types";
 import { listCategories, loadCatalog } from "@/lib/services/catalog";
@@ -37,6 +37,8 @@ export default async function HomePage() {
     ...cats.map((c) => ({ id: c.slug, label: c.name, items: sellable.filter((p) => p.category.slug === c.slug).map(toCardProduct) })),
   ].filter((t) => t.items.length);
 
+  const toppingPrices = catalog.filter((p) => p.isAddon).flatMap((p) => p.variants.map((v) => v.pricePaisa));
+  const toppingPrice = toppingPrices.length && Math.min(...toppingPrices) === Math.max(...toppingPrices) ? formatBDT(toppingPrices[0]) : null;
   const matcha = sellable.filter((p) => /matcha/i.test(p.name) || p.optionConfig.flavours?.includes("matcha"));
   const matchaFrom = matcha.length ? Math.min(...matcha.map((p) => p.fromPricePaisa)) : null;
   const visit = branches.slice(0, 3).map((b) => {
@@ -48,7 +50,7 @@ export default async function HomePage() {
     <>
       <HeroBanner itemCount={sellable.length} copy={settings.hero} />
       <FeaturedMenu tabs={tabs} branchName={branch?.name ?? null} />
-      <MadeYourWay />
+      {toppingPrice && <ToppingsWave price={toppingPrice} />}
       <JustRight />
       {matchaFrom !== null && <MatchaBanner fromPrice={formatBDT(matchaFrom)} />}
 
