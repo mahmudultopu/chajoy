@@ -11,9 +11,9 @@ const model = await AutoModel.from_pretrained("briaai/RMBG-1.4", { config: { mod
 const processor = await AutoProcessor.from_pretrained("briaai/RMBG-1.4", {
   config: { do_normalize: true, do_pad: false, do_rescale: true, do_resize: true, image_mean: [0.5, 0.5, 0.5], feature_extractor_type: "ImageFeatureExtractor", image_std: [1, 1, 1], resample: 2, rescale_factor: 0.00392156862745098, size: { width: 1024, height: 1024 } },
 });
-const files = fs.readdirSync(src).filter((f) => f.endsWith(".webp") && (!only || only.split(",").some((o) => f.startsWith(o))));
+const files = fs.readdirSync(src).filter((f) => /\.(webp|png)$/.test(f) && (!only || only.split(",").some((o) => f.startsWith(o))));
 for (const f of files) {
-  const big = await sharp(path.join(src, f)).resize({ height: 960, kernel: "lanczos3" }).removeAlpha().png().toBuffer();
+  const big = await sharp(path.join(src, f)).resize({ height: Number(process.env.HEIGHT ?? 960), kernel: "lanczos3" }).removeAlpha().png().toBuffer();
   const { width, height } = await sharp(big).metadata();
   const image = await RawImage.fromBlob(new Blob([big], { type: "image/png" }));
   const { pixel_values } = await processor(image);
@@ -53,6 +53,6 @@ for (const f of files) {
   const keep = await sharp(Buffer.from(bg.map((v) => (v ? 0 : 255))), { raw: { width, height, channels: 1 } }).blur(1.2).extractChannel(0).raw().toBuffer();
   for (let i = 0; i < alpha.length; i++) alpha[i] = Math.min(alpha[i], keep[i]);
   const rgba = await sharp(big).joinChannel(alpha, { raw: { width, height, channels: 1 } }).png().toBuffer();
-  await sharp(rgba).trim({ threshold: 1 }).webp({ quality: 90, alphaQuality: 100 }).toFile(path.join(out, f));
+  await sharp(rgba).trim({ threshold: 1 }).webp({ quality: 90, alphaQuality: 100 }).toFile(path.join(out, f.replace(/\.png$/, ".webp")));
   console.log("ok", f);
 }

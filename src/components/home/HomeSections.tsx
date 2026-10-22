@@ -38,9 +38,9 @@ function PhotoStack({ shots, className = "" }: { shots: Shot[]; className?: stri
 
 export function HeroBanner({ itemCount, copy }: { itemCount: number; copy: { headline: string; headlineAccent: string; subhead: string } }) {
   const shots: Shot[] = [
-    { src: "/images/cutouts/matcha-oreo-shake-milkshake.webp", alt: "CHAJOY Matcha Oreo Shake", h: "56%", x: "24%", rotate: -6 },
-    { src: "/images/cutouts/boba-milk-tea.webp", alt: "CHAJOY Boba Milk Tea", h: "78%", x: "50%", z: 3 },
-    { src: "/images/cutouts/ice-cream.webp", alt: "CHAJOY original and matcha soft serve cones", h: "58%", x: "77%", rotate: 5 },
+    { src: "/images/cutouts/hq/chocolate-oreo-crumb-sundae--original.webp", alt: "CHAJOY Chocolate Oreo Crumb Sundae", h: "74%", x: "21%", rotate: -7 },
+    { src: "/images/cutouts/hq/boba-milk-tea.webp", alt: "CHAJOY Boba Milk Tea", h: "82%", x: "50%", z: 3, rotate: 4 },
+    { src: "/images/cutouts/hq/strawberry-sundae--matcha.webp", alt: "CHAJOY matcha Strawberry Sundae", h: "72%", x: "80%", rotate: 8 },
   ];
   return (
     <section className={`${wrap} pt-4 sm:pt-5`}>
@@ -56,7 +56,10 @@ export function HeroBanner({ itemCount, copy }: { itemCount: number; copy: { hea
           </PillLink>
         </div>
 
-        <PhotoStack shots={shots} className="relative h-[340px] sm:h-[420px] lg:absolute lg:inset-y-0 lg:left-[40%] lg:right-[15%] lg:h-auto" />
+        <PhotoStack shots={shots} className="relative h-[340px] sm:h-[420px] lg:absolute lg:inset-y-0 lg:left-[38%] lg:right-[14%] lg:h-auto" />
+        <div className="pointer-events-none absolute bottom-[4%] left-[2%] z-20 h-[24%] w-[22%] sm:left-[6%] lg:bottom-[5%] lg:left-[29%] lg:h-[28%] lg:w-[11%]">
+          <Image src="/images/cutouts/hq/penguin.webp" alt="CHAJOY penguin mascot" fill sizes="160px" className="object-contain drop-shadow-[0_12px_14px_rgba(0,0,0,0.2)]" />
+        </div>
 
         <div className="pointer-events-none absolute right-8 top-10 z-10 hidden flex-col items-center text-center lg:flex">
           <span className="relative block size-[74px] overflow-hidden rounded-full ring-4 ring-white/70">
@@ -123,22 +126,16 @@ export function ToppingsWave({ price }: { price: string }) {
 
 export function JustRight() {
   const points = ["Choose 50%, 75% or 100% sugar", "Less or normal ice — or order milk teas hot", "Add brown pearl, pudding, coconut jelly, crystal ball or crushed cone"];
-  const shots: Shot[] = [
-    { src: "/images/cutouts/guava-iced-lemon-green-tea.webp", alt: "CHAJOY Guava Iced Lemon Green Tea", h: "70%", x: "27%", rotate: -5 },
-    { src: "/images/cutouts/strawberry-and-lemon-tea.webp", alt: "CHAJOY Strawberry and Lemon Tea", h: "86%", x: "50%", z: 3 },
-    { src: "/images/cutouts/jasmine-peach-green-tea.webp", alt: "CHAJOY Jasmine Peach Green Tea", h: "70%", x: "73%", rotate: 5 },
-  ];
   return (
     <section className={`${wrap} grid items-center gap-10 pb-20 sm:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-20`} aria-labelledby="right-title">
-      <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-[linear-gradient(160deg,#c6f1ee_0%,#9fe0da_100%)]">
-        <div aria-hidden className="absolute left-1/2 top-[40%] size-[60%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 blur-3xl" />
-        <PhotoStack shots={shots} className="absolute inset-0" />
+      <div className="relative aspect-[4/3] overflow-hidden rounded-[18px] bg-[#b1eae6]">
+        <Image src="/images/social/boba-on-table.webp" alt="A CHAJOY Boba Milk Tea on a café table, being photographed on a phone" fill sizes="(min-width:1024px) 640px, 100vw" className="object-cover" />
       </div>
       <div>
         <h2 id="right-title" className="font-display text-[40px] leading-[1.05] text-ink sm:text-[50px]">
-          Sip <em>fruit tea</em>
+          Your next <em>boba</em>
           <br />
-          your way, every time
+          obsession, made just right
         </h2>
         <p className="mt-5 max-w-md text-[15px] leading-relaxed text-ink/75">Every CHAJOY drink is made to order, the way you like it — straight from our menu board.</p>
         <ul className="mt-7 space-y-4">
@@ -161,8 +158,8 @@ export function JustRight() {
 export function MatchaBanner({ fromPrice }: { fromPrice: string }) {
   const shots: Shot[] = [
     { src: "/images/cutouts/brown-sugar-boba-sundae--matcha.webp", alt: "CHAJOY matcha Brown Sugar Boba Sundae", h: "66%", x: "24%", rotate: -5 },
-    { src: "/images/cutouts/matcha-oreo-shake-milkshake.webp", alt: "CHAJOY Matcha Oreo Shake", h: "80%", x: "50%", z: 3 },
-    { src: "/images/cutouts/chocolate-oreo-crumb-sundae--matcha.webp", alt: "CHAJOY matcha Chocolate Oreo Crumb Sundae", h: "66%", x: "76%", rotate: 5 },
+    { src: "/images/cutouts/hq/strawberry-sundae--matcha.webp", alt: "CHAJOY matcha Strawberry Sundae", h: "84%", x: "50%", z: 3, rotate: 4 },
+    { src: "/images/cutouts/matcha-oreo-shake-milkshake.webp", alt: "CHAJOY Matcha Oreo Shake", h: "66%", x: "77%", rotate: 6 },
   ];
   return (
     <section className={`${wrap} pb-20 sm:pb-28`} aria-labelledby="indulge-title">
@@ -202,13 +199,14 @@ export function MatchaBanner({ fromPrice }: { fromPrice: string }) {
 // ------------------------------------------------------------------ "Sippin' on social"
 
 const SOCIAL = [
-  { src: "/images/stores/badda.webp", caption: "CHAJOY Badda", alt: "CHAJOY Badda storefront with a green balloon arch" },
-  { src: "/images/brand/three-cups.webp", caption: "On the counter", alt: "Three CHAJOY desserts" },
-  { src: "/images/brand/cone-in-store.webp", caption: "Cone o'clock", alt: "A CHAJOY ice cream cone held up in store" },
-  { src: "/images/stores/bonasree.webp", caption: "CHAJOY Bonasree", alt: "CHAJOY Bonasree shopfront" },
-  { src: "/images/brand/store-interior.webp", caption: "Take a seat", alt: "CHAJOY seating area" },
-  { src: "/images/stores/rampura.webp", caption: "CHAJOY Rampura", alt: "CHAJOY Rampura shopfront" },
-  { src: "/images/brand/matcha-new-product.webp", caption: "New: matcha", alt: "CHAJOY matcha range poster" },
+  { src: "/images/social/drink-at-counter.webp", caption: "Fresh off the counter", alt: "A CHAJOY fruit tea held up at the counter" },
+  { src: "/images/social/blueberry-and-lemon.webp", caption: "Sip the good vibes", alt: "CHAJOY Blueberry Milkshake and Lemon Black Tea" },
+  { src: "/images/social/storefront-corner.webp", caption: "CHAJOY Mohammadpur", alt: "CHAJOY corner storefront in Mohammadpur" },
+  { src: "/images/social/seating.webp", caption: "Grab a seat", alt: "CHAJOY seating with green chairs and a checked floor" },
+  { src: "/images/social/lounge.webp", caption: "Sip, smile, repeat", alt: "CHAJOY lounge with a green sofa" },
+  { src: "/images/social/storefront-stairs.webp", caption: "Share cha, share joy", alt: "CHAJOY storefront with the penguin sign" },
+  { src: "/images/social/interior-logo.webp", caption: "Hello from the penguin", alt: "CHAJOY interior with the penguin logo" },
+  { src: "/images/social/takeaway-bag.webp", caption: "To go", alt: "A CHAJOY takeaway bag on the counter" },
 ];
 
 export function SocialStrip({ instagram }: { instagram: string }) {

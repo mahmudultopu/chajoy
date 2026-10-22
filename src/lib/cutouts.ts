@@ -49,14 +49,19 @@ const CUTOUTS = new Set([
   "topping-pudding",
 ]);
 
+// Sharper cut-outs taken from CHAJOY's official high-resolution posters
+// (facebook.com/ChaJoy-Bangladesh). Preferred over the menu-board crops.
+const HQ = new Set(["boba-milk-tea", "chocolate-oreo-crumb-sundae--original", "strawberry-sundae--matcha"]);
+
+export function cutoutFor(name: string): string | null {
+  if (HQ.has(name)) return `/images/cutouts/hq/${name}.webp`;
+  return CUTOUTS.has(name) ? `/images/cutouts/${name}.webp` : null;
+}
+
 /** Cut-out version of an official product photo URL, or null if there isn't one. */
 export function cutoutOf(url: string | null | undefined): string | null {
   const m = url?.match(/^\/images\/products\/([a-z0-9-]+)\.webp$/);
-  return m && CUTOUTS.has(m[1]) ? `/images/cutouts/${m[1]}.webp` : null;
-}
-
-export function cutoutFor(name: string): string | null {
-  return CUTOUTS.has(name) ? `/images/cutouts/${name}.webp` : null;
+  return m ? cutoutFor(m[1]) : null;
 }
 
 const FALLBACK: [string, string] = ["#fdf3c4", "#f9dc5c"];
