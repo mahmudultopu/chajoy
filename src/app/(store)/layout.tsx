@@ -1,3 +1,5 @@
+/** Storefront layout: announcement bar, header, footer, cart drawer and dialogs. */
+
 import { StoreProvider } from "@/components/store/StoreProvider";
 import { SiteHeader, MobileCartBar } from "@/components/store/SiteHeader";
 import { SiteFooter } from "@/components/store/SiteFooter";
@@ -13,6 +15,7 @@ import { liveAnnouncements } from "@/lib/services/promotions";
 import { cartLines } from "@/lib/services/cart";
 import { currentCart, selectedBranch } from "@/lib/request";
 
+/** Wraps every storefront page with shared chrome and store state. */
 export default async function StoreLayout({ children }: { children: React.ReactNode }) {
   const [settings, branches, categories, catalog, branch, cart] = await Promise.all([
     getSettings(),

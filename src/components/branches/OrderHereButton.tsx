@@ -1,9 +1,12 @@
+/** Button on a branch page that makes it the branch to order from. */
+
 "use client";
 
 import { Check, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { useStore } from "@/components/store/StoreProvider";
 
+/** Sets this branch as the visitor's ordering branch. */
 export function OrderHereButton({ branch }: { branch: { id: number; name: string; slug: string; area: string } }) {
   const { branch: current, chooseBranch, busy } = useStore();
   const [pending, setPending] = useState(false);

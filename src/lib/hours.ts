@@ -1,9 +1,16 @@
+/**
+ * Branch opening hours: parsing, formatting and open/closed status, always
+ * evaluated in Dhaka time.
+ */
+
 import type { OpeningHours } from "@/lib/db/schema";
 
 // Bangladesh Standard Time is UTC+6 all year (no daylight saving).
 const DHAKA_OFFSET_MIN = 6 * 60;
+/** Day keys used in opening-hours data, Sunday first. */
 export const DAYS = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] as const;
 export type Day = (typeof DAYS)[number];
+/** Display names for each day. */
 export const DAY_LABELS: Record<Day, string> = {
   sun: "Sunday",
   mon: "Monday",
@@ -14,17 +21,20 @@ export const DAY_LABELS: Record<Day, string> = {
   sat: "Saturday",
 };
 
+/** The current day and minute of the day in Dhaka. */
 export function dhakaClock(now: Date): { day: Day; dayIndex: number; minutes: number } {
   const t = new Date(now.getTime() + DHAKA_OFFSET_MIN * 60_000);
   const dayIndex = t.getUTCDay();
   return { day: DAYS[dayIndex], dayIndex, minutes: t.getUTCHours() * 60 + t.getUTCMinutes() };
 }
 
+/** Parses "HH:MM" into minutes since midnight, or null. */
 export function parseHHMM(s: string): number | null {
   const m = /^([01]?\d|2[0-3]):([0-5]\d)$/.exec(s.trim());
   return m ? Number(m[1]) * 60 + Number(m[2]) : null;
 }
 
+/** Formats minutes since midnight as a 12-hour time, e.g. "11:30 pm". */
 export function formatHHMM(min: number): string {
   const m = ((min % 1440) + 1440) % 1440;
   const h = Math.floor(m / 60);
@@ -50,6 +60,7 @@ export function validateHours(hours: unknown): hours is OpeningHours {
   return true;
 }
 
+/** True when at least one day has opening hours. */
 export function hasAnyHours(hours: OpeningHours | null | undefined): boolean {
   return !!hours && Object.values(hours).some((v) => v && v.length > 0);
 }
@@ -59,6 +70,7 @@ export type OpenStatus =
   | { state: "open"; closesAt: string }
   | { state: "closed"; opensAt: string | null; opensDay: Day | null };
 
+/** Works out whether a branch is open now, and when it next closes or opens. */
 export function getOpenStatus(hours: OpeningHours | null | undefined, now = new Date()): OpenStatus {
   if (!hasAnyHours(hours)) return { state: "unknown" };
   const h = hours!;
@@ -90,6 +102,7 @@ export function getOpenStatus(hours: OpeningHours | null | undefined, now = new 
   return { state: "closed", opensAt: null, opensDay: null };
 }
 
+/** Turns an open status into a short label for the storefront. */
 export function describeOpenStatus(st: OpenStatus): string {
   if (st.state === "unknown") return "Opening hours not published yet";
   if (st.state === "open") return `Open now · until ${st.closesAt}`;

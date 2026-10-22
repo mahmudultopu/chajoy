@@ -1,3 +1,8 @@
+/**
+ * Shared plumbing for admin server actions: permission checks, error handling
+ * and small FormData readers.
+ */
+
 import { headers } from "next/headers";
 import { ZodError } from "zod";
 import { HttpError } from "@/lib/errors";
@@ -29,8 +34,11 @@ export const str = (fd: FormData, k: string) => {
   const v = fd.get(k);
   return typeof v === "string" ? v.trim() : "";
 };
+/** Reads a trimmed FormData field, or null when it is empty. */
 export const optStr = (fd: FormData, k: string) => str(fd, k) || null;
+/** Reads a checkbox-style FormData field as a boolean. */
 export const bool = (fd: FormData, k: string) => fd.get(k) === "on" || fd.get(k) === "true";
+/** Reads a numeric FormData field, or null when empty. Rejects non-numbers. */
 export const optNum = (fd: FormData, k: string) => {
   const s = str(fd, k);
   if (!s) return null;

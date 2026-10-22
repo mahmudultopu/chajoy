@@ -1,9 +1,12 @@
+/** API: newsletter sign-up. */
+
 import { z } from "zod";
 import { db, schema } from "@/lib/db";
 import { assertSameOrigin, handle, json, limit, parseJson } from "@/lib/http";
 
 const CONSENT = "I agree to receive CHAJOY news and offers by email. I can unsubscribe at any time.";
 
+/** Stores the email with the consent text the visitor agreed to. */
 export const POST = handle(async (req: Request) => {
   assertSameOrigin(req);
   limit(req, "newsletter", 5, 10 * 60_000);

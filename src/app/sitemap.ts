@@ -1,3 +1,5 @@
+/** sitemap.xml with products, categories, branches and pages. */
+
 import type { MetadataRoute } from "next";
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
@@ -8,6 +10,7 @@ import { siteUrl } from "@/lib/site";
 // Built per request so it always reflects the database (and never runs DB code at build time).
 export const dynamic = "force-dynamic";
 
+/** Builds the sitemap from the database. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [products, categories, branches, pages] = await Promise.all([
     db.select({ slug: schema.products.slug, updatedAt: schema.products.updatedAt, isAddon: schema.products.isAddon, status: schema.products.status }).from(schema.products),

@@ -1,10 +1,14 @@
+/** API: menu search suggestions. */
+
 import { loadCatalog, searchMenu } from "@/lib/services/catalog";
 import { selectedBranchId } from "@/lib/request";
 import { handle, json, limit } from "@/lib/http";
 import { formatBDT } from "@/lib/money";
 
+/** Always run per request: the response depends on cookies or the query. */
 export const dynamic = "force-dynamic";
 
+/** Returns the best matches for `q`. */
 export const GET = handle(async (req: Request) => {
   limit(req, "suggest", 120, 60_000);
   const q = (new URL(req.url).searchParams.get("q") ?? "").trim().slice(0, 60);

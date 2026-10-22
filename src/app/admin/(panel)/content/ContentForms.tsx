@@ -1,3 +1,5 @@
+/** Admin forms for announcements, homepage copy and content pages. */
+
 "use client";
 
 import { ActionForm, Field, SubmitButton, Toggle } from "@/components/admin/ui";
@@ -6,6 +8,7 @@ import type { SiteSettings } from "@/lib/services/settings";
 
 type A = { id: number; message: string; linkUrl: string | null; linkLabel: string | null; branchId: number | null; startsAt: string; endsAt: string; isActive: boolean; sortOrder: number };
 
+/** Creates or edits an announcement. */
 export function AnnouncementForm({ a, branches }: { a: A | null; branches: { id: number; name: string }[] }) {
   return (
     <ActionForm action={saveAnnouncement} className="rounded-2xl bg-cream-100 p-4" resetOnSuccess={!a}>
@@ -55,6 +58,7 @@ export function AnnouncementForm({ a, branches }: { a: A | null; branches: { id:
   );
 }
 
+/** Edits the homepage hero text and story. */
 export function SiteContentForm({ s }: { s: SiteSettings }) {
   return (
     <ActionForm action={saveSiteContent} className="card space-y-4 p-5">
@@ -98,6 +102,7 @@ export function SiteContentForm({ s }: { s: SiteSettings }) {
   );
 }
 
+/** Edits a content page in Markdown and publishes it. */
 export function PageForm({ page }: { page: { slug: string; title: string; body: string; status: "draft" | "published" } }) {
   return (
     <ActionForm action={savePage} className="card space-y-3 p-5">

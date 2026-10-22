@@ -1,3 +1,5 @@
+/** Accessible modal and drawer built on the native <dialog> element. */
+
 "use client";
 
 import { useEffect, useRef } from "react";

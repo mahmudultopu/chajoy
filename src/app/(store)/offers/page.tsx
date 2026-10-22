@@ -1,3 +1,5 @@
+/** Current offers and promotions. */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Tag } from "lucide-react";
@@ -5,10 +7,12 @@ import { livePromotions } from "@/lib/services/promotions";
 import { listBranches } from "@/lib/services/branches";
 import { formatBDT } from "@/lib/money";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Offers", description: "Current CHAJOY offers and promotions.", alternates: { canonical: "/offers" } };
 
 const date = (d: Date) => d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "Asia/Dhaka" });
 
+/** Lists live promotions with their codes and terms. */
 export default async function OffersPage() {
   const [promos, branches] = await Promise.all([livePromotions(), listBranches()]);
   const branchName = (id: number) => branches.find((b) => b.id === id)?.name ?? "a branch";

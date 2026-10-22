@@ -10,6 +10,7 @@ export function InstagramIcon({ className = "size-5" }: { className?: string }) 
   );
 }
 
+/** Facebook logo icon. */
 export function FacebookIcon({ className = "size-5" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden>

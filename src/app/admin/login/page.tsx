@@ -1,11 +1,15 @@
+/** Staff sign-in page. */
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { currentAdmin } from "@/lib/auth/admin";
 import { LoginForm } from "./LoginForm";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Staff sign in", robots: { index: false, follow: false } };
 
+/** Shows the sign-in form, or redirects admins who are already signed in. */
 export default async function AdminLogin() {
   if (await currentAdmin()) redirect("/admin");
   return (

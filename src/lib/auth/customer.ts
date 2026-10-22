@@ -1,13 +1,17 @@
+/** Customer accounts: session cookies for signed-in shoppers. */
+
 import { cookies } from "next/headers";
 import { and, eq, gt } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { randomToken, sha256 } from "@/lib/tokens";
 
+/** Name of the customer session cookie. */
 export const CUSTOMER_COOKIE = "cj_session";
 const SESSION_DAYS = 30;
 
 export type Customer = { id: number; name: string; email: string | null; phone: string | null };
 
+/** Starts a 30-day customer session and sets its cookie. */
 export async function createCustomerSession(customerId: number) {
   const token = randomToken();
   await db.insert(schema.customerSessions).values({
@@ -24,6 +28,7 @@ export async function createCustomerSession(customerId: number) {
   });
 }
 
+/** Ends the current customer session and clears its cookie. */
 export async function destroyCustomerSession() {
   const jar = await cookies();
   const t = jar.get(CUSTOMER_COOKIE)?.value;
@@ -31,6 +36,7 @@ export async function destroyCustomerSession() {
   jar.delete(CUSTOMER_COOKIE);
 }
 
+/** Returns the signed-in customer for this request, or null. */
 export async function currentCustomer(): Promise<Customer | null> {
   const t = (await cookies()).get(CUSTOMER_COOKIE)?.value;
   if (!t) return null;

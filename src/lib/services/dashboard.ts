@@ -1,3 +1,8 @@
+/**
+ * Figures for the admin dashboard: sales, order counts, best sellers and a
+ * launch checklist, optionally limited to one branch.
+ */
+
 import { and, desc, eq, gte, inArray, lte, ne, sql } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { hasAnyHours } from "@/lib/hours";
@@ -13,6 +18,7 @@ export function dhakaDayStart(now = new Date(), daysAgo = 0) {
   return new Date(t.getTime() - DHAKA_MS - daysAgo * 86_400_000);
 }
 
+/** Sales and order figures for the last `days` days, in Dhaka time. */
 export async function dashboardMetrics(opts: { branchId: number | null; days: number }) {
   const now = new Date();
   const since = dhakaDayStart(now, opts.days - 1);

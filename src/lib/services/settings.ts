@@ -1,3 +1,5 @@
+/** Site settings stored in the database, merged over safe defaults. */
+
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 
@@ -13,6 +15,7 @@ export type SiteSettings = {
   seo: { title: string; description: string };
 };
 
+/** Defaults used until an admin changes a setting (CHAJOY's published contact details). */
 export const DEFAULT_SETTINGS: SiteSettings = {
   contact: { phone: "+880 1339-536491", phoneHref: "tel:+8801339536491", email: "bdchajoy@gmail.com" },
   social: {
@@ -50,6 +53,7 @@ export const DEFAULT_SETTINGS: SiteSettings = {
 
 export type SettingKey = keyof SiteSettings;
 
+/** All settings, with defaults for anything not saved yet. */
 export async function getSettings(): Promise<SiteSettings> {
   const rows = await db.select().from(schema.siteSettings);
   const out = structuredClone(DEFAULT_SETTINGS) as Record<string, unknown>;
@@ -61,6 +65,7 @@ export async function getSettings(): Promise<SiteSettings> {
   return out as SiteSettings;
 }
 
+/** Saves one settings group. */
 export async function setSetting<K extends SettingKey>(key: K, value: SiteSettings[K]) {
   await db
     .insert(schema.siteSettings)
@@ -68,6 +73,7 @@ export async function setSetting<K extends SettingKey>(key: K, value: SiteSettin
     .onConflictDoUpdate({ target: schema.siteSettings.key, set: { value, updatedAt: new Date() } });
 }
 
+/** One settings group, merged over its defaults. */
 export async function getSetting<K extends SettingKey>(key: K): Promise<SiteSettings[K]> {
   const [row] = await db.select().from(schema.siteSettings).where(eq(schema.siteSettings.key, key));
   return { ...DEFAULT_SETTINGS[key], ...((row?.value as object) ?? {}) } as SiteSettings[K];

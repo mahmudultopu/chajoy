@@ -1,3 +1,5 @@
+/** Admin sidebar navigation (horizontal on small screens). */
+
 "use client";
 
 import Link from "next/link";
@@ -7,6 +9,7 @@ import { CupSoda, Gauge, History, Megaphone, Receipt, Settings, Store, Tag, Uplo
 
 const ICONS = { gauge: Gauge, receipt: Receipt, cup: CupSoda, store: Store, tag: Tag, megaphone: Megaphone, upload: Upload, settings: Settings, history: History } as const;
 
+/** Renders the admin navigation links and highlights the current section. */
 export function AdminNav({ items }: { items: { href: string; label: string; icon: string }[] }) {
   const path = usePathname();
   return (

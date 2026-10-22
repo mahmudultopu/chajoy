@@ -1,3 +1,5 @@
+/** API: start (or retry) online payment for an order. */
+
 import { z } from "zod";
 import { loadOrderForVisitor } from "@/lib/order-view";
 import { startOnlinePayment } from "@/lib/payments";

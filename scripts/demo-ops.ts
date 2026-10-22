@@ -1,3 +1,8 @@
+/**
+ * CLI: fills a local database with demo orders so the admin dashboard has data.
+ * Never run this against production.
+ */
+
 import { arg } from "./_env";
 import { eq } from "drizzle-orm";
 import { closeDb, db, schema } from "../src/lib/db";

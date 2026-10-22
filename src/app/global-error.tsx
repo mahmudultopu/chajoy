@@ -1,5 +1,6 @@
 "use client";
 
+/** Minimal error page with a retry button. */
 export default function GlobalError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <html lang="en">

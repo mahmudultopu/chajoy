@@ -1,9 +1,13 @@
+/** API: address search for the branch finder and checkout. */
+
 import { geocode } from "@/lib/geocode";
 import { listBranches } from "@/lib/services/branches";
 import { handle, json, limit } from "@/lib/http";
 
+/** Always run per request: the response depends on cookies or the query. */
 export const dynamic = "force-dynamic";
 
+/** Geocodes the `q` parameter (rate limited). */
 export const GET = handle(async (req: Request) => {
   limit(req, "geocode", 20, 60_000);
   const q = (new URL(req.url).searchParams.get("q") ?? "").trim();

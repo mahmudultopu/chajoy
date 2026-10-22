@@ -1,3 +1,5 @@
+/** Product page with structured data for search engines. */
+
 import type { Metadata } from "next";
 import { backdropFor, cutoutOf } from "@/lib/cutouts";
 import Link from "next/link";
@@ -15,6 +17,7 @@ import { paisaToDecimalString } from "@/lib/money";
 
 type Props = { params: Promise<{ slug: string }> };
 
+/** Title, description and share image for the product. */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const [p] = await db.select().from(schema.products).where(eq(schema.products.slug, slug));
@@ -28,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/** Renders the product with branch-specific price and availability. */
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
   const branch = await selectedBranch();

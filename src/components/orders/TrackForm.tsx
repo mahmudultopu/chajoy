@@ -1,3 +1,5 @@
+/** Order lookup form for the Track page. */
+
 "use client";
 
 import { useState } from "react";
@@ -5,6 +7,7 @@ import { LoaderCircle } from "lucide-react";
 import type { PublicOrder } from "@/lib/order-view";
 import { OrderStatusClient } from "./OrderStatusClient";
 
+/** Finds an order by order number and phone number, then shows its status. */
 export function TrackForm() {
   const [orderNumber, setOrderNumber] = useState("");
   const [phone, setPhone] = useState("");

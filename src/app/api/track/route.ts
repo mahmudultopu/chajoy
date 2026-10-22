@@ -1,3 +1,5 @@
+/** API: find an order by order number and phone number. */
+
 import { z } from "zod";
 import { getOrderByNumber } from "@/lib/services/orders";
 import { publicOrder } from "@/lib/order-view";

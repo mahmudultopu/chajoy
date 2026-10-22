@@ -1,3 +1,5 @@
+/** Admin dashboard. */
+
 import Link from "next/link";
 import { CircleCheck, CircleDashed } from "lucide-react";
 import { requireAdminPage, can } from "@/lib/auth/admin";
@@ -7,6 +9,7 @@ import { statusLabel } from "@/lib/order-status";
 import { SalesChart } from "@/components/admin/SalesChart";
 import { Badge, statusTone } from "@/components/admin/Badge";
 
+/** Sales figures, recent orders and the launch checklist. */
 export default async function Dashboard({ searchParams }: { searchParams: Promise<{ days?: string; denied?: string }> }) {
   const admin = await requireAdminPage("dashboard.view");
   const sp = await searchParams;

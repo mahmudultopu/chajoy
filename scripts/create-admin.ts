@@ -1,3 +1,8 @@
+/**
+ * CLI: creates the first owner account, or resets an admin's password.
+ * Usage: npm run admin:create -- --email you@example.com --name "Your name"
+ */
+
 import { arg } from "./_env";
 import { eq } from "drizzle-orm";
 import { closeDb, db, schema } from "../src/lib/db";

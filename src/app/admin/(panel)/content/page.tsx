@@ -1,13 +1,17 @@
+/** Admin: content management. */
+
 import { db, schema } from "@/lib/db";
 import { requireAdminPage } from "@/lib/auth/admin";
 import { getSettings } from "@/lib/services/settings";
 import { listBranches } from "@/lib/services/branches";
 import { AnnouncementForm, PageForm, SiteContentForm } from "./ContentForms";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Content" };
 
 const d = (x: Date | null) => (x ? new Date(x.getTime() + 6 * 3600_000).toISOString().slice(0, 10) : "");
 
+/** Announcements, homepage copy and policy pages. */
 export default async function ContentAdmin() {
   await requireAdminPage("content.manage");
   const [ann, settings, pages, branches] = await Promise.all([

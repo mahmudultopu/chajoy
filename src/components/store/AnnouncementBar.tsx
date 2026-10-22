@@ -1,7 +1,10 @@
+/** Announcement bar at the top of the storefront. */
+
 import Link from "next/link";
 
 type Announcement = { id: number; message: string; linkUrl: string | null; linkLabel: string | null };
 
+/** Shows live announcements, and a notice while sample settings are in use. */
 export function AnnouncementBar({ items, sampleMode }: { items: Announcement[]; sampleMode: boolean }) {
   return (
     <>

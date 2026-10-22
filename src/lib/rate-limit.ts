@@ -5,6 +5,7 @@ type Bucket = { count: number; resetAt: number };
 const g = globalThis as unknown as { __chajoyRate?: Map<string, Bucket> };
 const buckets = (g.__chajoyRate ??= new Map());
 
+/** Counts a hit for `key` and reports whether it is still within `limit` per window. */
 export function rateLimit(key: string, limit: number, windowMs: number): { ok: boolean; retryAfterSec: number } {
   const now = Date.now();
   const b = buckets.get(key);

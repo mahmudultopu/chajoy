@@ -1,3 +1,5 @@
+/** "Discover the menu" section on the homepage: category tabs over a product grid. */
+
 "use client";
 
 import Link from "next/link";
@@ -7,6 +9,7 @@ import { ArrowRight } from "lucide-react";
 import { ProductCard } from "@/components/product/ProductCard";
 import type { CardProduct } from "@/components/product/types";
 
+/** Shows up to eight products for the selected tab, with a link to the full list. */
 export function FeaturedMenu({ tabs, branchName }: { tabs: { id: string; label: string; items: CardProduct[] }[]; branchName: string | null }) {
   const [tab, setTab] = useState(tabs[0]?.id);
   const current = tabs.find((t) => t.id === tab) ?? tabs[0];
@@ -14,7 +17,7 @@ export function FeaturedMenu({ tabs, branchName }: { tabs: { id: string; label: 
   const more = current && current.id !== "featured" ? `/menu/${current.id}` : "/menu";
 
   return (
-    <section id="discover" className="scroll-mt-24 bg-white py-24 sm:py-32" aria-labelledby="discover-title">
+    <section id="discover" className="scroll-mt-24 bg-cream-100 py-24 sm:py-32" aria-labelledby="discover-title">
       <div className="mx-auto w-full max-w-[1280px] px-5 sm:px-8">
         <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div>
@@ -31,7 +34,7 @@ export function FeaturedMenu({ tabs, branchName }: { tabs: { id: string; label: 
                 aria-selected={t.id === current?.id}
                 aria-controls="featured-panel"
                 onClick={() => setTab(t.id)}
-                className={clsx("shrink-0 rounded-full px-5 py-2.5 text-[14px] font-medium transition", t.id === current?.id ? "bg-ink text-white" : "bg-ivory text-ink/70 hover:text-ink")}
+                className={clsx("shrink-0 rounded-full px-5 py-2.5 text-[14px] font-medium transition", t.id === current?.id ? "bg-ink text-white" : "bg-white text-ink/70 ring-1 ring-ink/10 hover:text-ink")}
               >
                 {t.label}
               </button>

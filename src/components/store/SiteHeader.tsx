@@ -1,3 +1,5 @@
+/** Storefront header and the mobile cart bar. */
+
 "use client";
 
 import Link from "next/link";
@@ -10,6 +12,7 @@ import { useStore } from "./StoreProvider";
 
 export type NavCategory = { slug: string; name: string; image: string | null };
 
+/** Main navigation with menu dropdown, branch chooser, search, account and cart. */
 export function SiteHeader({ categories }: { categories: NavCategory[] }) {
   const { itemCount, branch, setCartOpen, setBranchPickerOpen, setSearchOpen } = useStore();
   const pathname = usePathname();
@@ -43,18 +46,18 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
   const link = (href: string) =>
     clsx(
       "rounded-full px-3 py-2 text-[15px] font-medium transition",
-      onHero ? "text-white/80 hover:text-white" : "text-ink/75 hover:text-ink",
+      "text-ink/75 hover:text-ink",
       pathname === href && "underline decoration-matcha-400 decoration-2 underline-offset-[10px]",
     );
-  const iconBtn = clsx("grid size-10 place-items-center rounded-full transition", onHero ? "text-white hover:bg-white/10" : "hover:bg-ivory");
+  const iconBtn = "grid size-10 place-items-center rounded-full transition hover:bg-cream-200";
 
   return (
-    <header className={clsx("sticky top-0 z-40 transition-colors duration-300", onHero ? "bg-transparent" : "bg-white/95 backdrop-blur", scrolled && "shadow-[0_1px_0_rgba(0,0,0,0.06),0_8px_24px_-12px_rgba(0,0,0,0.12)]")}>
-      <div className={clsx("mx-auto flex h-[74px] w-full max-w-[1280px] items-center gap-3 border-b px-5 sm:px-8", onHero ? "border-white/10" : "border-transparent")}>
-        <button className={clsx("grid size-10 place-items-center rounded-full ring-1 lg:hidden", onHero ? "text-white ring-white/25" : "ring-black/10")} aria-label="Open menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>
+    <header className={clsx("sticky top-0 z-40 transition-colors duration-300", onHero ? "bg-transparent" : "bg-cream-50/95 backdrop-blur", scrolled && "shadow-[0_1px_0_rgba(0,0,0,0.06),0_8px_24px_-12px_rgba(0,0,0,0.12)]")}>
+      <div className={clsx("mx-auto flex h-[74px] w-full max-w-[1280px] items-center gap-3 border-b px-5 sm:px-8", onHero ? "border-ink/[0.07]" : "border-transparent")}>
+        <button className={clsx("grid size-10 place-items-center rounded-full ring-1 lg:hidden", "ring-ink/15")} aria-label="Open menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>
           <Menu className="size-5" />
         </button>
-        <Logo light={onHero} />
+        <Logo />
 
         <nav className="ml-8 hidden items-center gap-2 lg:flex" aria-label="Main">
           <div className="relative" onMouseLeave={() => setMenuOpen(false)}>
@@ -70,7 +73,7 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
             {menuOpen && (
               <div className="absolute left-0 top-full pt-2">
                 <div className="grid w-[520px] grid-cols-2 gap-1 rounded-2xl bg-white p-3 shadow-lift ring-1 ring-black/5">
-                  <Link href="/menu" className="col-span-2 flex items-center justify-between rounded-xl bg-night px-4 py-3 text-white hover:bg-forest-800">
+                  <Link href="/menu" className="col-span-2 flex items-center justify-between rounded-xl bg-matcha-600 px-4 py-3 text-white hover:bg-matcha-700">
                     <span className="font-display text-lg">The full menu</span>
                     <ArrowRight className="size-4" />
                   </Link>
@@ -104,8 +107,8 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1">
-          <button onClick={() => setBranchPickerOpen(true)} className={clsx("mr-1 hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm xl:flex", onHero ? "text-white/75 hover:text-white" : "text-ink/70 hover:text-ink")} title="Choose the branch you order from">
-            <MapPin className={clsx("size-4", onHero ? "text-lime" : "text-matcha-600")} />
+          <button onClick={() => setBranchPickerOpen(true)} className={clsx("mr-1 hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm xl:flex", "text-ink/70 hover:text-ink")} title="Choose the branch you order from">
+            <MapPin className={clsx("size-4", "text-matcha-600")} />
             {branch ? branch.area : "Choose branch"}
           </button>
           <button onClick={() => setSearchOpen(true)} className={iconBtn} aria-label="Search the menu">
@@ -122,7 +125,7 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
               </span>
             )}
           </button>
-          <Link href="/menu" className={clsx("ml-2 hidden items-center gap-3 rounded-full px-5 py-2.5 text-[14px] font-semibold transition sm:inline-flex", onHero ? "bg-lime text-night hover:bg-white" : "bg-ink text-white hover:bg-forest-800")}>
+          <Link href="/menu" className={clsx("ml-2 hidden items-center gap-3 rounded-full px-5 py-2.5 text-[14px] font-semibold transition sm:inline-flex", "bg-matcha-600 text-white hover:bg-matcha-700")}>
             Order Now <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -144,7 +147,7 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
                 setMobileOpen(false);
                 setBranchPickerOpen(true);
               }}
-              className="mt-5 flex items-center gap-2 rounded-xl bg-lime px-4 py-3 text-left text-sm"
+              className="mt-5 flex items-center gap-2 rounded-xl bg-matcha-100 px-4 py-3 text-left text-sm"
             >
               <MapPin className="size-4" />
               {branch ? (
@@ -190,7 +193,7 @@ export function MobileCartBar() {
           <ShoppingBag className="size-5" /> {itemCount} item{itemCount === 1 ? "" : "s"}
           {branch ? <span className="font-normal text-white/70">· {branch.area}</span> : null}
         </span>
-        <span className="rounded-full bg-lime px-3 py-1 text-sm font-bold text-night">View cart</span>
+        <span className="rounded-full bg-matcha-400 px-3 py-1 text-sm font-bold text-ink">View cart</span>
       </button>
     </div>
   );

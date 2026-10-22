@@ -1,3 +1,8 @@
+/**
+ * Server actions for admin sign-in and sign-out.
+ * Sign-in is rate limited per IP and per email, and every attempt is audited.
+ */
+
 "use server";
 
 import { redirect } from "next/navigation";
@@ -10,6 +15,10 @@ import { rateLimit } from "@/lib/rate-limit";
 import { audit } from "@/lib/audit";
 import type { ActionResult } from "@/components/admin/ui";
 
+/**
+ * Checks an admin's email and password, starts a session and redirects to the dashboard.
+ * Unknown emails are hashed against a dummy so timing doesn't reveal which accounts exist.
+ */
 export async function loginAction(_prev: ActionResult, fd: FormData): Promise<ActionResult> {
   const h = await headers();
   const ip = (h.get("x-forwarded-for") ?? "").split(",")[0] || "local";
@@ -30,6 +39,7 @@ export async function loginAction(_prev: ActionResult, fd: FormData): Promise<Ac
   redirect("/admin");
 }
 
+/** Ends the current admin session, records it in the audit log and returns to the login page. */
 export async function logoutAction() {
   const u = await currentAdmin();
   await destroyAdminSession();

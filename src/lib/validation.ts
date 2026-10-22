@@ -1,3 +1,8 @@
+/**
+ * Zod schemas for customer input: phone numbers, cart options, delivery
+ * locations, checkout and passwords.
+ */
+
 import { z } from "zod";
 
 /** Accepts 01XXXXXXXXX, 8801XXXXXXXXX, +8801XXXXXXXXX (with spaces/dashes) and returns +8801XXXXXXXXX. */
@@ -7,6 +12,7 @@ export function normalizeBdPhone(input: string): string | null {
   return m ? `+88${m[1]}` : null;
 }
 
+/** A Bangladeshi mobile number, normalised to +8801XXXXXXXXX. */
 export const bdPhone = z
   .string()
   .trim()
@@ -28,6 +34,7 @@ const optionalText = (max: number) =>
     .transform((v) => v || undefined)
     .optional();
 
+/** Options a customer may send when adding to the cart. */
 export const cartOptionsSchema = z
   .object({
     temperature: z.enum(["cold", "hot"]).optional(),
@@ -38,6 +45,7 @@ export const cartOptionsSchema = z
   })
   .strict();
 
+/** Body of an add-to-cart request. */
 export const addToCartSchema = z.object({
   productId: z.number().int().positive(),
   variantId: z.number().int().positive(),
@@ -45,6 +53,7 @@ export const addToCartSchema = z.object({
   options: cartOptionsSchema.default({}),
 });
 
+/** Delivery address and optional map pin. */
 export const deliveryLocationSchema = z.object({
   addressLine: z.string().trim().min(6, "Enter your full address (house, road, area).").max(300),
   area: optionalText(100),
@@ -53,6 +62,7 @@ export const deliveryLocationSchema = z.object({
   longitude: z.number().min(-180).max(180),
 });
 
+/** Body of a checkout request. */
 export const checkoutSchema = z
   .object({
     idempotencyKey: z.string().uuid(),
@@ -81,6 +91,7 @@ export const checkoutSchema = z
 
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
 
+/** Password rules for customer accounts. */
 export const passwordSchema = z.string().min(10, "Use at least 10 characters.").max(200);
 
 /** URLs that end up in an href or src must be https (z.url() alone accepts javascript:). */

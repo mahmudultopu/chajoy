@@ -1,3 +1,8 @@
+/**
+ * Client-side pieces of the customer account page: sign-in/register forms,
+ * sign out, reorder and address deletion.
+ */
+
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -12,6 +17,7 @@ async function post(url: string, body: unknown, method = "POST") {
   return { ok: r.ok, d };
 }
 
+/** Sign-in and registration forms, switchable with a toggle. */
 export function AuthForms() {
   const router = useRouter();
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -97,6 +103,7 @@ export function AuthForms() {
   );
 }
 
+/** Signs the customer out and refreshes the page. */
 export function SignOutButton() {
   const router = useRouter();
   return (
@@ -112,6 +119,7 @@ export function SignOutButton() {
   );
 }
 
+/** Adds the items of a past order back into the cart. */
 export function ReorderButton({ orderNumber }: { orderNumber: string }) {
   const { toast, refreshCart, setCartOpen } = useStore();
   const [busy, setBusy] = useState(false);
@@ -135,6 +143,7 @@ export function ReorderButton({ orderNumber }: { orderNumber: string }) {
   );
 }
 
+/** Deletes a saved delivery address. */
 export function DeleteAddressButton({ id }: { id: number }) {
   const router = useRouter();
   return (

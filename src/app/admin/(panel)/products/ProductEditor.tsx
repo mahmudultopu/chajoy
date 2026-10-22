@@ -1,3 +1,5 @@
+/** Admin forms for a product: details, sizes and prices, photos and branches. */
+
 "use client";
 
 import Image from "next/image";
@@ -29,6 +31,7 @@ type P = {
   verification: Verification;
 };
 
+/** Edits name, category, description, options and status. */
 export function ProductDetailsForm({ product, categories }: { product: P | null; categories: { id: number; name: string }[] }) {
   const p = product;
   const [name, setName] = useState(p?.name ?? "");
@@ -152,6 +155,7 @@ export function ProductDetailsForm({ product, categories }: { product: P | null;
 
 type V = { id: number; sizeCode: string; label: string; volumeMl: number | null; pricePaisa: number; isActive: boolean };
 
+/** Edits sizes and prices. */
 export function VariantsForm({ productId, variants }: { productId: number; variants: V[] }) {
   const [rows, setRows] = useState(variants.map((v) => `v${v.id}`));
   const byKey = Object.fromEntries(variants.map((v) => [`v${v.id}`, v]));
@@ -201,6 +205,7 @@ export function VariantsForm({ productId, variants }: { productId: number; varia
 
 type Img = { id: number; url: string; alt: string; sortOrder: number; variantKey: string | null; sourceType: string; sourceUrl: string | null; sourceNote: string | null; usageRights: string | null; isLowRes: boolean };
 
+/** Uploads and manages product photos. */
 export function ImagesForm({ productId, images }: { productId: number; images: Img[] }) {
   return (
     <section className="card p-5">
@@ -276,6 +281,7 @@ export function ImagesForm({ productId, images }: { productId: number; images: I
   );
 }
 
+/** Chooses which branches sell the product. */
 export function BranchAvailabilityForm({ productId, branches }: { productId: number; branches: { id: number; name: string; available: boolean }[] }) {
   return (
     <ActionForm action={setProductBranches} className="card self-start p-5">

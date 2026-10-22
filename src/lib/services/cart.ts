@@ -1,3 +1,8 @@
+/**
+ * Shopping cart service. Carts are identified by a random token in a cookie
+ * (only its hash is stored). All prices are recomputed on the server.
+ */
+
 import { and, eq, inArray } from "drizzle-orm";
 import { db, schema, type Tx } from "@/lib/db";
 import { normalizeOptions, optionsKey } from "@/lib/options";
@@ -10,12 +15,14 @@ import { randomToken, sha256 } from "@/lib/tokens";
 
 export type Cart = typeof schema.carts.$inferSelect;
 
+/** Finds the cart for a cookie token, or null. */
 export async function findCart(token: string | undefined | null): Promise<Cart | null> {
   if (!token) return null;
   const [c] = await db.select().from(schema.carts).where(eq(schema.carts.tokenHash, sha256(token)));
   return c ?? null;
 }
 
+/** Creates a cart and returns it with the token to put in the cookie. */
 export async function createCart(init: { branchId?: number | null; customerId?: number | null } = {}) {
   const token = randomToken();
   const [cart] = await db
@@ -25,10 +32,15 @@ export async function createCart(init: { branchId?: number | null; customerId?: 
   return { cart, token };
 }
 
+/** The lines in a cart, oldest first. */
 export async function cartLines(cartId: string) {
   return db.select().from(schema.cartItems).where(eq(schema.cartItems.cartId, cartId)).orderBy(schema.cartItems.id);
 }
 
+/**
+ * Adds a product to the cart after validating its size and options.
+ * Identical lines are merged by increasing the quantity.
+ */
 export async function addToCart(
   cart: Cart,
   input: { productId: number; variantId: number; quantity: number; options: unknown },
@@ -81,6 +93,7 @@ export async function addToCart(
   await touch(cart.id);
 }
 
+/** Changes a line's quantity; 0 removes it. */
 export async function updateLine(cart: Cart, lineId: number, quantity: number) {
   if (!Number.isInteger(quantity) || quantity < 0 || quantity > MAX_LINE_QTY)
     throw new HttpError(422, `Quantity must be between 0 and ${MAX_LINE_QTY}.`);
@@ -92,21 +105,25 @@ export async function updateLine(cart: Cart, lineId: number, quantity: number) {
   await touch(cart.id);
 }
 
+/** Removes a line from the cart. */
 export async function removeLine(cart: Cart, lineId: number) {
   await db.delete(schema.cartItems).where(and(eq(schema.cartItems.id, lineId), eq(schema.cartItems.cartId, cart.id)));
   await touch(cart.id);
 }
 
+/** Sets the branch the cart will be ordered from. */
 export async function setCartBranch(cart: Cart, branchId: number | null) {
   await db.update(schema.carts).set({ branchId, updatedAt: new Date() }).where(eq(schema.carts.id, cart.id));
   return { ...cart, branchId };
 }
 
+/** Sets pickup or delivery for the cart. */
 export async function setCartFulfilment(cart: Cart, fulfilment: "pickup" | "delivery" | null) {
   await db.update(schema.carts).set({ fulfilment, updatedAt: new Date() }).where(eq(schema.carts.id, cart.id));
   return { ...cart, fulfilment };
 }
 
+/** Empties the cart, optionally inside a transaction. */
 export async function clearCart(cartId: string, tx?: Tx) {
   await (tx ?? db).delete(schema.cartItems).where(eq(schema.cartItems.cartId, cartId));
 }
@@ -123,6 +140,7 @@ export type CartView = {
   images: Record<number, string | null>;
 };
 
+/** Prices the cart and returns everything the cart and checkout pages show. */
 export async function buildCartView(
   cart: Cart | null,
   opts: { code?: string | null; deliveryDistanceKm?: number | null; fulfilment?: "pickup" | "delivery" | null; now?: Date } = {},

@@ -1,3 +1,8 @@
+/**
+ * Decides whether 3D can run (WebGL, lite mode, reduced motion) and renders a
+ * fallback when it can't.
+ */
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";

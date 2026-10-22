@@ -1,3 +1,5 @@
+/** Server action for CSV imports of products, branches and branch inventory. */
+
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -10,6 +12,7 @@ import { run, bool, str } from "./run";
 
 export type ImportResult = ({ ok: boolean; message: string; fields?: Record<string, string> } & { report?: ImportReport }) | null;
 
+/** Validates an uploaded CSV and either previews the changes or applies them, depending on the form. */
 export async function importCsvAction(_p: ImportResult, fd: FormData): Promise<ImportResult> {
   let report: ImportReport | undefined;
   const r = await run("imports.manage", async (admin, ip) => {

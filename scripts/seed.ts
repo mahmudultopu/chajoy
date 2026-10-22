@@ -1,3 +1,5 @@
+/** CLI: seeds the database from data/catalogue.json and data/branches.json. */
+
 import { arg } from "./_env";
 import { closeDb } from "../src/lib/db";
 import { seed } from "../src/lib/seed";

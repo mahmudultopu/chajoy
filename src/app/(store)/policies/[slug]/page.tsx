@@ -1,3 +1,5 @@
+/** Published policy pages (privacy, terms, delivery, refunds). */
+
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -11,11 +13,13 @@ async function load(slug: string) {
   return p ?? null;
 }
 
+/** Page title for the policy. */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const p = await load((await params).slug);
   return p ? { title: p.title, alternates: { canonical: `/policies/${p.slug}` }, robots: p.status === "draft" ? { index: false } : undefined } : { title: "Not found" };
 }
 
+/** Renders a published policy, or 404. */
 export default async function PolicyPage({ params }: Props) {
   const p = await load((await params).slug);
   if (!p) notFound();

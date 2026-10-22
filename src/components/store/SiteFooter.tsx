@@ -1,3 +1,5 @@
+/** Storefront footer: brand, newsletter, menu and branch links, help and contact. */
+
 import Link from "next/link";
 import Image from "next/image";
 import { Mail, MapPin, Phone } from "lucide-react";
@@ -5,6 +7,7 @@ import type { SiteSettings } from "@/lib/services/settings";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 import { LiteModeToggle, NewsletterForm } from "./FooterClient";
 
+/** Renders the footer from site settings, categories and branches. */
 export function SiteFooter({
   settings,
   categories,
@@ -15,19 +18,19 @@ export function SiteFooter({
   branches: { slug: string; name: string }[];
 }) {
   return (
-    <footer className="relative overflow-hidden border-t border-white/10 bg-night text-cream-50">
+    <footer className="relative overflow-hidden bg-night text-cream-50">
       
       <div className="mx-auto w-full max-w-[1280px] px-5 sm:px-8 relative grid gap-12 py-16 lg:grid-cols-[1.3fr_2fr]">
         <div>
           <div className="flex items-center gap-3">
             <Image src="/images/brand/chajoy-logo.webp" alt="CHAJOY ice cream and tea logo" width={64} height={64} className="rounded-full" />
             <div>
-              <p className="font-display text-2xl text-lime" style={{ fontWeight: 600 }}>chajoy.</p>
+              <p className="font-display text-2xl text-caramel-300" style={{ fontWeight: 600 }}>chajoy.</p>
               <p className="text-sm text-cream-50/60">Ice cream &amp; tea · চা জয়</p>
             </div>
           </div>
           <p className="mt-6 max-w-sm font-display text-3xl leading-tight">
-            Every sip <em className="text-lime">brings joy.</em>
+            Every sip <em className="text-caramel-300">brings joy.</em>
           </p>
           <div className="mt-8 max-w-sm">
             <p className="mb-3 text-sm font-semibold">News and offers in your inbox</p>
@@ -37,7 +40,7 @@ export function SiteFooter({
 
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-4">
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-lime">Menu</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-caramel-300">Menu</p>
             <ul className="space-y-2.5 text-sm text-cream-50/75">
               <li>
                 <Link href="/menu" className="hover:text-cream-50">
@@ -59,7 +62,7 @@ export function SiteFooter({
             </ul>
           </div>
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-lime">Branches</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-caramel-300">Branches</p>
             <ul className="space-y-2.5 text-sm text-cream-50/75">
               {branches.map((b) => (
                 <li key={b.slug}>
@@ -76,7 +79,7 @@ export function SiteFooter({
             </ul>
           </div>
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-lime">Help</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-caramel-300">Help</p>
             <ul className="space-y-2.5 text-sm text-cream-50/75">
               <li>
                 <Link href="/track" className="hover:text-cream-50">
@@ -106,7 +109,7 @@ export function SiteFooter({
             </ul>
           </div>
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-lime">Contact</p>
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.18em] text-caramel-300">Contact</p>
             <ul className="space-y-3 text-sm text-cream-50/75">
               <li>
                 <a href={settings.contact.phoneHref} className="flex items-start gap-2 hover:text-cream-50">
@@ -136,8 +139,8 @@ export function SiteFooter({
         </div>
       </div>
       <div className="mx-auto w-full max-w-[1240px] select-none px-4 sm:px-6 lg:px-8" aria-hidden>
-        <p className="pb-[4vw] font-display text-[26vw] leading-[0.95] tracking-[-0.04em] text-white/[0.92] lg:pb-12 lg:text-[300px]" style={{ fontWeight: 600 }}>
-          chajoy<span className="text-lime">.</span>
+        <p className="pb-[4vw] font-display text-[26vw] leading-[0.95] tracking-[-0.04em] text-cream-100 lg:pb-12 lg:text-[300px]" style={{ fontWeight: 600 }}>
+          chajoy<span className="text-matcha-400">.</span>
         </p>
       </div>
       <div className="mt-6 border-t border-white/10">

@@ -1,5 +1,8 @@
+/** Loading state for menu pages. */
+
 import { ProductCardSkeleton } from "@/components/product/ProductCard";
 
+/** Skeleton grid shown while the menu loads. */
 export default function Loading() {
   return (
     <div className="container-x pb-10 pt-14" aria-busy="true" aria-label="Loading the menu">

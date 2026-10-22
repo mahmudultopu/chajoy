@@ -1,9 +1,13 @@
+/** Admin: CSV import and export. */
+
 import { requireAdminPage } from "@/lib/auth/admin";
 import { TEMPLATES } from "@/lib/csv-import";
 import { ImportForm } from "./ImportForm";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Import / export" };
 
+/** Import form and export links. */
 export default async function Imports() {
   await requireAdminPage("imports.manage");
   return (

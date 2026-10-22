@@ -1,3 +1,5 @@
+/** Slide-in cart drawer. */
+
 "use client";
 
 import Link from "next/link";
@@ -8,6 +10,7 @@ import { CartLines, CartSummary } from "./CartLines";
 
 const STEP_CODES = new Set(["no_fulfilment", "delivery_location_missing", "empty"]);
 
+/** Shows cart lines, any problems with the order and the checkout button. */
 export function CartDrawer() {
   const { cartOpen, setCartOpen, cart, setBranchPickerOpen } = useStore();
   const close = () => setCartOpen(false);

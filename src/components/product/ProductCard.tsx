@@ -1,3 +1,4 @@
+/** Product card used on the homepage and menu grids. */
 "use client";
 
 import Image from "next/image";
@@ -85,7 +86,7 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
                     onClick={() => setVariantId(x.id)}
                     aria-pressed={x.id === v?.id}
                     title={x.label}
-                    className={clsx("rounded-full px-2.5 py-1 text-[11px] font-semibold transition", x.id === v?.id ? "bg-ink text-white" : "bg-ivory text-ink/60 hover:text-ink")}
+                    className={clsx("rounded-full px-2.5 py-1 text-[11px] font-semibold transition", x.id === v?.id ? "bg-ink text-white" : "bg-cream-200 text-ink/60 hover:text-ink")}
                   >
                     {x.sizeCode}
                     {ml(x) ? <span className="ml-1 hidden font-normal opacity-70 sm:inline">{ml(x)}</span> : null}
@@ -99,7 +100,7 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
           <button
             onClick={quickAdd}
             disabled={!canAdd || busy || adding}
-            className="grid size-11 shrink-0 place-items-center rounded-full bg-ink text-white transition hover:bg-matcha-600 disabled:opacity-30"
+            className="grid size-11 shrink-0 place-items-center rounded-full bg-matcha-600 text-white transition hover:bg-matcha-700 disabled:opacity-30"
             aria-label={`Add ${p.name}${p.variants.length > 1 && v ? `, ${v.label}` : ""} to cart`}
             title={canAdd ? `Add with default options (${p.defaultOptionsLabel || "regular"})` : "Not available"}
           >
@@ -111,6 +112,7 @@ export function ProductCard({ p, priority, branchName }: { p: CardProduct; prior
   );
 }
 
+/** Loading placeholder with the same shape as a product card. */
 export function ProductCardSkeleton() {
   return (
     <div className="rounded-[24px] bg-white p-2 ring-1 ring-black/[0.06]">

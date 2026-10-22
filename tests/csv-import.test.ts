@@ -1,3 +1,5 @@
+/** Tests for CSV import validation and round-tripping exports. */
+
 import { beforeAll, describe, expect, it } from "vitest";
 import { and, eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";

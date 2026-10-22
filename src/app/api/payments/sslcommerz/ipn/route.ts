@@ -1,3 +1,8 @@
+/**
+ * SSLCommerz instant payment notification (server-to-server). Every payment is
+ * validated with the gateway before the order is marked paid.
+ */
+
 import { settleSslcommerz } from "@/lib/payments";
 import { isSslcommerzConfigured } from "@/lib/payments/sslcommerz";
 import { handle, HttpError, json } from "@/lib/http";

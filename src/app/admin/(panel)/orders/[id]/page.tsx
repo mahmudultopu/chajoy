@@ -1,3 +1,5 @@
+/** Admin: one order. */
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -9,8 +11,10 @@ import { formatDistance } from "@/lib/geo";
 import { Badge, statusTone } from "@/components/admin/Badge";
 import { OrderActions } from "./OrderActions";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Order" };
 
+/** Order details, history, payments and actions. */
 export default async function AdminOrder({ params }: { params: Promise<{ id: string }> }) {
   const admin = await requireAdminPage("orders.view");
   const id = Number((await params).id);

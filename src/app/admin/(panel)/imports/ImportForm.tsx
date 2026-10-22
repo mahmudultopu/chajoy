@@ -1,3 +1,5 @@
+/** CSV import form with a preview step. */
+
 "use client";
 
 import { useActionState } from "react";
@@ -5,6 +7,7 @@ import { CircleCheck, Download, TriangleAlert } from "lucide-react";
 import { SubmitButton } from "@/components/admin/ui";
 import { importCsvAction, type ImportResult } from "@/lib/admin/import-actions";
 
+/** Uploads a CSV, shows the preview report and applies it. */
 export function ImportForm({ templates }: { templates: Record<string, string[]> }) {
   const [state, run] = useActionState<ImportResult, FormData>(importCsvAction, null);
   return (

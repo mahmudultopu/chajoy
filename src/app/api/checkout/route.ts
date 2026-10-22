@@ -1,3 +1,5 @@
+/** API: place an order. */
+
 import { placeOrder } from "@/lib/services/orders";
 import { startOnlinePayment } from "@/lib/payments";
 import { currentCart } from "@/lib/request";
@@ -5,6 +7,7 @@ import { currentCustomer } from "@/lib/auth/customer";
 import { assertSameOrigin, clientIp, handle, HttpError, json, limit, parseJson } from "@/lib/http";
 import { checkoutSchema } from "@/lib/validation";
 
+/** Places the order from the cart. Repeated submissions with the same key create one order. */
 export const POST = handle(async (req: Request) => {
   assertSameOrigin(req);
   limit(req, "checkout", 10, 10 * 60_000);

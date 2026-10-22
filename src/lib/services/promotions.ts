@@ -1,3 +1,5 @@
+/** Promotions and announcements that are live right now. */
+
 import { and, desc, eq, gte, lte } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import type { DiscountCandidate } from "@/lib/pricing";
@@ -37,6 +39,7 @@ export async function livePromotions(now = new Date()) {
   });
 }
 
+/** Announcements to show now, for all branches or the chosen one. */
 export async function liveAnnouncements(now = new Date(), branchId: number | null = null) {
   const rows = await db.select().from(schema.announcements).where(eq(schema.announcements.isActive, true)).orderBy(schema.announcements.sortOrder);
   return rows.filter(

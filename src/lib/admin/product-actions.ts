@@ -1,3 +1,8 @@
+/**
+ * Server actions for the product catalogue: products, sizes and prices, photos,
+ * branch availability, categories and bulk status changes.
+ */
+
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -22,6 +27,7 @@ function revalidateStore(slug?: string) {
   if (slug) revalidatePath(`/products/${slug}`);
 }
 
+/** Creates or updates a product's details, options and category. */
 export async function saveProduct(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const id = Number(str(fd, "id")) || null;
@@ -113,6 +119,7 @@ export async function saveProduct(_p: ActionResult, fd: FormData): Promise<Actio
   });
 }
 
+/** Saves a product's sizes and prices, adding, editing or removing variants. */
 export async function saveVariants(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const productId = Number(str(fd, "productId"));
@@ -157,6 +164,7 @@ export async function saveVariants(_p: ActionResult, fd: FormData): Promise<Acti
   });
 }
 
+/** Uploads a product photo, re-encodes it as WebP and attaches it to the product. */
 export async function uploadProductImage(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const productId = Number(str(fd, "productId"));
@@ -187,6 +195,7 @@ export async function uploadProductImage(_p: ActionResult, fd: FormData): Promis
   });
 }
 
+/** Edits a product photo's alt text, order or flavour tag, or deletes it. */
 export async function updateProductImage(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const imageId = Number(str(fd, "imageId"));
@@ -206,6 +215,7 @@ export async function updateProductImage(_p: ActionResult, fd: FormData): Promis
   });
 }
 
+/** Sets which branches sell a product. */
 export async function setProductBranches(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const productId = Number(str(fd, "productId"));
@@ -223,6 +233,7 @@ export async function setProductBranches(_p: ActionResult, fd: FormData): Promis
   });
 }
 
+/** Creates or updates a menu category. */
 export async function saveCategory(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const id = Number(str(fd, "id")) || null;
@@ -244,6 +255,7 @@ export async function saveCategory(_p: ActionResult, fd: FormData): Promise<Acti
   });
 }
 
+/** Changes the status (active, inactive, unavailable) of several products at once. */
 export async function bulkProductStatus(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("products.manage", async (admin, ip) => {
     const ids = fd.getAll("id").map(Number).filter(Boolean);

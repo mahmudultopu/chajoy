@@ -1,3 +1,8 @@
+/**
+ * Server actions staff use to work an order: status changes, cash collection,
+ * delivery details and internal notes. Branch staff are limited to their own branch.
+ */
+
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -13,6 +18,7 @@ import { run, bool, optStr, str } from "./run";
 import { httpsUrl } from "@/lib/validation";
 import type { ActionResult } from "@/components/admin/ui";
 
+/** Moves an order to its next status, enforcing the allowed transitions. */
 export async function updateOrderStatus(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("orders.manage", async (admin, ip) => {
     const orderId = Number(str(fd, "orderId"));
@@ -24,6 +30,7 @@ export async function updateOrderStatus(_p: ActionResult, fd: FormData): Promise
   });
 }
 
+/** Records that the cash for a cash-on-delivery or pickup order was received. */
 export async function cashCollected(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("orders.manage", async (admin, ip) => {
     const orderId = Number(str(fd, "orderId"));
@@ -33,6 +40,7 @@ export async function cashCollected(_p: ActionResult, fd: FormData): Promise<Act
   });
 }
 
+/** Updates the rider, delivery method or tracking details of an order. */
 export async function updateDelivery(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("orders.manage", async (admin, ip) => {
     const orderId = Number(str(fd, "orderId"));
@@ -67,6 +75,7 @@ export async function updateDelivery(_p: ActionResult, fd: FormData): Promise<Ac
   });
 }
 
+/** Adds an internal staff note to an order's history. */
 export async function addOrderNote(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("orders.manage", async (admin, ip) => {
     const orderId = Number(str(fd, "orderId"));

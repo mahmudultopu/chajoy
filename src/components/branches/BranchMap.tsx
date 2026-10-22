@@ -1,3 +1,5 @@
+/** Leaflet map of branches with OpenStreetMap tiles. Loaded only in the browser. */
+
 "use client";
 
 import "leaflet/dist/leaflet.css";
@@ -44,6 +46,7 @@ function ClickToPick({ onPick }: { onPick?: (p: { lat: number; lng: number }) =>
   return null;
 }
 
+/** Map with branch pins, the visitor's location and an optional pick-a-point mode. */
 export default function BranchMap({
   branches,
   selectedId,

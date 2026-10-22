@@ -1,3 +1,8 @@
+/**
+ * Server actions for managing branches: details, opening hours, location,
+ * fulfilment settings and the per-branch menu (availability and price overrides).
+ */
+
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -23,6 +28,9 @@ const money = (fd: FormData, k: string) => {
   return p;
 };
 
+/**
+ * Creates or updates a branch from the admin form after validating location, hours and delivery settings.
+ */
 export async function saveBranch(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("branches.manage", async (admin, ip) => {
     const id = Number(str(fd, "id")) || null;

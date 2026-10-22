@@ -1,3 +1,8 @@
+/**
+ * Integration tests for checkout against a real (in-memory) database:
+ * pricing, idempotency, stock races and branch rules.
+ */
+
 import { beforeAll, describe, expect, it } from "vitest";
 import { randomUUID } from "node:crypto";
 import { and, eq } from "drizzle-orm";

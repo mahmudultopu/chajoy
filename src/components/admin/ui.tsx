@@ -1,3 +1,8 @@
+/**
+ * Shared admin form components: submit button with pending state, labelled
+ * fields, toggles and the result message of a server action.
+ */
+
 "use client";
 
 import { useActionState, useEffect, useRef } from "react";
@@ -7,6 +12,7 @@ import { CircleCheck, LoaderCircle, TriangleAlert } from "lucide-react";
 
 export type ActionResult = { ok: boolean; message: string; fields?: Record<string, string> } | null;
 
+/** Form submit button that disables itself and shows progress while the action runs. */
 export function SubmitButton({ children, className, variant = "primary", confirm }: { children: React.ReactNode; className?: string; variant?: "primary" | "ghost" | "danger"; confirm?: string }) {
   const { pending } = useFormStatus();
   return (
@@ -71,6 +77,7 @@ export function ActionForm({
   );
 }
 
+/** A labelled form field with optional hint text. */
 export function Field({ label, hint, children, className }: { label: string; hint?: React.ReactNode; children: React.ReactNode; className?: string }) {
   return (
     <label className={clsx("block", className)}>
@@ -81,6 +88,7 @@ export function Field({ label, hint, children, className }: { label: string; hin
   );
 }
 
+/** A labelled on/off checkbox. */
 export function Toggle({ name, defaultChecked, label, hint, disabled }: { name: string; defaultChecked?: boolean; label: string; hint?: string; disabled?: boolean }) {
   return (
     <label className={clsx("flex items-start gap-3 rounded-2xl bg-cream-100 p-3", disabled && "opacity-50")}>

@@ -1,10 +1,14 @@
+/** Admin: add a product. */
+
 import Link from "next/link";
 import { db, schema } from "@/lib/db";
 import { requireAdminPage } from "@/lib/auth/admin";
 import { ProductDetailsForm } from "../ProductEditor";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "New product" };
 
+/** Empty product form. */
 export default async function NewProduct() {
   await requireAdminPage("products.manage");
   const categories = await db.select().from(schema.productCategories).orderBy(schema.productCategories.sortOrder);

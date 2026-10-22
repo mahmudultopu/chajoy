@@ -1,10 +1,14 @@
+/** Admin: searchable audit log. */
+
 import Link from "next/link";
 import { desc, ilike, or, sql } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { requireAdminPage } from "@/lib/auth/admin";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Audit log" };
 
+/** Lists audit entries, newest first, with search and paging. */
 export default async function Audit({ searchParams }: { searchParams: Promise<{ q?: string; page?: string }> }) {
   await requireAdminPage("audit.view");
   const sp = await searchParams;

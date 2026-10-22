@@ -1,3 +1,5 @@
+/** Menu search dialog (opened with the search icon, / or Ctrl+K). */
+
 "use client";
 
 import Image from "next/image";
@@ -12,6 +14,7 @@ type Suggestion = { slug: string; name: string; nameZh: string | null; category:
 
 const POPULAR = ["Boba", "Matcha", "Sundae", "Peach", "Lemon", "Milkshake"];
 
+/** Shows live suggestions as the visitor types. */
 export function SearchDialog() {
   const { searchOpen, setSearchOpen } = useStore();
   const router = useRouter();

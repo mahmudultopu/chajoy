@@ -1,3 +1,5 @@
+/** Admin: edit one branch. */
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -5,8 +7,10 @@ import { db, schema } from "@/lib/db";
 import { requireAdminPage, can } from "@/lib/auth/admin";
 import { BranchForm, BranchMenuForm } from "../BranchEditor";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Branch" };
 
+/** Branch details and menu forms, limited for branch staff. */
 export default async function BranchAdmin({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ created?: string }> }) {
   const admin = await requireAdminPage("inventory.manage");
   const id = Number((await params).id);

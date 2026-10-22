@@ -1,8 +1,12 @@
+/** Order tracking page. */
+
 import type { Metadata } from "next";
 import { TrackForm } from "@/components/orders/TrackForm";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Track an order", alternates: { canonical: "/track" } };
 
+/** Order lookup form, plus a notice after returning from payment. */
 export default async function TrackPage({ searchParams }: { searchParams: Promise<{ payment?: string }> }) {
   const { payment } = await searchParams;
   return (

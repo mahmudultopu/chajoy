@@ -1,3 +1,5 @@
+/** Homepage. All prices and counts come from the live catalogue. */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Tag } from "lucide-react";
@@ -12,6 +14,7 @@ import { getSettings } from "@/lib/services/settings";
 import { selectedBranch } from "@/lib/request";
 import { formatBDT } from "@/lib/money";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = {
   title: { absolute: "CHAJOY BD — Ice Cream & Tea in Dhaka" },
   description:
@@ -19,6 +22,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
+/** Loads the catalogue, branches and offers, then renders the homepage sections. */
 export default async function HomePage() {
   const branch = await selectedBranch();
   const [settings, catalog, categories, ranked, promos, branches] = await Promise.all([

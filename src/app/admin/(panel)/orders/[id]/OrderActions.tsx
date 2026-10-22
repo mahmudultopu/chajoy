@@ -1,3 +1,5 @@
+/** Staff controls on an order: status, cash collection, delivery and notes. */
+
 "use client";
 
 import { ActionForm, SubmitButton, Field } from "@/components/admin/ui";
@@ -5,6 +7,7 @@ import { addOrderNote, cashCollected, updateDelivery, updateOrderStatus } from "
 
 type Delivery = { method: string; providerName: string | null; riderName: string | null; riderPhone: string | null; trackingRef: string | null; trackingUrl: string | null; status: string };
 
+/** Shows only the actions allowed for the order's current state. */
 export function OrderActions({
   orderId,
   transitions,

@@ -1,10 +1,14 @@
+/** Admin: menu categories. */
+
 import Link from "next/link";
 import { db, schema } from "@/lib/db";
 import { requireAdminPage } from "@/lib/auth/admin";
 import { CategoryForm } from "./CategoryForm";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Categories" };
 
+/** Lists categories with edit forms. */
 export default async function Categories() {
   await requireAdminPage("products.manage");
   const cats = await db.select().from(schema.productCategories).orderBy(schema.productCategories.sortOrder);

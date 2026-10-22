@@ -1,3 +1,5 @@
+/** Cart line items and totals, shared by the drawer, cart page and checkout. */
+
 "use client";
 
 import Image from "next/image";
@@ -8,6 +10,7 @@ import type { CartView } from "@/lib/services/cart";
 import { formatBDT } from "@/lib/money";
 import { useStore } from "./StoreProvider";
 
+/** Lists cart lines with quantity controls. */
 export function CartLines({ view, compact }: { view: CartView; compact?: boolean }) {
   const { updateQty, removeLine, busy } = useStore();
   return (
@@ -69,6 +72,7 @@ export function CartLines({ view, compact }: { view: CartView; compact?: boolean
   );
 }
 
+/** Subtotal, discounts, delivery fee and total. */
 export function CartSummary({ view }: { view: CartView }) {
   const q = view.quote;
   return (

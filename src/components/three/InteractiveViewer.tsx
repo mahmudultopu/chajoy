@@ -1,3 +1,5 @@
+/** Interactive 3D drink viewer on product pages (a labelled illustration). */
+
 "use client";
 
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
@@ -85,6 +87,7 @@ function Model({
   );
 }
 
+/** Rotatable 3D model of the drink that follows the chosen size and options. */
 export default function InteractiveViewer({
   env,
   visual,

@@ -9,6 +9,7 @@ const g = globalThis as unknown as { __geoCache?: Map<string, { at: number; data
 const cache = (g.__geoCache ??= new Map());
 const TTL = 24 * 3600_000;
 
+/** Looks up an address or landmark and returns matching places, using a short-lived cache. */
 export async function geocode(query: string): Promise<GeoResult[]> {
   const q = query.trim().replace(/\s+/g, " ").slice(0, 120);
   if (q.length < 2) return [];

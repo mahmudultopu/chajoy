@@ -1,8 +1,12 @@
+/** API: order status for the order page. */
+
 import { loadOrderForVisitor, publicOrder } from "@/lib/order-view";
 import { handle, HttpError, json, limit } from "@/lib/http";
 
+/** Always run per request: the response depends on cookies or the query. */
 export const dynamic = "force-dynamic";
 
+/** Returns the public view of an order the visitor may see. */
 export const GET = handle(async (req: Request, ctx: { params: Promise<{ number: string }> }) => {
   limit(req, "order-status", 60, 60_000);
   const { number } = await ctx.params;

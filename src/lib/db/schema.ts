@@ -1,3 +1,9 @@
+/**
+ * Drizzle database schema: catalogue, branches, carts, orders, payments,
+ * promotions, content, customers, admin users and the audit log.
+ * Money is stored as integer paisa throughout.
+ */
+
 import {
   boolean,
   doublePrecision,
@@ -78,6 +84,7 @@ export const productCategories = pgTable("product_categories", {
   ...timestamps,
 });
 
+/** Menu items, with option rules (sizes, sugar, ice, toppings) and status. */
 export const products = pgTable(
   "products",
   {
@@ -108,6 +115,7 @@ export const products = pgTable(
   (t) => [index("products_category_idx").on(t.categoryId), index("products_status_idx").on(t.status)],
 );
 
+/** Photos for a product, optionally tagged with a flavour. */
 export const productImages = pgTable(
   "product_images",
   {
@@ -132,6 +140,7 @@ export const productImages = pgTable(
   (t) => [index("product_images_product_idx").on(t.productId)],
 );
 
+/** Sizes of a product, each with its own price. */
 export const productVariants = pgTable(
   "product_variants",
   {
@@ -186,6 +195,7 @@ export const branches = pgTable("branches", {
   ...timestamps,
 });
 
+/** Which products each branch sells. */
 export const branchProducts = pgTable(
   "branch_products",
   {
@@ -203,6 +213,7 @@ export const branchProducts = pgTable(
   (t) => [uniqueIndex("branch_products_uq").on(t.branchId, t.productId)],
 );
 
+/** Per-branch availability, price override and stock note for each size. */
 export const branchInventory = pgTable(
   "branch_inventory",
   {
@@ -234,6 +245,7 @@ export const customers = pgTable("customers", {
   ...timestamps,
 });
 
+/** Customer login sessions (token hashes only). */
 export const customerSessions = pgTable("customer_sessions", {
   id: text().primaryKey(), // sha256 of the cookie token
   customerId: integer()
@@ -243,6 +255,7 @@ export const customerSessions = pgTable("customer_sessions", {
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
 });
 
+/** Saved delivery addresses for customer accounts. */
 export const customerAddresses = pgTable("customer_addresses", {
   id: serial().primaryKey(),
   customerId: integer()
@@ -271,6 +284,7 @@ export const carts = pgTable("carts", {
   ...timestamps,
 });
 
+/** Lines in a cart, with the chosen options. */
 export const cartItems = pgTable(
   "cart_items",
   {
@@ -307,6 +321,7 @@ export const ORDER_STATUSES = [
 ] as const;
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
+/** Lifecycle of a payment. */
 export const PAYMENT_STATUSES = ["pending", "paid", "failed", "cancelled", "refunded"] as const;
 export type PaymentStatus = (typeof PAYMENT_STATUSES)[number];
 
@@ -318,6 +333,7 @@ export type DeliveryAddress = {
   longitude: number;
 };
 
+/** Placed orders, with prices, fulfilment and payment state frozen at checkout. */
 export const orders = pgTable(
   "orders",
   {
@@ -361,6 +377,7 @@ export const orders = pgTable(
   ],
 );
 
+/** Lines of an order, copied from the cart with their final prices. */
 export const orderItems = pgTable(
   "order_items",
   {
@@ -385,6 +402,7 @@ export const orderItems = pgTable(
   (t) => [index("order_items_order_idx").on(t.orderId), index("order_items_product_idx").on(t.productId)],
 );
 
+/** Every status change of an order, with who made it. */
 export const orderStatusHistory = pgTable(
   "order_status_history",
   {
@@ -400,6 +418,7 @@ export const orderStatusHistory = pgTable(
   (t) => [index("order_status_history_order_idx").on(t.orderId)],
 );
 
+/** Payment attempts for an order (cash or SSLCommerz). */
 export const payments = pgTable(
   "payments",
   {
@@ -421,6 +440,7 @@ export const payments = pgTable(
   ],
 );
 
+/** Delivery details and rider information for delivery orders. */
 export const deliveries = pgTable("deliveries", {
   id: serial().primaryKey(),
   orderId: integer()
@@ -457,6 +477,7 @@ export const promotions = pgTable("promotions", {
   ...timestamps,
 });
 
+/** The discount a promotion gives, and its conditions. */
 export const discountRules = pgTable("discount_rules", {
   id: serial().primaryKey(),
   promotionId: integer()
@@ -476,6 +497,7 @@ export const discountRules = pgTable("discount_rules", {
   ...timestamps,
 }, (t) => [uniqueIndex("discount_rules_code_uq").on(sql`lower(${t.code})`)]);
 
+/** Short messages shown in the storefront announcement bar. */
 export const announcements = pgTable("announcements", {
   id: serial().primaryKey(),
   message: text().notNull(),
@@ -489,12 +511,14 @@ export const announcements = pgTable("announcements", {
   ...timestamps,
 });
 
+/** Key/value site settings edited from the admin. */
 export const siteSettings = pgTable("site_settings", {
   key: text().primaryKey(),
   value: jsonb().notNull(),
   updatedAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
 });
 
+/** Editable pages such as policies. */
 export const contentPages = pgTable("content_pages", {
   slug: text().primaryKey(),
   title: text().notNull(),
@@ -503,6 +527,7 @@ export const contentPages = pgTable("content_pages", {
   ...timestamps,
 });
 
+/** Newsletter sign-ups with the consent text they agreed to. */
 export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   id: serial().primaryKey(),
   email: text().notNull().unique(),
@@ -515,6 +540,7 @@ export const newsletterSubscribers = pgTable("newsletter_subscribers", {
 export const ADMIN_ROLES = ["owner", "manager", "branch_staff"] as const;
 export type AdminRole = (typeof ADMIN_ROLES)[number];
 
+/** Staff accounts with a role and, for branch staff, a branch. */
 export const adminUsers = pgTable("admin_users", {
   id: serial().primaryKey(),
   email: text().notNull().unique(),
@@ -527,6 +553,7 @@ export const adminUsers = pgTable("admin_users", {
   ...timestamps,
 });
 
+/** Admin login sessions (token hashes only). */
 export const adminSessions = pgTable("admin_sessions", {
   id: text().primaryKey(), // sha256 of the cookie token
   adminUserId: integer()
@@ -538,6 +565,7 @@ export const adminSessions = pgTable("admin_sessions", {
   createdAt: timestamp({ withTimezone: true }).notNull().defaultNow(),
 });
 
+/** Record of admin actions and sign-ins. */
 export const auditLogs = pgTable(
   "audit_logs",
   {
@@ -562,6 +590,7 @@ export const productCategoriesRelations = relations(productCategories, ({ many }
   products: many(products),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const productsRelations = relations(products, ({ one, many }) => ({
   category: one(productCategories, { fields: [products.categoryId], references: [productCategories.id] }),
   images: many(productImages),
@@ -569,42 +598,50 @@ export const productsRelations = relations(products, ({ one, many }) => ({
   branchProducts: many(branchProducts),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const productImagesRelations = relations(productImages, ({ one }) => ({
   product: one(products, { fields: [productImages.productId], references: [products.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const productVariantsRelations = relations(productVariants, ({ one, many }) => ({
   product: one(products, { fields: [productVariants.productId], references: [products.id] }),
   inventory: many(branchInventory),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const branchesRelations = relations(branches, ({ many }) => ({
   branchProducts: many(branchProducts),
   inventory: many(branchInventory),
   orders: many(orders),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const branchProductsRelations = relations(branchProducts, ({ one }) => ({
   branch: one(branches, { fields: [branchProducts.branchId], references: [branches.id] }),
   product: one(products, { fields: [branchProducts.productId], references: [products.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const branchInventoryRelations = relations(branchInventory, ({ one }) => ({
   branch: one(branches, { fields: [branchInventory.branchId], references: [branches.id] }),
   variant: one(productVariants, { fields: [branchInventory.variantId], references: [productVariants.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const cartsRelations = relations(carts, ({ many, one }) => ({
   items: many(cartItems),
   branch: one(branches, { fields: [carts.branchId], references: [branches.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const cartItemsRelations = relations(cartItems, ({ one }) => ({
   cart: one(carts, { fields: [cartItems.cartId], references: [carts.id] }),
   product: one(products, { fields: [cartItems.productId], references: [products.id] }),
   variant: one(productVariants, { fields: [cartItems.variantId], references: [productVariants.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const ordersRelations = relations(orders, ({ one, many }) => ({
   branch: one(branches, { fields: [orders.branchId], references: [branches.id] }),
   customer: one(customers, { fields: [orders.customerId], references: [customers.id] }),
@@ -615,39 +652,48 @@ export const ordersRelations = relations(orders, ({ one, many }) => ({
   promotion: one(promotions, { fields: [orders.promotionId], references: [promotions.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const orderItemsRelations = relations(orderItems, ({ one }) => ({
   order: one(orders, { fields: [orderItems.orderId], references: [orders.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const orderStatusHistoryRelations = relations(orderStatusHistory, ({ one }) => ({
   order: one(orders, { fields: [orderStatusHistory.orderId], references: [orders.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const paymentsRelations = relations(payments, ({ one }) => ({
   order: one(orders, { fields: [payments.orderId], references: [orders.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const deliveriesRelations = relations(deliveries, ({ one }) => ({
   order: one(orders, { fields: [deliveries.orderId], references: [orders.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const promotionsRelations = relations(promotions, ({ many }) => ({
   rules: many(discountRules),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const discountRulesRelations = relations(discountRules, ({ one }) => ({
   promotion: one(promotions, { fields: [discountRules.promotionId], references: [promotions.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const customersRelations = relations(customers, ({ many }) => ({
   addresses: many(customerAddresses),
   orders: many(orders),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const customerAddressesRelations = relations(customerAddresses, ({ one }) => ({
   customer: one(customers, { fields: [customerAddresses.customerId], references: [customers.id] }),
 }));
 
+/** Relations used by Drizzle's query API. */
 export const adminUsersRelations = relations(adminUsers, ({ one }) => ({
   branch: one(branches, { fields: [adminUsers.branchId], references: [branches.id] }),
 }));

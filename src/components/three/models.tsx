@@ -1,3 +1,8 @@
+/**
+ * Procedural 3D models of CHAJOY drinks and desserts (cups, liquids, soft
+ * serve, cones, toppings and fruit), built from each product's visual preset.
+ */
+
 "use client";
 
 import { useLayoutEffect, useMemo, useRef } from "react";
@@ -43,6 +48,7 @@ export function cupProfile(height: number, bottomR = 0.6, topR = 0.82) {
   return pts;
 }
 
+/** Cup radius at height `y`, for a cup that widens towards the top. */
 export function radiusAt(y: number, height: number, bottomR = 0.6, topR = 0.82) {
   return bottomR + (topR - bottomR) * Math.min(1, Math.max(0, y / height));
 }
@@ -146,6 +152,7 @@ function Liquid({ height, fill, visual, from = 0.07 }: { height: number; fill: n
   );
 }
 
+/** Glossy material for brown sugar pearls. */
 export function PearlMaterial() {
   return <meshPhysicalMaterial color="#26140a" roughness={0.16} clearcoat={1} clearcoatRoughness={0.08} sheen={0.4} sheenColor="#6b3a1a" />;
 }
@@ -210,6 +217,7 @@ function JellyCubes({ height, count = 24 }: { height: number; count?: number }) 
   );
 }
 
+/** A rounded, translucent ice cube. */
 export function IceCube({ size = 0.32, quality = "high" as Quality, ...props }: { size?: number; quality?: Quality } & GroupProps) {
   return (
     <group {...props}>
@@ -253,6 +261,7 @@ function Straw({ height }: { height: number }) {
   );
 }
 
+/** Model cup height for each size. */
 export const CUP_HEIGHT: Record<string, number> = { S: 2.0, M: 2.45, L: 2.9, ONE: 2.2 };
 
 /** A CHAJOY drink, built from a product's visual preset. */
@@ -456,6 +465,7 @@ export function softServeGeometry({ turns = 3.3, height = 1.3, base = 0.56, serv
   return g;
 }
 
+/** A swirl of soft serve in original, matcha or twist. */
 export function SoftServe({ serve = "twist", scale = 1 }: { serve?: "original" | "matcha" | "twist"; scale?: number }) {
   const geom = useMemo(() => softServeGeometry({ serve }), [serve]);
   return (
@@ -481,6 +491,7 @@ export function ConeStand(props: GroupProps) {
   );
 }
 
+/** A waffle cone with soft serve. */
 export function Cone({ serve = "twist" as "original" | "matcha" | "twist", ...props }: { serve?: "original" | "matcha" | "twist" } & GroupProps) {
   const { map, bump } = useMemo(() => waffleTextures(), []);
   return (
@@ -570,6 +581,7 @@ const strawberryProfile = (() => {
   return pts;
 })();
 
+/** A strawberry with seeds and leaves. */
 export function Strawberry(props: GroupProps) {
   const bump = useMemo(() => seedBumpTexture(), []);
   const geom = useMemo(() => new THREE.LatheGeometry(strawberryProfile, 40), []);
@@ -596,6 +608,7 @@ export function Strawberry(props: GroupProps) {
   );
 }
 
+/** A single blueberry. */
 export function Blueberry({ color = "#2f2a5a", ...props }: { color?: string } & GroupProps) {
   return (
     <group {...props}>
@@ -607,6 +620,7 @@ export function Blueberry({ color = "#2f2a5a", ...props }: { color?: string } & 
   );
 }
 
+/** A single boba pearl. */
 export function Pearl(props: GroupProps) {
   return (
     <group {...props}>
@@ -618,6 +632,7 @@ export function Pearl(props: GroupProps) {
   );
 }
 
+/** An Oreo-style sandwich cookie. */
 export function Oreo(props: GroupProps) {
   return (
     <group {...props}>
@@ -637,6 +652,7 @@ export function Oreo(props: GroupProps) {
   );
 }
 
+/** A tea leaf. */
 export function TeaLeaf({ color = "#5f9a22", ...props }: { color?: string } & GroupProps) {
   const geom = useMemo(() => {
     const s = new THREE.Shape();
@@ -658,6 +674,7 @@ export function TeaLeaf({ color = "#5f9a22", ...props }: { color?: string } & Gr
   );
 }
 
+/** A water droplet for condensation. */
 export function Droplet(props: GroupProps) {
   return (
     <group {...props}>

@@ -1,3 +1,8 @@
+/**
+ * Product page body: photo gallery or 3D view, sizes, options, toppings,
+ * quantity and add to cart.
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";
@@ -59,6 +64,7 @@ function Seg<T extends string | number>({ value, set, items, label }: { value: T
 }
 
 
+/** Interactive product detail with option pickers and a live price. */
 export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName: string | null }) {
   const { addItem, busy, setBranchPickerOpen } = useStore();
   const c = p.optionConfig;
@@ -171,7 +177,7 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
         <p className="eyebrow">{p.category}</p>
         <h1 className="mt-2 font-display text-5xl leading-[0.95] tracking-tight text-forest-900 sm:text-6xl">{p.name}</h1>
         {p.nameZh && <p className="mt-2 text-lg text-forest-900/45">{p.nameZh}</p>}
-        <p className="mt-4 font-display text-3xl text-berry-600">
+        <p className="mt-4 font-display text-3xl text-caramel-600">
           {formatBDT(unit)}
           {toppingTotal > 0 && <span className="ml-2 text-sm font-sans font-semibold text-forest-900/50">incl. toppings</span>}
         </p>
@@ -223,7 +229,7 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
                     )}
                   >
                     <span className="block text-sm font-semibold text-forest-900">{x.label}</span>
-                    <span className="mt-0.5 block font-display text-xl text-berry-600">{formatBDT(x.pricePaisa)}</span>
+                    <span className="mt-0.5 block font-display text-xl text-caramel-600">{formatBDT(x.pricePaisa)}</span>
                     {x.stockNote && <span className="text-xs text-forest-900/60">{x.stockNote}</span>}
                   </button>
                 ))}

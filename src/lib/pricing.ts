@@ -1,3 +1,9 @@
+/**
+ * Server-side pricing. Turns a cart into a priced quote with every reason it
+ * can't be ordered yet (branch closed, item unavailable, minimum order...).
+ * Pure function: the same input always gives the same quote.
+ */
+
 import type { CartLineOptions, OpeningHours, ProductOptionConfig } from "@/lib/db/schema";
 import { getOpenStatus, describeOpenStatus } from "@/lib/hours";
 import { describeOptions, normalizeOptions } from "@/lib/options";
@@ -122,8 +128,10 @@ export type Quote = {
   canCheckout: boolean;
 };
 
+/** Largest quantity allowed on one cart line. */
 export const MAX_LINE_QTY = 20;
 
+/** Prices the cart for a branch and fulfilment method, and lists any blockers. */
 export function quote(input: QuoteInput): Quote {
   const { catalog, branch, fulfilment, now } = input;
   const blockers: Blocker[] = [];

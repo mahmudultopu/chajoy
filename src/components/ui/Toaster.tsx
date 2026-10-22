@@ -1,3 +1,5 @@
+/** Toast notifications. */
+
 "use client";
 
 import Link from "next/link";
@@ -5,6 +7,7 @@ import { CircleCheck, Info, TriangleAlert, X } from "lucide-react";
 import { clsx } from "clsx";
 import { useStore } from "@/components/store/StoreProvider";
 
+/** Renders the current toasts from the store context. */
 export function Toaster() {
   const { toasts, dismissToast } = useStore();
   return (

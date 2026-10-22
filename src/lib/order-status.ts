@@ -1,3 +1,8 @@
+/**
+ * Order status rules: which transitions are allowed, and the labels and
+ * progress steps shown to customers.
+ */
+
 import type { OrderStatus, PaymentStatus } from "@/lib/db/schema";
 
 type Fulfilment = "pickup" | "delivery";
@@ -14,6 +19,7 @@ const NEXT: Record<OrderStatus, OrderStatus[]> = {
   refunded: [],
 };
 
+/** Statuses an order may move to next, given its fulfilment and payment state. */
 export function allowedTransitions(o: {
   status: OrderStatus;
   fulfilmentMethod: Fulfilment;
@@ -28,6 +34,7 @@ export function allowedTransitions(o: {
   });
 }
 
+/** True when moving the order to `to` is allowed. */
 export function canTransition(
   o: { status: OrderStatus; fulfilmentMethod: Fulfilment; paymentStatus: PaymentStatus },
   to: OrderStatus,
@@ -35,6 +42,7 @@ export function canTransition(
   return allowedTransitions(o).includes(to);
 }
 
+/** Customer-facing label for a status. */
 export function statusLabel(s: OrderStatus, f: Fulfilment): string {
   switch (s) {
     case "pending_confirmation":
@@ -58,14 +66,17 @@ export function statusLabel(s: OrderStatus, f: Fulfilment): string {
   }
 }
 
+/** Statuses after which an order can no longer change. */
 export const TERMINAL_STATUSES: OrderStatus[] = ["delivered", "completed", "cancelled", "refunded"];
 
+/** The steps shown on the order tracker for pickup or delivery. */
 export function progressSteps(f: Fulfilment): OrderStatus[] {
   return f === "pickup"
     ? ["pending_confirmation", "confirmed", "preparing", "ready", "completed"]
     : ["pending_confirmation", "confirmed", "preparing", "ready", "out_for_delivery", "delivered"];
 }
 
+/** Customer-facing label for a payment status. */
 export function paymentStatusLabel(p: PaymentStatus, method: "cod" | "sslcommerz"): string {
   if (method === "cod")
     return p === "paid" ? "Cash collected" : p === "pending" ? "Cash on delivery / pickup — not yet collected" : p[0].toUpperCase() + p.slice(1);

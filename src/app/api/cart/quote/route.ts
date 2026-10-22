@@ -1,3 +1,5 @@
+/** API: price the cart for a delivery location or promo code. */
+
 import { z } from "zod";
 import { buildCartView, setCartFulfilment } from "@/lib/services/cart";
 import { currentCart } from "@/lib/request";

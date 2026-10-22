@@ -1,8 +1,11 @@
+/** Admin settings forms: payment methods and staff accounts. */
+
 "use client";
 
 import { ActionForm, Field, SubmitButton, Toggle } from "@/components/admin/ui";
 import { saveAdminUser, savePayments } from "@/lib/admin/content-actions";
 
+/** Turns payment methods on or off. */
 export function PaymentsForm({ codEnabled, sslEnabled, sslConfigured, sandbox }: { codEnabled: boolean; sslEnabled: boolean; sslConfigured: boolean; sandbox: boolean }) {
   return (
     <ActionForm action={savePayments} className="card space-y-3 p-5">
@@ -22,6 +25,7 @@ export function PaymentsForm({ codEnabled, sslEnabled, sslConfigured, sandbox }:
 
 type U = { id: number; email: string; name: string; role: string; branchId: number | null; isActive: boolean; lastLoginAt: string | null };
 
+/** Creates or edits a staff account. */
 export function UserForm({ u, branches }: { u: U | null; branches: { id: number; name: string }[] }) {
   return (
     <ActionForm action={saveAdminUser} className="rounded-2xl bg-cream-100 p-4" resetOnSuccess={!u}>

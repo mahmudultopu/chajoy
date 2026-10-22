@@ -1,3 +1,5 @@
+/** About page: CHAJOY's story, store photos and branches. */
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -5,12 +7,14 @@ import { ArrowRight } from "lucide-react";
 import { getSettings } from "@/lib/services/settings";
 import { listBranches } from "@/lib/services/branches";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = {
   title: "Our story",
   description: "ChaJoy is a fast-growing international tea, ice cream and dessert brand bringing premium quality at an affordable price to Bangladesh.",
   alternates: { canonical: "/about" },
 };
 
+/** Renders the about page. */
 export default async function AboutPage() {
   const [settings, branches] = await Promise.all([getSettings(), listBranches()]);
   return (

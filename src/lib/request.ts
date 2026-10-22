@@ -1,8 +1,12 @@
+/** Per-visitor request state kept in cookies: the chosen branch and the cart. */
+
 import { cookies } from "next/headers";
 import { createCart, findCart, setCartBranch, type Cart } from "@/lib/services/cart";
 import { getBranchById } from "@/lib/services/branches";
 
+/** Cookie holding the cart token. */
 export const CART_COOKIE = "cj_cart";
+/** Cookie holding the chosen branch id. */
 export const BRANCH_COOKIE = "cj_branch";
 
 const cookieOpts = (maxAgeDays: number) => ({
@@ -20,16 +24,19 @@ export async function selectedBranchId(): Promise<number | null> {
   return Number.isInteger(id) && id > 0 ? id : null;
 }
 
+/** The branch the visitor chose, or null. */
 export async function selectedBranch() {
   return getBranchById(await selectedBranchId());
 }
 
+/** Remembers the visitor's branch for 180 days, or forgets it. */
 export async function setSelectedBranchCookie(branchId: number | null) {
   const jar = await cookies();
   if (branchId) jar.set(BRANCH_COOKIE, String(branchId), cookieOpts(180));
   else jar.delete(BRANCH_COOKIE);
 }
 
+/** The visitor's existing cart, or null. */
 export async function currentCart(): Promise<Cart | null> {
   return findCart((await cookies()).get(CART_COOKIE)?.value);
 }

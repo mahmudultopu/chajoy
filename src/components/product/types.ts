@@ -1,3 +1,5 @@
+/** Product card data shape and the conversion from catalogue products. */
+
 import type { MenuProduct } from "@/lib/services/catalog";
 import { describeOptions } from "@/lib/options";
 import { backdropFor, cutoutFor, cutoutOf } from "@/lib/cutouts";

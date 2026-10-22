@@ -1,3 +1,8 @@
+/**
+ * Server actions for site content and settings: promotions, announcements,
+ * homepage copy, payment switches, policy pages and admin user accounts.
+ */
+
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -73,6 +78,7 @@ export async function savePromotion(_p: ActionResult, fd: FormData): Promise<Act
   });
 }
 
+/** Deletes a promotion, or deactivates it instead when existing orders reference it. */
 export async function deletePromotion(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("promotions.manage", async (admin, ip) => {
     const id = Number(str(fd, "id"));
@@ -148,6 +154,7 @@ export async function saveSiteContent(_p: ActionResult, fd: FormData): Promise<A
   });
 }
 
+/** Turns cash on delivery and SSLCommerz on or off. Online payment needs gateway credentials first. */
 export async function savePayments(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("settings.manage", async (admin, ip) => {
     const ssl = bool(fd, "sslcommerzEnabled");
@@ -160,6 +167,7 @@ export async function savePayments(_p: ActionResult, fd: FormData): Promise<Acti
   });
 }
 
+/** Saves a content page (policies, about) as a draft or publishes it. */
 export async function savePage(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("content.manage", async (admin, ip) => {
     const slug = z.string().regex(/^[a-z0-9-]+$/).parse(str(fd, "slug"));
@@ -203,6 +211,7 @@ export async function saveAdminUser(_p: ActionResult, fd: FormData): Promise<Act
   });
 }
 
+/** Lets the signed-in admin set a new password (minimum 12 characters). */
 export async function changeOwnPassword(_p: ActionResult, fd: FormData): Promise<ActionResult> {
   return run("dashboard.view", async (admin, ip) => {
     const pw = z.string().min(12, "Use at least 12 characters.").max(200).parse(str(fd, "password"));

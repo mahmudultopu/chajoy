@@ -1,3 +1,5 @@
+/** Dashboard bar chart of daily sales, drawn as accessible inline SVG. */
+
 "use client";
 
 import { useState } from "react";

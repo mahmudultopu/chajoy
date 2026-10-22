@@ -1,9 +1,13 @@
+/** Admin: add a branch. */
+
 import Link from "next/link";
 import { requireAdminPage } from "@/lib/auth/admin";
 import { BranchForm } from "../BranchEditor";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "New branch" };
 
+/** Empty branch form. */
 export default async function NewBranch() {
   await requireAdminPage("branches.manage");
   return (

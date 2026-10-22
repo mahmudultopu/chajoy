@@ -1,8 +1,10 @@
+/** CHAJOY logo component. */
+
 import Image from "next/image";
 import Link from "next/link";
 import { clsx } from "clsx";
 
-/** Penguin badge + "chajoy." wordmark (the reference's "alldae." treatment, in CHAJOY colours). */
+/** Site logo: the penguin badge next to the lowercase "chajoy." wordmark. */
 export function Logo({ className, light }: { className?: string; light?: boolean }) {
   return (
     <Link href="/" className={clsx("group inline-flex items-center gap-2", className)} aria-label="CHAJOY BD home">

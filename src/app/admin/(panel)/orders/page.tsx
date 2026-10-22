@@ -1,3 +1,5 @@
+/** Admin: order list with filters. */
+
 import Link from "next/link";
 import { and, desc, eq, gte, ilike, lte, or, sql, type SQL } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
@@ -9,10 +11,12 @@ import { statusLabel, paymentStatusLabel } from "@/lib/order-status";
 import { Badge, statusTone } from "@/components/admin/Badge";
 import { normalizeBdPhone } from "@/lib/validation";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Orders" };
 
 type SP = { status?: string; branch?: string; q?: string; from?: string; to?: string; page?: string };
 
+/** Lists orders filtered by status, branch, date and search. */
 export default async function OrdersPage({ searchParams }: { searchParams: Promise<SP> }) {
   const admin = await requireAdminPage("orders.view");
   const sp = await searchParams;

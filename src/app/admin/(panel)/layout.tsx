@@ -1,3 +1,5 @@
+/** Admin panel layout with navigation filtered by role. */
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -6,8 +8,10 @@ import { logoutAction } from "@/lib/admin/auth-actions";
 import { getBranchById } from "@/lib/services/branches";
 import { AdminNav } from "@/components/admin/AdminNav";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: { default: "Admin", template: "%s · CHAJOY Admin" }, robots: { index: false, follow: false } };
 
+/** Requires a signed-in admin and renders the navigation. */
 export default async function PanelLayout({ children }: { children: React.ReactNode }) {
   const admin = await requireAdminPage("dashboard.view");
   const branch = admin.branchScope ? await getBranchById(admin.branchScope) : null;

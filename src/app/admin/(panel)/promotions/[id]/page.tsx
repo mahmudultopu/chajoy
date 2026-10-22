@@ -1,3 +1,5 @@
+/** Admin: edit a promotion. */
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -6,10 +8,12 @@ import { requireAdminPage } from "@/lib/auth/admin";
 import { listBranches } from "@/lib/services/branches";
 import { PromotionForm, type PromoInput } from "../PromotionForm";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Promotion" };
 
 const dateStr = (d: Date) => new Date(d.getTime() + 6 * 3600_000).toISOString().slice(0, 10);
 
+/** Promotion form for one promotion. */
 export default async function PromotionPage({ params }: { params: Promise<{ id: string }> }) {
   await requireAdminPage("promotions.manage");
   const raw = (await params).id;

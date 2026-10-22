@@ -1,3 +1,5 @@
+/** Root layout: fonts, metadata and the <html> shell. */
+
 import type { Metadata, Viewport } from "next";
 import { DM_Sans, Fraunces, Noto_Sans_Bengali } from "next/font/google";
 import "./globals.css";
@@ -14,6 +16,7 @@ const dmSans = DM_Sans({ subsets: ["latin"], variable: "--font-dm-sans", display
 // Supplies the taka sign (৳) and Bangla text, which the Latin fonts don't contain.
 const bengali = Noto_Sans_Bengali({ subsets: ["bengali"], weight: ["500", "700"], variable: "--font-bengali", display: "swap", preload: false });
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: "CHAJOY BD — Ice Cream & Tea", template: "%s · CHAJOY BD" },
@@ -23,12 +26,14 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image" },
 };
 
+/** Mobile viewport and browser theme colour. */
 export const viewport: Viewport = {
-  themeColor: "#10291a",
+  themeColor: "#fff8ee",
   width: "device-width",
   initialScale: 1,
 };
 
+/** Root HTML document shared by the storefront and admin. */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${fraunces.variable} ${dmSans.variable} ${bengali.variable}`}>

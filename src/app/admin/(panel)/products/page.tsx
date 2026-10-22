@@ -1,3 +1,5 @@
+/** Admin: product list with search and filters. */
+
 import Image from "next/image";
 import Link from "next/link";
 import { requireAdminPage } from "@/lib/auth/admin";
@@ -6,8 +8,10 @@ import { formatBDT } from "@/lib/money";
 import { Badge } from "@/components/admin/Badge";
 import { BulkStatus } from "./BulkStatus";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Products" };
 
+/** Lists products with bulk status controls. */
 export default async function ProductsAdmin({ searchParams }: { searchParams: Promise<{ q?: string; category?: string }> }) {
   await requireAdminPage("products.manage");
   const sp = await searchParams;

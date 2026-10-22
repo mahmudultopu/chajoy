@@ -1,3 +1,5 @@
+/** Admin: list of branches. */
+
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { db, schema } from "@/lib/db";
@@ -6,8 +8,10 @@ import { toPublicBranch } from "@/lib/services/branches";
 import { hasAnyHours } from "@/lib/hours";
 import { Badge } from "@/components/admin/Badge";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Branches" };
 
+/** Lists branches; branch staff go straight to their own branch. */
 export default async function BranchesAdmin() {
   const admin = await requireAdminPage("inventory.manage");
   if (admin.branchScope) redirect(`/admin/branches/${admin.branchScope}`);

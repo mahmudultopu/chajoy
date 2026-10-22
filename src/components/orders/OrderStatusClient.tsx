@@ -1,3 +1,8 @@
+/**
+ * Live order status page: progress tracker, items, totals and payment state.
+ * Refreshes automatically while the order is in progress.
+ */
+
 "use client";
 
 import Link from "next/link";
@@ -10,6 +15,7 @@ import { progressSteps, statusLabel } from "@/lib/order-status";
 
 const fmt = (iso: string) => new Date(iso).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit", timeZone: "Asia/Dhaka" });
 
+/** Shows an order and polls for status updates. */
 export function OrderStatusClient({ initial, token, paymentNotice, justPlaced }: { initial: PublicOrder; token: string | null; paymentNotice: string | null; justPlaced: boolean }) {
   const [o, setO] = useState(initial);
   const [paying, setPaying] = useState(false);

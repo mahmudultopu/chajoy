@@ -1,3 +1,5 @@
+/** Unit tests for the pricing engine (quote()). */
+
 import { describe, expect, it } from "vitest";
 import { quote, type BranchSnapshot, type CatalogSnapshot, type DiscountCandidate, type QuoteInput } from "@/lib/pricing";
 

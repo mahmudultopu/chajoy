@@ -1,6 +1,13 @@
+/**
+ * Drink customisation options (temperature, flavour, sugar, ice, toppings):
+ * validation, defaults and display text.
+ */
+
 import type { CartLineOptions, ProductOptionConfig } from "@/lib/db/schema";
 
+/** Sugar levels offered on the menu. */
 export const SUGAR_LEVELS = [50, 75, 100] as const;
+/** Ice levels offered on the menu. */
 export const ICE_LEVELS = ["less", "normal"] as const;
 // The menu doesn't cap toppings; each one can be added once. This is only a
 // sanity bound against tampered requests.
@@ -79,6 +86,7 @@ export function optionsKey(o: CartLineOptions): string {
   ].join("|");
 }
 
+/** Human-readable summary of the chosen options, e.g. "Cold · 75% sugar · Less ice". */
 export function describeOptions(o: CartLineOptions, toppingNames: (id: number) => string | undefined): string {
   const parts: string[] = [];
   if (o.temperature) parts.push(o.temperature === "hot" ? "Hot" : "Cold");

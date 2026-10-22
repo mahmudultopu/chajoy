@@ -1,3 +1,8 @@
+/**
+ * Upscales small menu photos 4x with Swin2SR before they are cut out.
+ * See scripts/cutouts/README.md.
+ */
+
 import { pipeline } from "@huggingface/transformers";
 import sharp from "sharp";
 import fs from "fs";

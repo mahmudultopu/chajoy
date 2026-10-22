@@ -1,6 +1,9 @@
+/** Global 404 page. */
+
 import Image from "next/image";
 import Link from "next/link";
 
+/** Not-found message with a link home. */
 export default function NotFound() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-cream-100 px-4 text-center">

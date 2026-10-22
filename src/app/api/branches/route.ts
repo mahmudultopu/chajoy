@@ -1,9 +1,12 @@
+/** API: branches ranked by distance from a point and by what they can make. */
+
 import { z } from "zod";
 import { rankBranches } from "@/lib/services/branches";
 import { cartLines } from "@/lib/services/cart";
 import { currentCart } from "@/lib/request";
 import { handle, json, limit } from "@/lib/http";
 
+/** Always run per request: the response depends on cookies or the query. */
 export const dynamic = "force-dynamic";
 
 const q = z.object({

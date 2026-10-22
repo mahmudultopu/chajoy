@@ -1,3 +1,8 @@
+/**
+ * Minimal, safe Markdown renderer for policy and content pages.
+ * Supports headings, lists, bold and links; raw HTML is never rendered.
+ */
+
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -35,6 +40,7 @@ function inline(text: string, key: string): React.ReactNode[] {
   return out;
 }
 
+/** Renders Markdown source as React elements. */
 export function Markdown({ source }: { source: string }) {
   const blocks = source.replace(/\r\n/g, "\n").split(/\n{2,}/);
   return (

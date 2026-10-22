@@ -1,3 +1,5 @@
+/** API: customer account (who am I, sign in, register, sign out). */
+
 import { z } from "zod";
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
@@ -18,8 +20,10 @@ const login = z.object({ action: z.literal("login"), email: z.string().trim().to
 const logout = z.object({ action: z.literal("logout") });
 const body = z.discriminatedUnion("action", [register, login, logout]);
 
+/** Returns the signed-in customer, or null. */
 export const GET = handle(async () => json({ customer: await currentCustomer() }));
 
+/** Signs in, registers or signs out, depending on `action`. */
 export const POST = handle(async (req: Request) => {
   assertSameOrigin(req);
   const b = await parseJson(req, body);

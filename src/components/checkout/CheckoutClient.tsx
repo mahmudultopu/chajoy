@@ -1,3 +1,8 @@
+/**
+ * Checkout form: pickup or delivery, contact details, delivery address with
+ * map pin, payment method and order placement. Prices always come from the server.
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";
@@ -34,6 +39,7 @@ function idempotencyKey() {
 
 const HINT_CODES = new Set(["no_fulfilment", "delivery_location_missing"]);
 
+/** Runs the checkout flow and places the order with an idempotency key. */
 export function CheckoutClient({
   initial,
   payments,
@@ -362,7 +368,7 @@ export function CheckoutClient({
                   placeholder="Search address or landmark"
                   aria-label="Search address or landmark"
                 />
-                <button type="button" onClick={searchAddress} className="absolute right-2 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-xl bg-matcha-400" aria-label="Search">
+                <button type="button" onClick={searchAddress} className="absolute right-2 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-xl bg-matcha-600 text-white" aria-label="Search">
                   <Search className="size-4" />
                 </button>
               </div>

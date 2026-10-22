@@ -1,8 +1,11 @@
+/** Bulk status change for selected products. */
+
 "use client";
 
 import { ActionForm, SubmitButton } from "@/components/admin/ui";
 import { bulkProductStatus } from "@/lib/admin/product-actions";
 
+/** Form wrapper with the bulk status controls. */
 export function BulkStatus({ children }: { children: React.ReactNode }) {
   return (
     <ActionForm action={bulkProductStatus}>

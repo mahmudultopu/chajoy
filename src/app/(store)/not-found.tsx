@@ -1,5 +1,8 @@
+/** 404 page inside the storefront. */
+
 import Link from "next/link";
 
+/** Not-found message with links back to the menu. */
 export default function NotFound() {
   return (
     <div className="container-x flex flex-col items-center py-24 text-center">

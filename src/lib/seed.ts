@@ -1,3 +1,8 @@
+/**
+ * Seeds the database from data/catalogue.json and data/branches.json
+ * (CHAJOY's verified menu, prices and branches) plus default settings.
+ */
+
 import fs from "node:fs";
 import path from "node:path";
 import { and, eq } from "drizzle-orm";

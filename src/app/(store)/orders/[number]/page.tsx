@@ -1,12 +1,16 @@
+/** Order status page, reachable with the order's private link. */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { loadOrderForVisitor, publicOrder } from "@/lib/order-view";
 import { OrderStatusClient } from "@/components/orders/OrderStatusClient";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Your order", robots: { index: false, follow: false } };
 
 type Props = { params: Promise<{ number: string }>; searchParams: Promise<{ t?: string; payment?: string; placed?: string }> };
 
+/** Shows the order if the visitor may see it, otherwise 404. */
 export default async function OrderPage({ params, searchParams }: Props) {
   const { number } = await params;
   const { t, payment, placed } = await searchParams;

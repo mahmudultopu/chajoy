@@ -1,8 +1,12 @@
+/** Admin: change your password. */
+
 import { requireAdminPage } from "@/lib/auth/admin";
 import { PasswordForm } from "./PasswordForm";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Your password" };
 
+/** Renders the password form for the signed-in admin. */
 export default async function AdminAccount() {
   const admin = await requireAdminPage("dashboard.view");
   return (

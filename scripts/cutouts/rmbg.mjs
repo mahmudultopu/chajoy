@@ -1,3 +1,9 @@
+/**
+ * Removes the background from product photos with the RMBG-1.4 model, then
+ * clears leftover menu-board background connected to the image border.
+ * See scripts/cutouts/README.md.
+ */
+
 import { AutoModel, AutoProcessor, RawImage, env } from "@huggingface/transformers";
 import sharp from "sharp";
 import fs from "fs";

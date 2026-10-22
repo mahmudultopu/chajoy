@@ -1,3 +1,8 @@
+/**
+ * Branch data access: listing, lookups, the public branch shape and ranking
+ * branches by distance and by whether they can fulfil the visitor's order.
+ */
+
 import { asc, eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { haversineKm, type LatLng } from "@/lib/geo";
@@ -37,6 +42,7 @@ export type PublicBranch = {
   isSampleConfig: boolean;
 };
 
+/** Converts a branch row into the safe public shape, with its open/closed status. */
 export function toPublicBranch(b: Branch, now = new Date()): PublicBranch {
   const open = getOpenStatus(b.openingHours, now);
   return {
@@ -71,6 +77,7 @@ export function toPublicBranch(b: Branch, now = new Date()): PublicBranch {
   };
 }
 
+/** The branch fields the pricing engine needs. */
 export function toBranchSnapshot(b: Branch): BranchSnapshot {
   return {
     id: b.id,
@@ -89,16 +96,19 @@ export function toBranchSnapshot(b: Branch): BranchSnapshot {
   };
 }
 
+/** All active branches, sorted by name. */
 export async function listBranches(): Promise<Branch[]> {
   return db.select().from(schema.branches).where(eq(schema.branches.isActive, true)).orderBy(asc(schema.branches.name));
 }
 
+/** An active branch by id, or null. */
 export async function getBranchById(id: number | null | undefined): Promise<Branch | null> {
   if (!id) return null;
   const [b] = await db.select().from(schema.branches).where(eq(schema.branches.id, id));
   return b && b.isActive ? b : null;
 }
 
+/** An active branch by slug, or null. */
 export async function getBranchBySlug(slug: string): Promise<Branch | null> {
   const [b] = await db.select().from(schema.branches).where(eq(schema.branches.slug, slug));
   return b && b.isActive ? b : null;

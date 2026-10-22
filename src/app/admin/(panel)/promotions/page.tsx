@@ -1,3 +1,5 @@
+/** Admin: promotions. */
+
 import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
@@ -5,8 +7,10 @@ import { requireAdminPage } from "@/lib/auth/admin";
 import { Badge } from "@/components/admin/Badge";
 import { formatBDT } from "@/lib/money";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Promotions" };
 
+/** Lists promotions and a form to add one. */
 export default async function Promotions() {
   await requireAdminPage("promotions.manage");
   const promos = await db.query.promotions.findMany({ with: { rules: true }, orderBy: desc(schema.promotions.startsAt) });

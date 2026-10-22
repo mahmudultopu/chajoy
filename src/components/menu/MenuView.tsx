@@ -1,3 +1,5 @@
+/** Server-rendered menu listing for /menu and /menu/[category]. */
+
 import Link from "next/link";
 import { Suspense } from "react";
 import { MapPin } from "lucide-react";
@@ -13,6 +15,7 @@ export type MenuSearchParams = Record<string, string | string[] | undefined>;
 
 const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
 
+/** Loads the catalogue for the chosen branch, applies the filters and renders the grid. */
 export async function MenuView({ category, searchParams }: { category: string | null; searchParams: MenuSearchParams }) {
   const branch = await selectedBranch();
   const [all, categories, caps] = await Promise.all([loadCatalog(branch?.id ?? null), listCategories(), sortCapabilities()]);

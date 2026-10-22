@@ -1,3 +1,5 @@
+/** Client-side store context: cart, chosen branch, dialogs, toasts and lite mode. */
+
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
@@ -34,6 +36,7 @@ type Store = {
 
 const Ctx = createContext<Store | null>(null);
 
+/** Access to the store context; must be used inside StoreProvider. */
 export function useStore() {
   const s = useContext(Ctx);
   if (!s) throw new Error("useStore outside StoreProvider");
@@ -47,6 +50,7 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
   return data as T;
 }
 
+/** Provides cart and branch state to the storefront and talks to the cart API. */
 export function StoreProvider({
   initialBranch,
   initialCount,

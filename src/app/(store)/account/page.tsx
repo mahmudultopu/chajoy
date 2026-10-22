@@ -1,3 +1,5 @@
+/** Customer account page: sign in, past orders and saved addresses. */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { desc, eq } from "drizzle-orm";
@@ -7,8 +9,10 @@ import { AuthForms, DeleteAddressButton, ReorderButton, SignOutButton } from "@/
 import { formatBDT } from "@/lib/money";
 import { statusLabel } from "@/lib/order-status";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Your account", robots: { index: false } };
 
+/** Shows the sign-in forms, or the customer's orders and addresses. */
 export default async function AccountPage() {
   const customer = await currentCustomer();
   if (!customer)

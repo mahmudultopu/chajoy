@@ -1,8 +1,11 @@
+/** Staff sign-in form. */
+
 "use client";
 
 import { ActionForm, SubmitButton } from "@/components/admin/ui";
 import { loginAction } from "@/lib/admin/auth-actions";
 
+/** Email and password form bound to the login action. */
 export function LoginForm() {
   return (
     <ActionForm action={loginAction} className="rounded-4xl bg-cream-50 p-6 shadow-lift">

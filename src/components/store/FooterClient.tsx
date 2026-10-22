@@ -1,9 +1,12 @@
+/** Interactive parts of the footer. */
+
 "use client";
 
 import { useState } from "react";
 import { LoaderCircle } from "lucide-react";
 import { useStore } from "./StoreProvider";
 
+/** Newsletter sign-up with explicit consent. */
 export function NewsletterForm() {
   const [email, setEmail] = useState("");
   const [consent, setConsent] = useState(false);
@@ -46,6 +49,7 @@ export function NewsletterForm() {
   );
 }
 
+/** Turns 3D effects off for slower devices. */
 export function LiteModeToggle() {
   const { liteMode, setLiteMode } = useStore();
   return (

@@ -1,8 +1,11 @@
+/** Error boundary for storefront pages. */
+
 "use client";
 
 import Link from "next/link";
 import { useEffect } from "react";
 
+/** Friendly error message with a retry button. */
 export default function StoreError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     console.error(error);

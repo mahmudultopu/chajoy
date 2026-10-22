@@ -1,10 +1,14 @@
+/** API: CSV export for admins. */
+
 import { requireAdmin } from "@/lib/auth/admin";
 import { exportCsv, type ImportKind } from "@/lib/csv-import";
 import { audit } from "@/lib/audit";
 import { handle, HttpError } from "@/lib/http";
 
+/** Always run per request: the response depends on cookies or the query. */
 export const dynamic = "force-dynamic";
 
+/** Downloads products, branches or inventory as CSV. */
 export const GET = handle(async (_req: Request, ctx: { params: Promise<{ kind: string }> }) => {
   const admin = await requireAdmin("imports.manage");
   const kind = (await ctx.params).kind.replace(/\.csv$/, "") as ImportKind;

@@ -1,3 +1,5 @@
+/** Checkout page. */
+
 import type { Metadata } from "next";
 import { eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
@@ -8,8 +10,10 @@ import { paymentOptions } from "@/lib/payments";
 import { currentCart } from "@/lib/request";
 import { currentCustomer } from "@/lib/auth/customer";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Checkout", robots: { index: false } };
 
+/** Loads the cart, payment options and saved addresses for checkout. */
 export default async function CheckoutPage() {
   const [cart, settings, customer] = await Promise.all([currentCart(), getSettings(), currentCustomer()]);
   const view = await buildCartView(cart);

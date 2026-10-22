@@ -11,6 +11,7 @@ for (const f of [".env.local", ".env"]) {
   }
 }
 
+/** Value of a `--name value` command-line argument, if given. */
 export function arg(name: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);
   if (i === -1) return undefined;

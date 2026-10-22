@@ -1,3 +1,5 @@
+/** Loading orders for the public order page, with access checks. */
+
 import { cookies } from "next/headers";
 import { canViewOrder, getOrderByNumber, type OrderDetail } from "@/lib/services/orders";
 import { currentCustomer } from "@/lib/auth/customer";

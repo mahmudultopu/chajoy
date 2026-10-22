@@ -1,13 +1,17 @@
+/** Branch finder page. */
+
 import type { Metadata } from "next";
 import { BranchFinder } from "@/components/branches/BranchFinder";
 import { rankBranches } from "@/lib/services/branches";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = {
   title: "Find a branch",
   description: "Find your nearest CHAJOY branch in Dhaka — Mohammadpur, Rampura, Badda, Bonasree, Kochukhet and Mirpur 10.",
   alternates: { canonical: "/branches" },
 };
 
+/** Renders the branch finder with branches ranked for the visitor. */
 export default async function BranchesPage() {
   const ranked = await rankBranches({ origin: null });
   return (

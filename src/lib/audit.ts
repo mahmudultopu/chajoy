@@ -1,3 +1,5 @@
+/** Audit log helpers. Every admin change and sign-in is written to audit_logs. */
+
 import { db, schema, type Tx } from "@/lib/db";
 
 export type Actor =
@@ -5,6 +7,7 @@ export type Actor =
   | { type: "customer"; id: number | null; label: string }
   | { type: "system"; label: string };
 
+/** Writes one audit log entry, optionally inside an existing transaction. */
 export async function audit(
   actor: Actor,
   entry: { action: string; entityType: string; entityId?: string | number | null; summary: string; diff?: Record<string, unknown>; ip?: string | null },

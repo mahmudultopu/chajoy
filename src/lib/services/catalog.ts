@@ -1,3 +1,8 @@
+/**
+ * Menu catalogue: loading products with branch-specific prices and
+ * availability, categories, popularity and menu search.
+ */
+
 import { and, eq, gte, inArray, ne, sql } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import type { Model3d, ProductOptionConfig } from "@/lib/db/schema";
@@ -128,6 +133,7 @@ export async function loadCatalog(branchId: number | null, opts: { includeInacti
     });
 }
 
+/** Active menu categories in display order. */
 export async function listCategories() {
   return db.query.productCategories.findMany({
     where: eq(schema.productCategories.isActive, true),
@@ -172,6 +178,7 @@ export type MenuQuery = {
   pageSize?: number;
 };
 
+/** Units sold per product over the last `days` days, for "popular" sorting. */
 export async function popularityMap(days = 90): Promise<Map<number, number>> {
   const since = new Date(Date.now() - days * 86_400_000);
   const rows = await db
@@ -183,6 +190,7 @@ export async function popularityMap(days = 90): Promise<Map<number, number>> {
   return new Map(rows.filter((r) => r.productId !== null).map((r) => [r.productId as number, Number(r.qty)]));
 }
 
+/** Filters, sorts and paginates the menu for the menu page. */
 export async function searchMenu(all: MenuProduct[], query: MenuQuery) {
   const pageSize = Math.min(48, Math.max(1, query.pageSize ?? 12));
   const page = Math.max(1, query.page ?? 1);
@@ -284,6 +292,7 @@ export async function catalogSnapshot(branchId: number | null, productIds?: numb
   return { products, toppings };
 }
 
+/** Looks up product ids for a list of slugs. */
 export async function productIdsBySlug(slugs: string[]) {
   if (!slugs.length) return [];
   return db.select({ id: schema.products.id, slug: schema.products.slug }).from(schema.products).where(inArray(schema.products.slug, slugs));

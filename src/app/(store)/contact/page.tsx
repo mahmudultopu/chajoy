@@ -1,11 +1,15 @@
+/** Contact and support page. */
+
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { getSettings } from "@/lib/services/settings";
 import { FacebookIcon, InstagramIcon } from "@/components/ui/BrandIcons";
 
+/** Page title and search-engine settings. */
 export const metadata: Metadata = { title: "Contact & support", alternates: { canonical: "/contact" } };
 
+/** Lists CHAJOY's phone, email, social links and head office. */
 export default async function ContactPage() {
   const s = await getSettings();
   const items = [

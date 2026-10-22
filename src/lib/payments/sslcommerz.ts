@@ -1,3 +1,5 @@
+/** SSLCommerz payment gateway client (session creation and server-side validation). */
+
 import { paisaToDecimalString } from "@/lib/money";
 
 // SSLCommerz hosted checkout (v4). The gateway itself offers bKash, Nagad,
@@ -15,6 +17,7 @@ const env = () => ({
   sandbox: process.env.SSLCOMMERZ_SANDBOX !== "false",
 });
 
+/** True when store credentials are present in the environment. */
 export function isSslcommerzConfigured(): boolean {
   const e = env();
   return !!e.storeId && !!e.storePassword;
@@ -34,6 +37,7 @@ export type InitParams = {
   urls: { success: string; fail: string; cancel: string; ipn: string };
 };
 
+/** Creates a payment session and returns the gateway URL to redirect the customer to. */
 export async function initSslcommerzSession(p: InitParams): Promise<{ gatewayUrl: string; sessionKey: string }> {
   const e = env();
   if (!isSslcommerzConfigured()) throw new Error("SSLCommerz is not configured");

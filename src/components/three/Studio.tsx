@@ -1,3 +1,5 @@
+/** Shared lighting and environment for the 3D views. */
+
 "use client";
 
 import { ContactShadows, Environment, Lightformer } from "@react-three/drei";

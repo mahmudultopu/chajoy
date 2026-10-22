@@ -1,3 +1,5 @@
+/** CLI: checks that the database is reachable and prints row counts. */
+
 import "./_env";
 import { sql } from "drizzle-orm";
 import { closeDb, db } from "../src/lib/db";

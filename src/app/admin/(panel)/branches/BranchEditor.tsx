@@ -1,3 +1,5 @@
+/** Admin forms for a branch's details and its menu. */
+
 "use client";
 
 import dynamic from "next/dynamic";
@@ -39,6 +41,7 @@ type B = {
   verification: Verification;
 };
 
+/** Edits branch details, location, hours and fulfilment settings. */
 export function BranchForm({ b }: { b: B | null }) {
   const [lat, setLat] = useState(b?.latitude?.toString() ?? "");
   const [lng, setLng] = useState(b?.longitude?.toString() ?? "");
@@ -180,6 +183,7 @@ type MenuRow = {
   variants: { id: number; sizeCode: string; menuPricePaisa: number; pricePaisa: number | null; trackStock: boolean; stockQty: number | null }[];
 };
 
+/** Sets per-branch availability, price overrides and stock notes. */
 export function BranchMenuForm({ branchId, rows, canPrice }: { branchId: number; rows: MenuRow[]; canPrice: boolean }) {
   return (
     <ActionForm action={saveBranchMenu} className="card p-5">

@@ -1,3 +1,8 @@
+/**
+ * Image uploads. Files are validated, re-encoded as WebP with sharp (which
+ * strips metadata) and stored in Vercel Blob, or on local disk in development.
+ */
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import sharp from "sharp";
@@ -17,10 +22,12 @@ import { randomCode } from "@/lib/tokens";
 const MAX_BYTES = 8 * 1024 * 1024;
 const ALLOWED = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"]);
 
+/** Local folder for uploads when Vercel Blob is not configured. */
 export function uploadDir() {
   return path.resolve(/*turbopackIgnore: true*/ process.cwd(), process.env.UPLOAD_DIR ?? ".data/uploads");
 }
 
+/** Validates, re-encodes and stores an uploaded image, returning its public URL. */
 export async function saveImage(file: File, folder: "products" | "branches" | "promotions") {
   if (!ALLOWED.has(file.type)) throw new HttpError(415, "Upload a JPEG, PNG, WebP or AVIF image.");
   if (file.size > MAX_BYTES) throw new HttpError(413, "Images must be 8 MB or smaller.");

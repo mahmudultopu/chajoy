@@ -1,3 +1,5 @@
+/** Admin: edit a product. */
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
@@ -5,8 +7,10 @@ import { db, schema } from "@/lib/db";
 import { requireAdminPage } from "@/lib/auth/admin";
 import { BranchAvailabilityForm, ImagesForm, ProductDetailsForm, VariantsForm } from "../ProductEditor";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Edit product" };
 
+/** All product forms for one product. */
 export default async function EditProduct({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ created?: string }> }) {
   await requireAdminPage("products.manage");
   const id = Number((await params).id);

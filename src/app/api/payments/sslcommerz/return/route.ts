@@ -1,3 +1,8 @@
+/**
+ * Where SSLCommerz sends the customer back after paying. The payment is
+ * validated with the gateway, then the customer is redirected to their order.
+ */
+
 import { NextResponse } from "next/server";
 import { settleSslcommerz } from "@/lib/payments";
 import { isSslcommerzConfigured } from "@/lib/payments/sslcommerz";

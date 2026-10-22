@@ -1,3 +1,8 @@
+/**
+ * Order service: placing orders from a cart (idempotent and stock-safe),
+ * reading orders, access checks and status changes.
+ */
+
 import { and, eq, isNull, lt, or, sql } from "drizzle-orm";
 import { db, schema, type Tx } from "@/lib/db";
 import { HttpError } from "@/lib/errors";
@@ -32,6 +37,7 @@ function orderNumberPrefix(now: Date) {
   return `CJ${yy}${mm}${dd}`;
 }
 
+/** Raised when checkout is refused; carries the quote and its blockers. */
 export class CheckoutBlockedError extends HttpError {
   constructor(public quote: Quote) {
     super(409, quote.blockers[0]?.message ?? "This order can't be placed right now.", { blockers: quote.blockers, codeError: quote.codeError });
@@ -278,6 +284,7 @@ export async function getOrderByNumber(orderNumber: string) {
 
 export type OrderDetail = NonNullable<Awaited<ReturnType<typeof getOrderByNumber>>>;
 
+/** True when the visitor has the order's access token, owns it, or placed it from this cart. */
 export function canViewOrder(
   order: { accessTokenHash: string; customerId: number | null; cartId: string | null },
   access: { token?: string | null; customerId?: number | null; cartId?: string | null },
@@ -343,6 +350,7 @@ export async function transitionOrder(
   });
 }
 
+/** Marks a cash order as paid and records who collected it. */
 export async function markCashCollected(orderId: number, actor: Actor & { type: "admin" }, branchScope: number | null, ip?: string | null) {
   await db.transaction(async (tx) => {
     const [o] = await tx.select().from(schema.orders).where(eq(schema.orders.id, orderId));
@@ -358,6 +366,7 @@ export async function markCashCollected(orderId: number, actor: Actor & { type: 
   });
 }
 
+/** Online-payment orders still unpaid after the given number of minutes. */
 export async function staleUnpaidOnlineOrders(olderThanMinutes = 60) {
   const cutoff = new Date(Date.now() - olderThanMinutes * 60_000);
   return db

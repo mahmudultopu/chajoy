@@ -1,3 +1,5 @@
+/** Form for a menu category. */
+
 "use client";
 
 import { ActionForm, Field, SubmitButton, Toggle } from "@/components/admin/ui";
@@ -5,6 +7,7 @@ import { saveCategory } from "@/lib/admin/product-actions";
 
 type C = { id: number; name: string; slug: string; menuName: string | null; description: string | null; accent: string | null; sortOrder: number; isActive: boolean; isAddonCategory: boolean };
 
+/** Creates or edits a category. */
 export function CategoryForm({ c }: { c: C | null }) {
   return (
     <ActionForm action={saveCategory} className="card space-y-3 p-5" resetOnSuccess={!c}>

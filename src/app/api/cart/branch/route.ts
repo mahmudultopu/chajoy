@@ -1,3 +1,5 @@
+/** API: set the branch and fulfilment method for the cart. */
+
 import { z } from "zod";
 import { buildCartView, setCartBranch } from "@/lib/services/cart";
 import { getBranchById } from "@/lib/services/branches";

@@ -1,3 +1,5 @@
+/** Admin: settings and staff accounts. */
+
 import { db, schema } from "@/lib/db";
 import { requireAdminPage, can } from "@/lib/auth/admin";
 import { getSettings } from "@/lib/services/settings";
@@ -5,8 +7,10 @@ import { listBranches } from "@/lib/services/branches";
 import { isSslcommerzConfigured } from "@/lib/payments/sslcommerz";
 import { PaymentsForm, UserForm } from "./SettingsForms";
 
+/** Page title and search-engine settings. */
 export const metadata = { title: "Settings" };
 
+/** Payment settings and users (owners only). */
 export default async function SettingsAdmin() {
   const admin = await requireAdminPage("dashboard.view");
   const [settings, users, branches] = await Promise.all([getSettings(), db.select().from(schema.adminUsers).orderBy(schema.adminUsers.name), listBranches()]);

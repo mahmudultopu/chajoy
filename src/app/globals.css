@@ -1,39 +1,59 @@
 @import "tailwindcss";
 
 @theme {
-  /* CHAJOY matcha green, sampled from the logo and menu board */
-  --color-matcha-50: #f5f9ea;
-  --color-matcha-100: #e9f2cf;
-  --color-matcha-200: #d4e6a3;
-  --color-matcha-300: #bfd876;
-  --color-matcha-400: #a6c64e;
-  --color-matcha-500: #8db33a;
-  --color-matcha-600: #6f9126;
-  --color-matcha-700: #55701f;
+  /* ---------------------------------------------------------------------
+     Brand palette: "Cream & matcha"
+     Warm cream surfaces, matcha green for actions, boba caramel accents and
+     espresso-brown text. Token names are kept stable so every page picks
+     the palette up from here.
+     --------------------------------------------------------------------- */
 
-  --color-forest-950: #0b1e12;
-  --color-forest-900: #10291a;
-  --color-forest-800: #173a24;
-  --color-forest-700: #1f4a2e;
-  --color-forest-600: #2c5f3c;
+  /* Matcha green: 400 is the CHAJOY logo green, 600 is the action colour */
+  --color-matcha-50: #f4f8ec;
+  --color-matcha-100: #e7f0d6;
+  --color-matcha-200: #d2e3b3;
+  --color-matcha-300: #b5d08a;
+  --color-matcha-400: #8cc63f;
+  --color-matcha-500: #6b9a3a;
+  --color-matcha-600: #4f7d2c;
+  --color-matcha-700: #3f6623;
 
-  --color-cream-50: #fffdf6;
-  --color-cream-100: #fbf7ea;
-  --color-cream-200: #f4edd8;
-  --color-cream-300: #e9dfc2;
+  /* Espresso browns (historically named "forest"): text and dark surfaces */
+  --color-forest-950: #1c140f;
+  --color-forest-900: #2a1e17;
+  --color-forest-800: #3b2b21;
+  --color-forest-700: #4e3a2d;
+  --color-forest-600: #66503f;
 
-  --color-lemon-300: #fbe57e;
-  --color-lemon-400: #f6d33c; /* penguin badge yellow */
-  --color-berry-400: #ec6a7f;
-  --color-berry-500: #e2455f;
-  --color-berry-600: #c8304b;
-  --color-peach-300: #f9c3a5;
+  /* Cream surfaces */
+  --color-cream-50: #fffcf7;
+  --color-cream-100: #fff8ee;
+  --color-cream-200: #f6ebda;
+  --color-cream-300: #ead9bf;
+
+  /* Boba caramel accent */
+  --color-caramel-300: #f1d3a8;
+  --color-caramel-400: #e0a866;
+  --color-caramel-500: #c98a3d;
+  --color-caramel-600: #a86e2b;
+
+  /* Supporting colours */
+  --color-lemon-300: #f3ddb8; /* soft caramel highlight (badges, notices) */
+  --color-lemon-400: #e9b872;
+  --color-berry-400: #e88a8f;
+  --color-berry-500: #d0505c; /* errors and alerts */
+  --color-berry-600: #b23a47;
+  --color-peach-300: #f6c9a8;
   --color-boba-600: #7a4b2a;
   --color-boba-800: #3d2414;
-  --color-ink: #13201a;
-  /* the reference's signature yellow for pills and price bars */
-  --color-pill: #fbe84c;
-  --color-pill-dark: #f2da1f;
+
+  /* Semantic aliases */
+  --color-ink: #2a1e17; /* body text */
+  --color-ivory: #fff8ee; /* page background */
+  --color-night: #2a1e17; /* dark surfaces (footer) */
+  --color-lime: #8cc63f; /* brand green used for small accents */
+  --color-pill: #c98a3d;
+  --color-pill-dark: #a86e2b;
 
   --font-display: var(--font-fraunces), var(--font-bengali), "Iowan Old Style", Georgia, serif;
   --font-sans: var(--font-dm-sans), var(--font-bengali), ui-sans-serif, system-ui, sans-serif;
@@ -41,16 +61,13 @@
   --radius-4xl: 2rem;
   --radius-5xl: 2.75rem;
 
-  --shadow-soft: 0 1px 2px rgb(16 41 26 / 0.04), 0 8px 24px -8px rgb(16 41 26 / 0.12);
-  --shadow-lift: 0 2px 4px rgb(16 41 26 / 0.05), 0 24px 48px -16px rgb(16 41 26 / 0.22);
+  --shadow-soft: 0 1px 2px rgb(42 30 23 / 0.04), 0 8px 24px -8px rgb(42 30 23 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(42 30 23 / 0.05), 0 24px 48px -16px rgb(42 30 23 / 0.2);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
   --animate-spin-slow: spin 22s linear infinite;
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
   --animate-float: float 7s ease-in-out infinite;
-  --color-ivory: #faf8f2;
-  --color-night: #0d2217;
-  --color-lime: #b9dc55;
 
   @keyframes float {
     0%,
@@ -86,7 +103,7 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-white text-ink font-sans antialiased;
+    @apply bg-ivory text-ink font-sans antialiased;
     font-feature-settings: "ss01";
   }
   ::selection {
@@ -98,7 +115,7 @@
     outline-offset: 2px;
     border-radius: 6px;
   }
-  /* editorial serif: regular weight, crisp (no soft corners), like the reference */
+  /* editorial serif: regular weight with crisp, upright letterforms */
   .font-display {
     font-variation-settings: "SOFT" 0, "WONK" 0, "opsz" 144;
     font-weight: 400;
@@ -120,11 +137,13 @@
 @utility btn-primary {
   @apply btn bg-forest-800 text-cream-50 hover:bg-forest-700 shadow-soft;
 }
+/* main call to action: matcha green with white text */
 @utility btn-matcha {
-  @apply btn bg-matcha-400 text-forest-900 hover:bg-matcha-300 shadow-soft;
+  @apply btn bg-matcha-600 text-white hover:bg-matcha-700 shadow-soft;
 }
+/* caramel accent button */
 @utility btn-pill {
-  @apply btn bg-pill text-ink hover:bg-pill-dark;
+  @apply btn bg-pill text-white hover:bg-pill-dark;
 }
 @utility btn-ghost {
   @apply btn border border-forest-800/15 bg-white/60 text-forest-900 hover:bg-white;

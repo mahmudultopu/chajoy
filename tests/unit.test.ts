@@ -1,3 +1,5 @@
+/** Unit tests for money, phone numbers, options, hours and order status rules. */
+
 import { describe, expect, it } from "vitest";
 import { formatBDT, paisaToDecimalString, parseTakaInput, percentOf } from "@/lib/money";
 import { formatDistance, haversineKm, isInBangladesh } from "@/lib/geo";

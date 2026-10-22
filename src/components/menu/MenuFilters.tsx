@@ -1,3 +1,8 @@
+/**
+ * Menu page controls: category chips, search box, filters and sorting.
+ * State lives in the URL so filtered views can be shared.
+ */
+
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -6,6 +11,7 @@ import Link from "next/link";
 import { clsx } from "clsx";
 import { LoaderCircle, Search, SlidersHorizontal, X } from "lucide-react";
 
+/** Renders the menu filters and updates the URL when they change. */
 export function MenuFilters({
   categories,
   activeCategory,

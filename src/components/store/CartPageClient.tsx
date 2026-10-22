@@ -1,3 +1,5 @@
+/** Client part of the /cart page. */
+
 "use client";
 
 import Link from "next/link";
@@ -9,6 +11,7 @@ import { CartLines, CartSummary } from "./CartLines";
 
 const STEP_CODES = new Set(["no_fulfilment", "delivery_location_missing", "empty"]);
 
+/** Full-page cart with lines, totals and next steps. */
 export function CartPageClient({ initial }: { initial: CartView }) {
   const { cart, refreshCart, setBranchPickerOpen } = useStore();
   useEffect(() => {

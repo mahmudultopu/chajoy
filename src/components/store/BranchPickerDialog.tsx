@@ -1,3 +1,5 @@
+/** Dialog for choosing the branch to order from. */
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -6,6 +8,7 @@ import { BranchFinder } from "@/components/branches/BranchFinder";
 import type { RankedBranch } from "@/lib/services/branches";
 import { useStore } from "./StoreProvider";
 
+/** Loads ranked branches when opened and shows the branch finder. */
 export function BranchPickerDialog() {
   const { branchPickerOpen, setBranchPickerOpen } = useStore();
   const [initial, setInitial] = useState<{ branches: RankedBranch[]; recommendedId: number | null } | null>(null);

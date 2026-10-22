@@ -1,8 +1,11 @@
+/** API: delete a saved address of the signed-in customer. */
+
 import { and, eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { currentCustomer } from "@/lib/auth/customer";
 import { assertSameOrigin, handle, HttpError, json } from "@/lib/http";
 
+/** Deletes the address if it belongs to the customer. */
 export const DELETE = handle(async (req: Request, ctx: { params: Promise<{ id: string }> }) => {
   assertSameOrigin(req);
   const customer = await currentCustomer();

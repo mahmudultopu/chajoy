@@ -1,3 +1,5 @@
+/** Canvas-generated textures for the 3D models (cup print, waffle, stripes). */
+
 "use client";
 
 import * as THREE from "three";

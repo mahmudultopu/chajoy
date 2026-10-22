@@ -1,3 +1,8 @@
+/**
+ * Branch finder: uses the visitor's location or a searched address to rank
+ * branches by distance and by whether they can take the order, with a map.
+ */
+
 "use client";
 
 import dynamic from "next/dynamic";
@@ -21,6 +26,7 @@ type Ranked = { branches: RankedBranch[]; recommendedId: number | null };
 
 const ORIGIN_KEY = "cj-origin";
 
+/** Branch search, ranked list and map. Choosing a branch sets it for ordering. */
 export function BranchFinder({
   initial,
   layout = "split",
@@ -164,7 +170,7 @@ export function BranchFinder({
               className="input pl-11 pr-24"
               autoComplete="off"
             />
-            <button type="submit" disabled={searching} className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-xl bg-matcha-400 px-3.5 py-2 text-sm font-semibold text-forest-900 hover:bg-matcha-300">
+            <button type="submit" disabled={searching} className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-xl bg-matcha-600 px-3.5 py-2 text-sm font-semibold text-white hover:bg-matcha-700">
               {searching ? <LoaderCircle className="size-4 animate-spin" /> : "Search"}
             </button>
           </form>
@@ -242,7 +248,7 @@ export function BranchFinder({
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-display text-lg text-forest-900">{b.name}</h3>
-                      {b.id === data.recommendedId && fresh && <span className="chip border-none bg-matcha-400 text-forest-900">Recommended</span>}
+                      {b.id === data.recommendedId && fresh && <span className="chip border-none bg-matcha-600 text-white">Recommended</span>}
                       {active && (
                         <span className="chip border-none bg-forest-800 text-cream-50">
                           <Check className="size-3" /> Selected

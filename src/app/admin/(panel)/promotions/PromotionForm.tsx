@@ -1,3 +1,5 @@
+/** Form for a promotion and its discount rule. */
+
 "use client";
 
 import { ActionForm, Field, SubmitButton, Toggle } from "@/components/admin/ui";
@@ -14,6 +16,7 @@ export type PromoInput = {
   rule: { code: string | null; kind: "percent" | "fixed"; value: number; minSubtotalPaisa: number; maxDiscountPaisa: number | null; branchIds: number[] | null; fulfilment: "any" | "pickup" | "delivery"; usageLimit: number | null; usedCount: number } | null;
 };
 
+/** Creates or edits a promotion. */
 export function PromotionForm({ p, branches }: { p: PromoInput | null; branches: { id: number; name: string }[] }) {
   const r = p?.rule;
   return (

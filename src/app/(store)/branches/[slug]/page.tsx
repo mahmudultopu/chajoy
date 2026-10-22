@@ -1,3 +1,5 @@
+/** Branch detail page: address, map, hours, fulfilment options and menu. */
+
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -15,6 +17,7 @@ import { OrderHereButton } from "@/components/branches/OrderHereButton";
 
 type Props = { params: Promise<{ slug: string }> };
 
+/** Page title and description for the branch. */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const b = await getBranchBySlug((await params).slug);
   if (!b) return { title: "Branch not found" };
@@ -25,6 +28,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+/** Renders one branch, or 404 when it doesn't exist. */
 export default async function BranchPage({ params }: Props) {
   const b = await getBranchBySlug((await params).slug);
   if (!b) notFound();

@@ -1,3 +1,8 @@
+/**
+ * Serves admin uploads from local disk in development (production uses Vercel Blob).
+ * Only WebP files inside the upload folder are served.
+ */
+
 import fs from "node:fs/promises";
 import path from "node:path";
 import { uploadDir } from "@/lib/storage";

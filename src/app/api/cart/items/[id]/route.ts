@@ -1,3 +1,5 @@
+/** API: change or remove one cart line. */
+
 import { z } from "zod";
 import { buildCartView, removeLine, updateLine } from "@/lib/services/cart";
 import { currentCart } from "@/lib/request";
@@ -11,6 +13,7 @@ async function lineId(ctx: Ctx) {
   return id;
 }
 
+/** Changes the line's quantity. */
 export const PATCH = handle(async (req: Request, ctx: Ctx) => {
   assertSameOrigin(req);
   const { quantity } = await parseJson(req, z.object({ quantity: z.number().int().min(0).max(20) }));
@@ -20,6 +23,7 @@ export const PATCH = handle(async (req: Request, ctx: Ctx) => {
   return json(await buildCartView(cart));
 });
 
+/** Removes the line. */
 export const DELETE = handle(async (req: Request, ctx: Ctx) => {
   assertSameOrigin(req);
   const cart = await currentCart();

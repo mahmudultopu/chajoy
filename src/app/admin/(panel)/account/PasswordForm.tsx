@@ -1,8 +1,11 @@
+/** Form for an admin to change their own password. */
+
 "use client";
 
 import { ActionForm, Field, SubmitButton } from "@/components/admin/ui";
 import { changeOwnPassword } from "@/lib/admin/content-actions";
 
+/** New password and confirmation fields. */
 export function PasswordForm() {
   return (
     <ActionForm action={changeOwnPassword} className="card space-y-4 p-5" resetOnSuccess>

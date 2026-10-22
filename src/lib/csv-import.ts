@@ -1,3 +1,8 @@
+/**
+ * CSV import and export for products, branches and branch inventory.
+ * Imports are validated row by row and can be previewed before they are applied.
+ */
+
 import Papa from "papaparse";
 import { and, eq } from "drizzle-orm";
 import { db, schema, type Tx } from "@/lib/db";
@@ -14,6 +19,7 @@ export type ImportKind = "products" | "branches" | "inventory";
 export type RowError = { row: number; message: string };
 export type ImportReport = { kind: ImportKind; rows: number; errors: RowError[]; created: number; updated: number; applied: boolean };
 
+/** Column headers expected for each import type. */
 export const TEMPLATES: Record<ImportKind, string[]> = {
   products: ["slug", "name", "name_zh", "category", "size", "size_label", "volume_ml", "price_bdt", "status", "featured", "description"],
   branches: ["slug", "name", "area", "address_line", "city", "latitude", "longitude", "location_precision", "phone", "opening_hours", "is_active"],
@@ -24,6 +30,7 @@ const slugRe = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const yes = (v: string) => ["1", "true", "yes", "y"].includes(v.trim().toLowerCase());
 const isBool = (v: string) => ["", "1", "0", "true", "false", "yes", "no", "y", "n"].includes(v.trim().toLowerCase());
 
+/** Parses CSV text into lower-cased headers and row objects. */
 export function parseCsv(text: string): { headers: string[]; rows: Record<string, string>[] } {
   const res = Papa.parse<Record<string, string>>(text.replace(/^﻿/, ""), { header: true, skipEmptyLines: "greedy", transformHeader: (h) => h.trim().toLowerCase() });
   return { headers: res.meta.fields ?? [], rows: res.data.map((r) => Object.fromEntries(Object.entries(r).map(([k, v]) => [k, String(v ?? "").trim()]))) };
@@ -42,6 +49,7 @@ export function parseHoursSpec(spec: string): OpeningHours | null | "invalid" {
   return validateHours(out) ? out : "invalid";
 }
 
+/** Validates every row and, when `apply` is set, writes the changes in one transaction. */
 export async function runImport(kind: ImportKind, text: string, opts: { apply: boolean }): Promise<ImportReport> {
   const { headers, rows } = parseCsv(text);
   const report: ImportReport = { kind, rows: rows.length, errors: [], created: 0, updated: 0, applied: false };
@@ -200,6 +208,7 @@ export async function runImport(kind: ImportKind, text: string, opts: { apply: b
 
 const csv = (rows: (string | number | null | undefined)[][]) => Papa.unparse(rows.map((r) => r.map((c) => (c === null || c === undefined ? "" : String(c)))));
 
+/** Exports the current data in the same format the importer accepts. */
 export async function exportCsv(kind: ImportKind): Promise<string> {
   if (kind === "products") {
     const rows = await db

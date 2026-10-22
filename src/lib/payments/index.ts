@@ -1,3 +1,8 @@
+/**
+ * Payment flow: which methods are offered, starting an online payment and
+ * settling the result reported by the gateway.
+ */
+
 import { and, eq } from "drizzle-orm";
 import { db, schema } from "@/lib/db";
 import { HttpError } from "@/lib/errors";
@@ -8,6 +13,7 @@ import { audit } from "@/lib/audit";
 
 export type PaymentOption = { id: "cod" | "sslcommerz"; label: string; description: string; enabled: boolean; reason?: string };
 
+/** Payment methods available at checkout, based on settings and configuration. */
 export function paymentOptions(settings: SiteSettings): PaymentOption[] {
   const ssl = settings.payments.sslcommerzEnabled && isSslcommerzConfigured();
   return [

@@ -15,6 +15,7 @@ export function parseTakaInput(input: string): number | null {
   return whole * 100 + frac;
 }
 
+/** Formats paisa as Bangladeshi taka, e.g. 18000 -> "৳180". */
 export function formatBDT(paisa: number, opts: { symbol?: boolean } = {}): string {
   const negative = paisa < 0;
   const abs = Math.abs(Math.trunc(paisa));
@@ -31,6 +32,7 @@ export function paisaToDecimalString(paisa: number): string {
   return `${paisa < 0 ? "-" : ""}${Math.floor(abs / 100)}.${String(abs % 100).padStart(2, "0")}`;
 }
 
+/** Percentage of an amount in basis points (100 = 1%), rounded down. */
 export function percentOf(paisa: number, basisPoints: number): number {
   // floor so a discount never exceeds the advertised percentage
   return Math.floor((paisa * basisPoints) / 10_000);

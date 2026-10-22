@@ -1,6 +1,9 @@
+/** CLI: applies the Drizzle migrations in /drizzle to the configured database. */
+
 import "./_env";
 import { closeDb, databaseUrl, getHandle } from "../src/lib/db";
 
+/** Applies pending migrations using the driver for the current database. */
 export async function runMigrations() {
   const h = getHandle();
   if (h.kind === "pglite") {

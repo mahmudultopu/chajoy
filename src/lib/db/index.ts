@@ -1,3 +1,8 @@
+/**
+ * Database connection. Uses Postgres when DATABASE_URL is set, otherwise an
+ * embedded PGlite database under .data/ for local development.
+ */
+
 import path from "node:path";
 import fs from "node:fs";
 import { drizzle as drizzlePg, type NodePgDatabase } from "drizzle-orm/node-postgres";
@@ -21,6 +26,7 @@ export type Tx = Parameters<Parameters<DB["transaction"]>[0]>[0];
 type Handle = { db: DB; kind: "pglite" | "postgres"; close: () => Promise<void> };
 const g = globalThis as unknown as { __chajoyDb?: Handle };
 
+/** The configured database URL, defaulting to the local PGlite store. */
 export function databaseUrl(): string {
   return process.env.DATABASE_URL?.trim() || "pglite://.data/pglite";
 }
@@ -58,11 +64,13 @@ function open(): Handle {
   return { db, kind: "postgres", close: () => pool.end() };
 }
 
+/** Returns the shared database handle, opening it on first use. */
 export function getHandle(): Handle {
   if (!g.__chajoyDb) g.__chajoyDb = open();
   return g.__chajoyDb;
 }
 
+/** Lazily connected Drizzle client used throughout the app. */
 export const db: DB = new Proxy({} as DB, {
   get(_t, prop) {
     const real = getHandle().db as unknown as Record<string | symbol, unknown>;
@@ -71,6 +79,7 @@ export const db: DB = new Proxy({} as DB, {
   },
 });
 
+/** Closes the connection (used by scripts and tests). */
 export async function closeDb() {
   if (g.__chajoyDb) {
     await g.__chajoyDb.close();
