@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ["@electric-sql/pglite", "pg", "sharp", "bcryptjs"],
   images: {
     formats: ["image/avif", "image/webp"],
+    // 90 for hero / product photography, 75 elsewhere
+    qualities: [75, 90],
     localPatterns: [{ pathname: "/images/**" }, { pathname: "/media/**" }],
     remotePatterns: [
       // admin uploads stored in Vercel Blob

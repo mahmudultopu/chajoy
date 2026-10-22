@@ -47,6 +47,20 @@
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
   --animate-spin-slow: spin 22s linear infinite;
   --animate-shimmer: shimmer 1.6s ease-in-out infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --color-ivory: #faf8f2;
+  --color-night: #0d2217;
+  --color-lime: #b9dc55;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-14px);
+    }
+  }
 
   @keyframes marquee {
     from {

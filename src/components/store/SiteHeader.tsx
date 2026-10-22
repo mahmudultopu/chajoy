@@ -38,15 +38,23 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
     return () => window.removeEventListener("keydown", k);
   }, [setSearchOpen]);
 
-  const link = (href: string) => clsx("rounded-full px-3 py-2 text-[15px] font-medium text-ink/85 transition hover:text-ink", pathname === href && "text-ink underline decoration-pill decoration-[3px] underline-offset-[10px]");
+  // transparent over the dark homepage hero until the page scrolls
+  const onHero = pathname === "/" && !scrolled;
+  const link = (href: string) =>
+    clsx(
+      "rounded-full px-3 py-2 text-[15px] font-medium transition",
+      onHero ? "text-white/80 hover:text-white" : "text-ink/75 hover:text-ink",
+      pathname === href && "underline decoration-matcha-400 decoration-2 underline-offset-[10px]",
+    );
+  const iconBtn = clsx("grid size-10 place-items-center rounded-full transition", onHero ? "text-white hover:bg-white/10" : "hover:bg-ivory");
 
   return (
-    <header className={clsx("sticky top-0 z-40 bg-white transition-shadow", scrolled && "shadow-[0_1px_0_rgba(0,0,0,0.06),0_8px_24px_-12px_rgba(0,0,0,0.12)]")}>
-      <div className="mx-auto flex h-[74px] w-full max-w-[1240px] items-center gap-3 border-b border-black/[0.06] px-4 sm:px-6 lg:px-8">
-        <button className="grid size-10 place-items-center rounded-full ring-1 ring-black/10 lg:hidden" aria-label="Open menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>
+    <header className={clsx("sticky top-0 z-40 transition-colors duration-300", onHero ? "bg-transparent" : "bg-white/95 backdrop-blur", scrolled && "shadow-[0_1px_0_rgba(0,0,0,0.06),0_8px_24px_-12px_rgba(0,0,0,0.12)]")}>
+      <div className={clsx("mx-auto flex h-[74px] w-full max-w-[1280px] items-center gap-3 border-b px-5 sm:px-8", onHero ? "border-white/10" : "border-transparent")}>
+        <button className={clsx("grid size-10 place-items-center rounded-full ring-1 lg:hidden", onHero ? "text-white ring-white/25" : "ring-black/10")} aria-label="Open menu" aria-expanded={mobileOpen} onClick={() => setMobileOpen(true)}>
           <Menu className="size-5" />
         </button>
-        <Logo />
+        <Logo light={onHero} />
 
         <nav className="ml-8 hidden items-center gap-2 lg:flex" aria-label="Main">
           <div className="relative" onMouseLeave={() => setMenuOpen(false)}>
@@ -62,13 +70,13 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
             {menuOpen && (
               <div className="absolute left-0 top-full pt-2">
                 <div className="grid w-[520px] grid-cols-2 gap-1 rounded-2xl bg-white p-3 shadow-lift ring-1 ring-black/5">
-                  <Link href="/menu" className="col-span-2 flex items-center justify-between rounded-xl bg-pill px-4 py-3 text-ink hover:bg-pill-dark">
+                  <Link href="/menu" className="col-span-2 flex items-center justify-between rounded-xl bg-night px-4 py-3 text-white hover:bg-forest-800">
                     <span className="font-display text-lg">The full menu</span>
                     <ArrowRight className="size-4" />
                   </Link>
                   {categories.map((c) => (
-                    <Link key={c.slug} href={`/menu/${c.slug}`} className="flex items-center gap-3 rounded-xl p-2 hover:bg-cream-100">
-                      <span className="relative size-11 overflow-hidden rounded-lg bg-cream-100">
+                    <Link key={c.slug} href={`/menu/${c.slug}`} className="flex items-center gap-3 rounded-xl p-2 hover:bg-ivory">
+                      <span className="relative size-11 overflow-hidden rounded-lg bg-ivory">
                         {c.image && (
                           // eslint-disable-next-line @next/next/no-img-element
                           <img src={c.image} alt="" className="size-full object-cover" />
@@ -96,17 +104,17 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
         </nav>
 
         <div className="ml-auto flex items-center gap-1">
-          <button onClick={() => setBranchPickerOpen(true)} className="mr-1 hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm text-ink/70 hover:text-ink xl:flex" title="Choose the branch you order from">
-            <MapPin className="size-4 text-matcha-600" />
+          <button onClick={() => setBranchPickerOpen(true)} className={clsx("mr-1 hidden items-center gap-1.5 rounded-full px-3 py-2 text-sm xl:flex", onHero ? "text-white/75 hover:text-white" : "text-ink/70 hover:text-ink")} title="Choose the branch you order from">
+            <MapPin className={clsx("size-4", onHero ? "text-lime" : "text-matcha-600")} />
             {branch ? branch.area : "Choose branch"}
           </button>
-          <button onClick={() => setSearchOpen(true)} className="grid size-10 place-items-center rounded-full hover:bg-cream-100" aria-label="Search the menu">
+          <button onClick={() => setSearchOpen(true)} className={iconBtn} aria-label="Search the menu">
             <Search className="size-[19px]" />
           </button>
-          <Link href="/account" className="hidden size-10 place-items-center rounded-full hover:bg-cream-100 sm:grid" aria-label="Account">
+          <Link href="/account" className={clsx(iconBtn, "hidden sm:grid")} aria-label="Account">
             <User className="size-[19px]" />
           </Link>
-          <button onClick={() => setCartOpen(true)} className="relative grid size-10 place-items-center rounded-full hover:bg-cream-100" aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}>
+          <button onClick={() => setCartOpen(true)} className={clsx(iconBtn, "relative")} aria-label={`Cart, ${itemCount} item${itemCount === 1 ? "" : "s"}`}>
             <ShoppingBag className="size-[19px]" />
             {itemCount > 0 && (
               <span className="absolute right-1 top-1 grid min-w-4 place-items-center rounded-full bg-berry-500 px-1 text-[10px] font-bold leading-4 text-white" aria-hidden>
@@ -114,7 +122,7 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
               </span>
             )}
           </button>
-          <Link href="/menu" className="ml-2 hidden items-center gap-6 rounded-full bg-pill py-2.5 pl-5 pr-4 text-[15px] font-semibold text-ink transition hover:bg-pill-dark sm:inline-flex">
+          <Link href="/menu" className={clsx("ml-2 hidden items-center gap-3 rounded-full px-5 py-2.5 text-[14px] font-semibold transition sm:inline-flex", onHero ? "bg-lime text-night hover:bg-white" : "bg-ink text-white hover:bg-forest-800")}>
             Order Now <ArrowRight className="size-4" />
           </Link>
         </div>
@@ -136,7 +144,7 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
                 setMobileOpen(false);
                 setBranchPickerOpen(true);
               }}
-              className="mt-5 flex items-center gap-2 rounded-xl bg-pill px-4 py-3 text-left text-sm"
+              className="mt-5 flex items-center gap-2 rounded-xl bg-lime px-4 py-3 text-left text-sm"
             >
               <MapPin className="size-4" />
               {branch ? (
@@ -158,7 +166,7 @@ export function SiteHeader({ categories }: { categories: NavCategory[] }) {
                 ["/track", "Track an order"],
                 ["/account", "Account"],
               ].map(([href, label]) => (
-                <Link key={href} href={href} className={clsx("rounded-xl px-4 py-3 font-display text-xl", pathname === href ? "bg-cream-100 text-ink" : "text-ink/85")}>
+                <Link key={href} href={href} className={clsx("rounded-xl px-4 py-3 font-display text-xl", pathname === href ? "bg-ivory text-ink" : "text-ink/85")}>
                   {label}
                 </Link>
               ))}
@@ -182,7 +190,7 @@ export function MobileCartBar() {
           <ShoppingBag className="size-5" /> {itemCount} item{itemCount === 1 ? "" : "s"}
           {branch ? <span className="font-normal text-white/70">· {branch.area}</span> : null}
         </span>
-        <span className="rounded-full bg-pill px-3 py-1 text-sm font-bold text-ink">View cart</span>
+        <span className="rounded-full bg-lime px-3 py-1 text-sm font-bold text-night">View cart</span>
       </button>
     </div>
   );

@@ -109,7 +109,7 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
     <div className="grid gap-8 lg:grid-cols-[1.05fr_1fr] lg:gap-14">
       {/* media */}
       <div className="lg:sticky lg:top-24 lg:self-start">
-        <div className="relative aspect-square overflow-hidden rounded-[22px]" style={{ background: `linear-gradient(180deg, ${p.backdrop[0]}, ${p.backdrop[1]})` }}>
+        <div className="relative aspect-square overflow-hidden rounded-[28px]" style={{ background: `radial-gradient(circle at 50% 42%, #ffffff 0%, ${p.backdrop[0]} 62%)` }}>
           {view === "photo" || !p.visual ? (
             photo && (
               <>
@@ -157,7 +157,7 @@ export function ProductDetail({ p, branchName }: { p: DetailProduct; branchName:
                 aria-label={`Show photo: ${ph.alt}`}
                 aria-pressed={i === imageIdx}
                 className={clsx("relative size-20 overflow-hidden rounded-2xl ring-2", i === imageIdx ? "ring-forest-900" : "ring-transparent")}
-                style={{ background: p.backdrop[1] }}
+                style={{ background: p.backdrop[0] }}
               >
                 <Image src={ph.url} alt="" fill sizes="80px" className={ph.cut ? "object-contain p-1.5" : "menu-photo object-contain p-1.5"} />
               </button>
