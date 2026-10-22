@@ -18,7 +18,7 @@ Odoo credentials would live only in server environment variables, never in brows
 |---|---|
 | Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript |
 | Styling | Tailwind CSS 4 with design tokens in `src/app/globals.css` |
-| 3D | three.js, React Three Fiber 9, drei; GSAP ScrollTrigger for scroll-linked motion |
+| 3D | three.js, React Three Fiber 9, drei (product-page viewer) |
 | Maps | Leaflet + OpenStreetMap tiles; Nominatim geocoding through a server proxy |
 | Database | PostgreSQL via Drizzle ORM. Local dev/tests use **PGlite** (Postgres compiled to WASM, in-process) |
 | Validation | Zod on every API body, server action and import row |
@@ -75,17 +75,21 @@ Money is integer **paisa** everywhere (`৳180` = `18000`).
 ## Security
 
 - Admin pages call `requireAdminPage(permission)`; every server action and admin API calls `requireAdmin(permission)`. Roles: owner, manager, branch_staff. Branch staff are scoped to their own branch in queries *and* in every mutation.
-- Cookies: httpOnly, SameSite=Lax, Secure in production. Session tokens are stored hashed.
-- State-changing JSON APIs check `Origin`; server actions have Next.js' built-in origin check.
+- Cookies: httpOnly and Secure in production; session tokens are stored hashed. The admin session cookie is `__Host-` prefixed and SameSite=Strict; storefront cookies are SameSite=Lax.
+- State-changing JSON APIs reject `Sec-Fetch-Site: cross-site` and check `Origin`; server actions have Next.js' built-in origin check.
+- Security headers on every response (`next.config.ts`): a Content-Security-Policy limited to this origin, OpenStreetMap tiles, Vercel Blob images and the SSLCommerz form; HSTS; `X-Frame-Options: DENY` and `frame-ancestors 'none'`; COOP; a restrictive Permissions-Policy.
 - Rate limits on checkout, login, order lookup, geocoding and quotes (in-memory — use Redis/Upstash with multiple instances).
 - SSLCommerz callbacks are never trusted: a server-to-server validation call checks status, transaction id, amount and currency before an order is marked paid; settlement is idempotent.
 - Uploaded images are re-encoded with sharp (strips metadata, rejects non-images). Links entered by staff must be https.
 - Guest orders are visible only with the access link, to the signed-in owner, to the browser that placed them, or by order number + matching phone.
 - Customer location is used in the browser and for ranking requests; it is not stored unless used as a delivery address.
 
+## Product photography
+
+Product images are CHAJOY's official menu photos with the menu-board background removed (`public/images/cutouts`), plus sharper cut-outs from CHAJOY's own high-resolution posters (`public/images/cutouts/hq`). The pipeline is documented in [`scripts/cutouts/README.md`](../scripts/cutouts/README.md). Store and lifestyle photos come from CHAJOY's website and Facebook page.
+
 ## 3D system (`src/components/three/`)
 
 - Procedural models (`models.tsx`): tapered cup with transmission glass + condensation normal map, brown-sugar "tiger" liquid, boba pearls, ice, CHAJOY print; soft-serve swirl surface; sundae; fruit garnish. Textures are drawn on canvas at runtime (`textures.ts`) — no model downloads.
 - `SceneGate` mounts a scene only near the viewport, pauses it off-screen, honours `prefers-reduced-motion`, falls back to real photos without WebGL / in Lite mode / on weak devices.
-- The hero uses two canvases with the headline between them; the back layer is CSS-blurred for a cheap depth-of-field that keeps transparency.
 - Every 3D view is labelled "3D illustration". Products can point at an official `.glb` instead (Admin → Products).

@@ -2,7 +2,14 @@
   "name": "chajoy-bd",
   "version": "1.0.0",
   "private": true,
-  "description": "CHAJOY BD storefront: menu, branch finder, ordering and admin.",
+  "description": "Online ordering and back office for CHAJOY Ice Cream & Tea, Dhaka",
+  "author": "Mahmudul Hasan Topu",
+  "license": "UNLICENSED",
+  "homepage": "https://chajoy-bd.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mahmudultopu/chajoy.git"
+  },
   "engines": {
     "node": ">=20.9.0"
   },
@@ -22,7 +29,8 @@
     "db:demo-ops": "tsx scripts/demo-ops.ts",
     "db:check": "tsx scripts/db-check.ts",
     "admin:create": "tsx scripts/create-admin.ts",
-    "images:extract": "python scripts/menu-images/extract_menu_images.py"
+    "images:extract": "python scripts/menu-images/extract_menu_images.py",
+    "screenshots": "node scripts/screenshots-readme.mjs"
   },
   "dependencies": {
     "@electric-sql/pglite": "0.5.10",
@@ -32,7 +40,6 @@
     "bcryptjs": "3.0.3",
     "clsx": "2.1.1",
     "drizzle-orm": "0.45.4",
-    "gsap": "3.15.0",
     "leaflet": "1.9.4",
     "lucide-react": "1.59.0",
     "motion": "14.4.0",
